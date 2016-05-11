@@ -1,7 +1,10 @@
 package visualizing.command;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +14,17 @@ import sclab.db.DetailDataCtrl;
 public class ReportSearchDayAction implements CommandAction {
 
 	@Override
+	public void forward(HttpServletRequest req, HttpServletResponse resp, String url)
+			throws ServletException, IOException {
+			RequestDispatcher rd = req.getRequestDispatcher(url);
+			rd.forward(req, resp);
+	}
+
+	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		
+		request.setCharacterEncoding("UTF-8");
+		
 		DetailDataCtrl ddctrl = new DetailDataCtrl();
 		
 		String si = request.getParameter("si");
@@ -51,7 +64,13 @@ public class ReportSearchDayAction implements CommandAction {
 				telNumber, meterNum, dateYear, dateMonth);
 		//ArrayList<DetailData> array_list = ddctrl.returnDatas("인천광역시","부평구","전체",consumerNum,consumerName,telNumber,meterNum,"2015","02");
 
+		//String uri = request.getRequestURI();
+		//forward(request,response,uri);
+		int size = data.size();
 		
+		System.out.print(size);
+		request.setAttribute("size", size);		
+		request.setAttribute("searchDayData", data);
 		
 		return "/report/reportDay.jsp";
 	}

@@ -10,7 +10,9 @@
 <jsp:useBean id="ddctrl" class="sclab.db.DetailDataCtrl" />
 <jsp:useBean id="ddctrl2" class="sclab.db.DetailDataCtrl" />
 
-<%
+
+
+<%-- <%
 	String si = request.getParameter("si");
 	String guGun = request.getParameter("guGun");
 	String umDong = request.getParameter("umDong");
@@ -49,7 +51,7 @@
 	//ArrayList<DetailData> array_list = ddctrl.returnDatas("인천광역시","부평구","전체",consumerNum,consumerName,telNumber,meterNum,"2015","02");
 	ArrayList<DetailData> monthly_array_list = ddctrl2.returnDatas2(si, guGun, umDong, consumerNum,
 			consumerName, telNumber, meterNum, dateYear);
-%>
+%> --%>
 
 
 
@@ -401,7 +403,7 @@
 														</tr>
 													</thead>
 													<tbody>
-														<%
+														<%-- <%
 															/* out.print("<script>console.log("+ array_list.size() + ");</script>"); */
 															for (int i = 0; i < array_list.size(); i++) {
 														%>
@@ -429,7 +431,14 @@
 														</tr>
 														<%
 															}
-														%>
+														%> --%>
+														
+														<c:forEach var="i" begin="0" end="${param['size'] }">
+															<tr>
+																<%-- <td>${searchDayData.get(i).getcode() }</td> --%>
+																<td>${i}</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
