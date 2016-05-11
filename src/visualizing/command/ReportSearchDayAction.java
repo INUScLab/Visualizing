@@ -23,7 +23,7 @@ public class ReportSearchDayAction implements CommandAction {
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		
-		request.setCharacterEncoding("UTF-8");
+		/*request.setCharacterEncoding("UTF-8");
 		
 		DetailDataCtrl ddctrl = new DetailDataCtrl();
 		
@@ -70,7 +70,7 @@ public class ReportSearchDayAction implements CommandAction {
 		
 		System.out.print(size);
 		request.setAttribute("size", size);		
-		request.setAttribute("searchDayData", data);
+		request.setAttribute("searchDayData", data);*/
 		
 		return "/report/reportDay.jsp";
 	}

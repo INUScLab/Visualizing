@@ -12,7 +12,7 @@
 
 
 
-<%-- <%
+<%
 	String si = request.getParameter("si");
 	String guGun = request.getParameter("guGun");
 	String umDong = request.getParameter("umDong");
@@ -49,9 +49,7 @@
 	ArrayList<DetailData> array_list = ddctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName,
 			telNumber, meterNum, dateYear, dateMonth);
 	//ArrayList<DetailData> array_list = ddctrl.returnDatas("인천광역시","부평구","전체",consumerNum,consumerName,telNumber,meterNum,"2015","02");
-	ArrayList<DetailData> monthly_array_list = ddctrl2.returnDatas2(si, guGun, umDong, consumerNum,
-			consumerName, telNumber, meterNum, dateYear);
-%> --%>
+%>
 
 
 
@@ -302,7 +300,7 @@
 															<label class="col-lg-3 control-label">수용가번호</label>
 															<div class="col-lg-7">
 																<input type="text" class="form-control"
-																	name="consumerNum">
+																	name="consumerNum" value="${param['consumerNum'] }">
 															</div>
 														</div>
 
@@ -315,7 +313,7 @@
 															<label class="col-lg-3 control-label">수용가명</label>
 															<div class="col-lg-7">
 																<input type="text" class="form-control"
-																	name="consumerName">
+																	name="consumerName" value="${param['consumerName'] }">
 															</div>
 														</div>
 													</div>
@@ -323,7 +321,7 @@
 														<div class="form-group">
 															<label class="col-lg-3 control-label">지시부번호</label>
 															<div class="col-lg-7">
-																<input type="text" class="form-control" name="telNumber">
+																<input type="text" class="form-control" name="telNumber" value="${param['telNumber'] }">
 															</div>
 														</div>
 													</div>
@@ -332,7 +330,7 @@
 														<div class="form-group">
 															<label class="col-lg-3 control-label">미터번호</label>
 															<div class="col-lg-7">
-																<input type="text" class="form-control" name="meterNum">
+																<input type="text" class="form-control" name="meterNum" value="${param['meterNum'] }">
 															</div>
 														</div>
 
@@ -403,7 +401,7 @@
 														</tr>
 													</thead>
 													<tbody>
-														<%-- <%
+														<%
 															/* out.print("<script>console.log("+ array_list.size() + ");</script>"); */
 															for (int i = 0; i < array_list.size(); i++) {
 														%>
@@ -431,14 +429,14 @@
 														</tr>
 														<%
 															}
-														%> --%>
+														%>
 														
-														<c:forEach var="i" begin="0" end="${param['size'] }">
+														<%-- <c:forEach var="i" begin="0" end="${param['size'] }">
 															<tr>
-																<%-- <td>${searchDayData.get(i).getcode() }</td> --%>
+																<td>${searchDayData.get(i).getcode() }</td>
 																<td>${i}</td>
 															</tr>
-														</c:forEach>
+														</c:forEach> --%>
 													</tbody>
 												</table>
 											</div>
