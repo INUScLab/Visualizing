@@ -9,7 +9,7 @@
 	cache="false" />
 <link rel="stylesheet" href="/Visualizing/css/app.css" type="text/css" />
 
-<div class="modal-dialog">
+<div class="modal-dialog" id="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"

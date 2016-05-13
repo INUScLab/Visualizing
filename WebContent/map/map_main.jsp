@@ -81,7 +81,6 @@
 	dongInfoList.push( {
 		gu:"<%=dongInfoList.get(i).getGu()%>",
 		dong:"<%=dongInfoList.get(i).getDong()%>",
-		detail:"<%=dongInfoList.get(i).getLat()%>",
 		lat:"<%=dongInfoList.get(i).getLat()%>",
 		lng:"<%=dongInfoList.get(i).getLng()%>",
 		leak:"<%=dongInfoList.get(i).getCount_leak()%>",
