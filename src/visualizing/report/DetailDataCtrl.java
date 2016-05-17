@@ -84,7 +84,7 @@ public class DetailDataCtrl {
 		}
 	}
 	
-	// 검색한 정보 반환
+	// 일간
 	ArrayList<DetailData> getInfo() {
 
 		ArrayList<DetailData> datas = new ArrayList<DetailData>();
@@ -92,7 +92,7 @@ public class DetailDataCtrl {
 		
 		sql = "select u.code, u.detail, u.number, u.meter_num, u.meter_type, sum(consumed), group_concat(consumed) from (select * from USER where sido like \"" + sido + "\" and sigoon like \"" + sigoon + "\" and umdong like \"" + umdong + "\") u inner join CONSUMPTION c on u.code = c.code where (date between '" + startday + "' and '" + endday + "') and (" + code + " and " + detail + " and " + number + " and " + meter_num + ") group by u.code";
 		
-		System.out.println(sql);
+		//System.out.println(sql);
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -121,7 +121,7 @@ public class DetailDataCtrl {
 		return datas;
 	}
 	
-	// 검색한 정보 반환
+	// 월간
 	ArrayList<DetailData> getInfo2() {
 
 		ArrayList<DetailData> datas = new ArrayList<DetailData>();
@@ -158,7 +158,7 @@ public class DetailDataCtrl {
 		return datas;
 	}
 	
-	// 모든 작업은 여기서 한다.
+	// 일간 모든 작업
 	public ArrayList<DetailData> returnDatas(String sido, String sigoon, String umdong, String code, String detail, String number, String meter_num, String year, String month){
 		
 		setParameters(sido, sigoon, umdong, code, detail, number, meter_num, year, month);
@@ -172,7 +172,7 @@ public class DetailDataCtrl {
 		return info_array;
 	}
 	
-	// 모든 작업은 여기서 한다.
+	// 월간 모든 작업
 	public ArrayList<DetailData> returnDatas2(String sido, String sigoon, String umdong, String code, String detail, String number, String meter_num, String year){
 		
 		setParameters(sido, sigoon, umdong, code, detail, number, meter_num, year, null);

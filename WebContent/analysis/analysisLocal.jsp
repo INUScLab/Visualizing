@@ -1,11 +1,19 @@
 <%@ page import="visualizing.analysis.AnalysisDataCtrl"%>
 <%@ page import="visualizing.analysis.AnalysisData"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.util.Locale"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	Date currentDate = new Date ();
+	String date = mSimpleDateFormat.format ( currentDate );
 %>
 
 <!DOCTYPE html>
@@ -187,7 +195,7 @@
                 <!--  nd -->
             </div>
             <div class="pull-right m-r-lg m-t-xxs shift">
-            	<p class="m-t m-b text-primary"><i class="fa fa-clock-o"></i> Date: <strong>2016-04-28</strong></p>
+            	<p class="m-t m-b text-primary"><i class="fa fa-clock-o"></i> Date: <strong><%=date%></strong></p>
             </div>
           </header>
 

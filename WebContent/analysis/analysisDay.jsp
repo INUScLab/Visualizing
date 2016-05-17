@@ -1,6 +1,9 @@
 <%@ page import="visualizing.analysis.AnalysisDataCtrl"%>
 <%@ page import="visualizing.analysis.AnalysisData"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.util.Locale"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -63,6 +66,11 @@
 	if (data_end_num > array_list.size()) {
 		data_end_num = array_list.size();
 	}
+	
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	Date currentDate = new Date ();
+	String date = mSimpleDateFormat.format ( currentDate );
 %>
 
 <!DOCTYPE html>
@@ -265,7 +273,7 @@
 							</div>
 							<div class="pull-right m-r-lg m-t-xxs shift">
 								<p class="m-t m-b text-primary">
-									<i class="fa fa-clock-o"></i> Date: <strong>2016-04-28</strong>
+									<i class="fa fa-clock-o"></i> Date: <strong><%=date%></strong>
 								</p>
 							</div>
 						</header>
@@ -428,7 +436,6 @@
 											<footer class="panel-footer">
 												<div class="row">
 													<div class="col-sm-3 hidden-xs">
-														<button class="btn btn-sm btn-primary">목록</button>
 													</div>
 													<div class="col-sm-6 text-center text-center">
 															<input type="hidden" name="s_name" />
@@ -443,7 +450,6 @@
 															</ul>
 													</div>
 													<div class="col-sm-3 text-right hidden-xs">
-														<button class="btn btn-sm btn-primary">글쓰기</button>
 													</div>
 
 												</div>
