@@ -1,10 +1,13 @@
 package visualizing.command;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +16,13 @@ import sclab.db.DbConnector;
 
 
 public class ManagerLoginProAction implements CommandAction {
+	
+	@Override
+	public void forward(HttpServletRequest req, HttpServletResponse resp, String url)
+			throws ServletException, IOException {
+			RequestDispatcher rd = req.getRequestDispatcher(url);
+			rd.forward(req, resp);
+	}
 	
 	public String checkId(String id, String pw) {
 
