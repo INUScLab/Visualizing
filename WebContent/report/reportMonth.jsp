@@ -171,8 +171,8 @@
 									</span> <span>리포트</span>
 								</a>
 									<ul class="nav none dker">
-										<li><a href="reportDay.jsp">일간 리포트</a></li>
-										<li><a href="reportMonth.jsp">월간 리포트</a></li>
+										<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
+										<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
 									</ul></li>
 								<li><a href="#"> <span class="pull-right auto">
 											<i class="fa fa-angle-down text"></i> <i

@@ -171,8 +171,8 @@
 									</span> <span>리포트</span>
 								</a>
 									<ul class="nav none dker">
-										<li><a href="reportDay.jsp">일간 리포트</a></li>
-										<li><a href="reportMonth.jsp">월간 리포트</a></li>
+										<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
+										<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
 									</ul></li>
 								<li><a href="#"> <span class="pull-right auto">
 											<i class="fa fa-angle-down text"></i> <i
@@ -269,8 +269,7 @@
 									<div
 										class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
 										<div class="col-sm-4">
-											<h3 class="m-t m-b-none text-primary font-semibold">월간
-												리포트</h3>
+											<h3 class="m-t m-b-none text-primary font-semibold">월별 검침조회</h3>
 											<p class="block text-muted">Water Meter Data Management
 												System</p>
 										</div>
