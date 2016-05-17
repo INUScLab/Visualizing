@@ -46,7 +46,7 @@ function initialize(x, y) {
 
 	globalMap = new google.maps.Map(document.getElementById("map_canvas"),
 			myOptions);
-	
+
 	//Create Entire Markers And Show all sign of abnormal dongs.
 	createDongMarkers();
 
@@ -66,21 +66,21 @@ function initialize(x, y) {
 //		console.log(globalMap.getZoom());
 		//초기 상태로 되돌아옴.
 		if (globalMap.getZoom() <= 13) {
-			
+
 			//동 마커 출력하고 , 수용가 마커 감추기.
 			showDongMarkers();
 			hideConsumerMarkersMarkers();
-			
+
 			//infoWindow 닫기
 			infoWindow.close();
-			
+
 			// 초기 리포트 페이지를 띄움.
 			$("#left_section_box_init").show();
 			$("#left_section_box_report").hide();
 
 			//현재 켜진 아이콘의 동 마커들을 출력.
 //			showIcon();
-			
+
 			// 첫 로딩 & 모든 아이콘이 꺼졌을때
 			// if(absence_flag == false && leak_flag == false && freezed_flag ==
 			// false && entire_flag == false ) {
@@ -182,36 +182,131 @@ function createDongMarkers( ) {
 				shadow : pinShadow,
 				map:globalMap
 			});
-			
+
 			dongMarkers.push(marker);
-			
+
 			marker.set(globalMap);
-			
+
 			// 생성한 동들의 마커에 대한 클 이벤트 생성.
+			var contentString = '<link rel="stylesheet" href="/Visualizing/css/bootstrap.css" type="text/css" />'+
+			'<link rel="stylesheet" href="/Visualizing/css/font-awesome.min.css" type="text/css" />' +
+			'<link rel="stylesheet" href="/Visualizing/css/font.css" type="text/css" cache="false" />' +
+			'<link rel="stylesheet" href="/Visualizing/css/app.css" type="text/css" />' +
+			
+			'<div class="modal-dialog">' +
+			'<div class="modal-content">' +
+			'<div class="modal-header">' +
+			'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +  '&times'; + '</button>' +
+			'<h4 class="modal-title">인천광역시 남구 숭의 1~3동</h4>'+
+			'</div>'+
+			
+			'<div class="modal-body">'+
+			'<div class="panel wrapper">'+
+			
+			'<div class="row">'+
+			'<div class="col-xs-2 text-center">'+
+			'<a href="#"> <span class="m-b-xs h4 block">50<small class="text-muted">건</small></span> <small class="text-muted h5">누수</small></a>'+
+			'</div>'+
+			'<div class="col-xs-2 text-center">'+
+			'<a href="#"> <span class="m-b-xs h4 block">55<small class="text-muted">건</small></span> <small class="text-muted h5">동파</small></a>'+
+			'</div>'+
+			'<div class="col-xs-2 text-center">'+
+			'<a href="#"> <span class="m-b-xs h4 block">0<small class="text-muted">건</small></span> <small class="text-muted h5">비만</small>'+
+			'</a>'+
+			'</div>'+
+			'<div class="col-xs-2 text-center">'+
+			'<a href="#"> <span class="m-b-xs h4 block">0<small class="text-muted">건</small></span> <small class="text-muted h5">파손</small>'+
+			'</a>'+
+			'</div>'+
+			'<div class="col-xs-2 text-center">'+
+			'<a href="#"> <span class="m-b-xs h4 block">0<small class="text-muted">건</small></span> <small class="text-muted h5">역류</small>'+
+			'</a>'+
+			'</div>'+
+			'<div class="col-xs-2 text-center">'+
+			'<a href="#"> <span class="m-b-xs h4 block">0<small class="text-muted">건</small></span> <small class="text-muted h5">부재중</small>'+
+			'</a>'+
+			'</div>'+
+			'</div>'+
+			'</div>'+
+			
+			'<div class="row m-t m-b">'+
+			'<div class="col-lg-4">'+
+			'<section class="panel">'+
+			'<header class="panel-heading">사용량비교</header>'+
+			'<div class="panel-body text-center">'+
+			'<img src="../images/chart-1.jpg">'+
+			'</div>'+
+			'</section>'+
+			'</div>'+
+			
+			'<div class="col-lg-4">'+
+			'<section class="panel">'+
+			'<header class="panel-heading">일주일 사용량 비교</header>'+
+			'<div class="panel-body text-center">'+
+			'<img src="../images/chart-2.jpg">'+
+			'</div>'+
+			'</section>'+
+			'</div>'+
+			
+			'<div class="col-lg-4">'+
+			'<section class="panel">'+
+			'<header class="panel-heading">3월달 부가서비스 발생횟수</header>'+
+			'<div class="panel-body text-center">'+
+			'<img src="../images/chart-3.jpg">'+
+			'</div>'+
+			'</section>'+
+			'</div>'+
+			
+			'</div>'+
+			
+			
+			'</div>'+
+			'</div>'+
+			'<div class="leaflet-popup-tip-container">'+
+			'<div class="leaflet-popup-tip"></div>'+
+			'</div>'+
+			'</div>'+
+			'</div>';
+			
+			var summaryReport = document.getElementById("modal-dialog");
+			console.log(summaryReport);
+			
 			marker.addListener('click', function() {
-				
+
 				globalMap.setCenter(this.position);
 				globalMap.setOptions({ 'zoom' : 15 });
 
-				//마커를 지우고 infoWindow 생성.
+				infoWindow = new google.maps.InfoWindow({
+                		content: contentString,
+                		maxWidth : 800,
+                		position : this.postion
+                });
+
+				
+				console.log(infoWindow.close());
+				infoWindow.close();
+				infoWindow.open(globalMap, this);
+               
+//                infoWindow.setPosition( this.position );
+				console.log(marker.position.lat() ,marker.position.lng() )
+				console.log(infoWindow.position.lat() , infoWindow.position.lng() )
+                
+//                hideDongMarkers();
+                var address = this.title;
+                var addressArray = address.split(' ');
+                
+//                drawDongSummaryReport(addressArray) // 요약 리포트
+//                createConsumerMarkers(addressArray); //수용가 마커 생성.
+                /*마커를 지우고 infoWindow 생성.
 				this.setMap(null);
 				infoWindow = new google.maps.InfoWindow({ content: this.title });
-				infoWindow.setPosition( this.position );
 				infoWindow.open( globalMap );
-				
-				hideDongMarkers();
-
-				var address = this.title;
-				var addressArray = address.split(' ');
-				
-				drawDongSummaryReport(addressArray) // 요약 리포트
-				createConsumerMarkers(addressArray); //수용가 마커 생성. 
-				
+                 */
 			});
 		}
 	}
 //	showDongMarkers();
-	
+
 }
 
 //수용가 마커를 생성하고 클릭 이벤트를 등록.
@@ -221,18 +316,18 @@ function createConsumerMarkers ( addressArray ) {
 	 * 2.수용가의 수 만큼 반복한다.
 	 * 	2.1 구와 동이 일치하는 수용가를 찾는다.
 	 * 	2.1.1 마커를 생성한다.
-	 * 	2.1.2 배열에 넣는다. 
+	 * 	2.1.2 배열에 넣는다.
 	 * 	2.1.2 클릭 이벤트를 등록한다.
 	 * 3.종료한다.
 	 */
-	
+
 	var gu = addressArray[1];
 	var dong = addressArray[2];
 	var color = "";
-	
+
 	for ( var i = 0 ; i < summaryReportList.length ; i ++ ) {
 		if( summaryReportList[i].gu == gu && summaryReportList[i].dong == dong ) {
-			
+
 			if ( summaryReportList[i].leak != 0 || summaryReportList[i].absence != 0 || summaryReportList[i].freezed != 0 ||
 					summaryReportList[i].reverse != 0 || summaryReportList[i].fat != 0 || summaryReportList[i].breakage != 0 ) {
 				color = abnormalColor;
@@ -240,7 +335,7 @@ function createConsumerMarkers ( addressArray ) {
 			else {
 				color = normalColor;
 			}
-			
+
 			//수용가 마커 생성.
 			var pinImage = new google.maps.MarkerImage(
 					"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|"
@@ -263,18 +358,18 @@ function createConsumerMarkers ( addressArray ) {
 				map:globalMap
 			});
 			consumerMarkers.push(marker);
-			
+
 			marker.set(globalMap);
-			
+
 			// 생성한 동들의 마커에 대한 클 이벤트 생성.
 			marker.addListener('click', function() {
-				
+
 				globalMap.setCenter(this.position);
-				
+
 				var address = this.title;
 				var addressArray = address.split(' ');
 				drawConsumerReport(addressArray);
-				
+
 			});
 		}
 	}
@@ -288,7 +383,7 @@ function drawConsumerReport( addressArray ){
 	var sum_weeklyConsumption = 0;
 	var dongCount = 0;
 	var dongConsumption = 0;
-	
+
 	//동의 개수를 세고 동의 총 사용량을 구함.
 	for ( var i = 0 ; i < summaryReportList.length ; i ++ ) {
 		if(summaryReportList[i].gu == gu && summaryReportList[i].dong == dong ) {
@@ -296,65 +391,65 @@ function drawConsumerReport( addressArray ){
 			dongConsumption += Number(summaryReportList[i].consumed);
 		}
 	}
-	
-	for ( var i = 0 ; i < summaryReportList.length ; i ++ ) { 
-			
+
+	for ( var i = 0 ; i < summaryReportList.length ; i ++ ) {
+
 		if(summaryReportList[i].gu == gu && summaryReportList[i].dong == dong && summaryReportList[i].detail == detail ) {
-			
+
 			//1.주소칸
-			document.getElementById('info_date').innerHTML = incheon+ ' ' + gu + ' ' + dong + ' ' + detail; 
+			document.getElementById('info_date').innerHTML = incheon+ ' ' + gu + ' ' + dong + ' ' + detail;
 			info_date.style.fontSize = "90%"; // 주소 출력 폰트 사이즈
-				
+
 			$(".checkBox").prop('checked', false) ;
-			
+
 			//2.부가서비스별 발생 횟수.
 			document.getElementById('check_leak').innerHTML = "누수" ;
 			check_leak.style.fontSize = "80%";
 			if (summaryReportList[i].leak != 0 ) {
 				document.getElementById("checkBox_leak").checked = true;
 			}
-				
+
 			document.getElementById('check_absence').innerHTML = "부재중";
 			check_absence.style.fontSize = "80%";
 			if (summaryReportList[i].absence != 0 ) {
 				document.getElementById("checkBox_absence").checked = true;
 			}
-				
+
 			document.getElementById('check_freezed').innerHTML = "동파";
 			check_freezed.style.fontSize = "80%";
 			if (summaryReportList[i].freezed != 0 ) {
 				document.getElementById("checkBox_freezed").checked = true;
 			}
-			
+
 			document.getElementById('check_reverse').innerHTML = "역류";
 			check_reverse.style.fontSize = "80%";
 			if (summaryReportList[i].reverse != 0 ) {
 				document.getElementById("checkBox_reverse").checked = true;
 			}
-			
+
 			document.getElementById('check_fat').innerHTML = "비만";
 			check_fat.style.fontSize = "80%";
 			if (summaryReportList[i].fat != 0 ) {
 				document.getElementById("checkBox_fat").checked = true;
 			}
-			
+
 			document.getElementById('check_breakage').innerHTML = "파손";
 			check_breakage.style.fontSize = "80%";
 			if (summaryReportList[i].breakage != 0 ) {
 				document.getElementById("checkBox_breakage").checked = true;
 			}
-			
+
 			//일주일치 사용량 합 구하기.
 			sum_weeklyConsumption = Number(summaryReportList[i].day1) + Number ( summaryReportList[i].day2 ) + Number ( summaryReportList[i].day3 ) +
 			Number ( summaryReportList[i].day4) + Number ( summaryReportList[i].day5 ) + Number ( summaryReportList[i].day6 ) + Number (summaryReportList[i].day7);
 
-			
+
 			//3.요약 report 사용량,예측량, 일주일 평균 , 지역 평균 그래프 그리기.
-			drawColumn(Math.round(summaryReportList[i].consumed), 
-					Math.round(summaryReportList[i].predicted), 
+			drawColumn(Math.round(summaryReportList[i].consumed),
+					Math.round(summaryReportList[i].predicted),
 					Math.round(sum_weeklyConsumption/7) ,
-					Math.round(dongConsumption / dongCount) ); 
-	
+					Math.round(dongConsumption / dongCount) );
+
 			//4.요약 report history 그래프 그리기.
 			drawHistory ( Number(summaryReportList[i].day7) , Number ( summaryReportList[i].day6 ) , Number ( summaryReportList[i].day5 ) ,
 			Number ( summaryReportList[i].day4), Number ( summaryReportList[i].day3 ) , Number ( summaryReportList[i].day2 ) ,
@@ -364,7 +459,7 @@ function drawConsumerReport( addressArray ){
 		}
 	}
 }
-	
+
 //요약 report column 그래프(사용량, 예측량, 일주일 평균, 지역 평균
 function drawColumn(cons, pred, week, region) {
 	var data = google.visualization.arrayToDataTable([ [ 'Element', 'value', {
@@ -587,10 +682,10 @@ function drawDongSummaryReport(addressArray) {
 	var absence_date = "null";
 	var freeze_date = "null";
 	var address = "";
-	
+
 	var gu = addressArray[1];
 	var dong = addressArray[2];
-	
+
 	var sum_day1 = 0;
 	var sum_day2 = 0;
 	var sum_day3 = 0;
@@ -599,14 +694,14 @@ function drawDongSummaryReport(addressArray) {
 	var sum_day6 = 0;
 	var sum_day7 = 0;
 	var sum_weeklyConsumption = 0;
-	
+
 	var userCount = 0;
 	var dongCount = 0;
 
 	var sum_consumed = 0;
 	var sum_predicted = 0;
 	var sum_consumed_gu = 0;
-	
+
 	var count_leak = 0;
 	var count_absence = 0;
 	var count_freezed = 0;
@@ -619,37 +714,37 @@ function drawDongSummaryReport(addressArray) {
 	// 초기 리포트 페이지를 숨기고 요약 리포트 페이지 보이기.
 	$("#left_section_box_init").hide();
 	$("#left_section_box_report").show();
-	
+
 	for (var i = 0; i < len; i++) {
 		address += addressArray[i] + ' ';
 	}
 
 	//구에 해당하는 동의 수 count , 구의 총 사용량 구하기.
 	for (var j = 0; summaryReportList[j]; j++) {
-		
+
 		if (gu == summaryReportList[j].gu ) {
-			
+
 			sum_consumed_gu += Number(summaryReportList[j].consumed);
-			
+
 			if( dongList.indexOf(summaryReportList[j].dong) == -1) {
 				dongList.push(summaryReportList[j].dong)
 				dongCount += 1;
 			}
 		}
 	}
-	
+
 	//클릭한 동에 해당하는 수용가의 수만큼 반복한다.
 	for (var j = 0; summaryReportList[j]; j++) {
 
 		if (gu == summaryReportList[j].gu && dong == summaryReportList[j].dong ) {
-			
+
 			//동에 해당하는 수용가의 수 count.
 			userCount += 1;
-			
+
 			//사용량,예측량
 			sum_consumed += Number(summaryReportList[j].consumed);
 			sum_predicted += Number(summaryReportList[j].predicted);
-			
+
 			//동의 일주일치 history
 			sum_day1 += Number(summaryReportList[j].day1);
 			sum_day2 += Number(summaryReportList[j].day2);
@@ -658,7 +753,7 @@ function drawDongSummaryReport(addressArray) {
 			sum_day5 += Number(summaryReportList[j].day5);
 			sum_day6 += Number(summaryReportList[j].day6);
 			sum_day7 += Number(summaryReportList[j].day7);
-			
+
 			//동에 해당하는 수용가들의 부가서비스 count.
 			if ( summaryReportList[j].leak == 1 ) {
 				count_leak ++;
@@ -680,59 +775,59 @@ function drawDongSummaryReport(addressArray) {
 			}
 		}
 	}
-	
+
 	//1.주소칸
 	document.getElementById('info_date').innerHTML = address; // 주소 출력
 	info_date.style.fontSize = "90%"; // 주소 출력 폰트 사이즈
-	
+
 	$(".checkBox").prop('checked', false) ;
-	
+
 	//2.부가서비스별 발생 횟수.
 	document.getElementById('check_leak').innerHTML = "누수 : " + count_leak + "명";
 	check_leak.style.fontSize = "80%";
 	if (count_leak != 0 ) {
 		document.getElementById("checkBox_leak").checked = true;
 	}
-	
+
 	document.getElementById('check_absence').innerHTML = "부재중 : " + count_absence + "명";
 	check_absence.style.fontSize = "80%";
 	if (count_absence != 0 ) {
 		document.getElementById("checkBox_absence").checked = true;
 	}
-	
+
 	document.getElementById('check_freezed').innerHTML = "동파 : " + count_freezed + "명";
 	check_freezed.style.fontSize = "80%";
 	if (count_freezed != 0 ) {
 		document.getElementById("checkBox_freezed").checked = true;
 	}
-	
+
 	document.getElementById('check_reverse').innerHTML = "역류 : " + count_reverse + "명";
 	check_reverse.style.fontSize = "80%";
 	if (count_reverse != 0 ) {
 		document.getElementById("checkBox_reverse").checked = true;
 	}
-	
+
 	document.getElementById('check_fat').innerHTML = "비만 : " + count_fat + "명";
 	check_fat.style.fontSize = "80%";
 	if (count_fat != 0 ) {
 		document.getElementById("checkBox_fat").checked = true;
 	}
-	
+
 	document.getElementById('check_breakage').innerHTML = "파손 : " + count_breakage + "명";
 	check_breakage.style.fontSize = "80%";
 	if (count_breakage != 0 ) {
 		document.getElementById("checkBox_breakage").checked = true;
 	}
-	
+
 	//일주일치 사용량 합 구하기.
 	sum_weeklyConsumption += sum_day1 + sum_day2 + sum_day3 + sum_day4 + sum_day5 + sum_day6 + sum_day7;
 	console.log(sum_consumed_gu , dongCount );
 	//3.요약 report 사용량,예측량, 일주일 평균 , 지역 평균 그래프 그리기.
-	drawColumn(Math.round(sum_consumed), Math.round(sum_predicted), Math.round(sum_weeklyConsumption/7) , Math.round(sum_consumed_gu / dongCount) ); 
+	drawColumn(Math.round(sum_consumed), Math.round(sum_predicted), Math.round(sum_weeklyConsumption/7) , Math.round(sum_consumed_gu / dongCount) );
 
 	//4.요약 report history 그래프 그리기.
 	drawHistory(sum_day7 , sum_day6 , sum_day5 , sum_day4 , sum_day3 , sum_day2 , sum_day1 , sum_weeklyConsumption/7 );
-	
+
 
 	leak_text.style.fontSize = "80%";
 	absence_text.style.fontSize = "80%";
@@ -757,7 +852,7 @@ function drawDongSummaryReport(addressArray) {
 //		document.getElementById('freeze_text').innerHTML = '최근 동파 날짜 : 없음';
 
 
-	
+
 
 	// 요약 report 부가서비스
 //	drawLeak(cnt_leak, (siGoonLeak / siGoonLen.length).toFixed(2),
@@ -978,11 +1073,11 @@ function getDetailAreaInformation(addressArray) {
 
 	// 동에 해당하는 상세 주소 리스트를 받아오고 마커를 생성하고 띄움.
 	for (var i = 0; i < userConsumptionList.length; i++) {
-		
+
 		// 누수 아이콘이 켜져있고 해당하는 동에 누수인 사람들이 있으면
 		if ((entire_flag == true || leak_flag == true) && userConsumptionList[i].umDong == addressArray[2] ) {
-			
-			//해당 동인 수용가 중에서 한가지라도 이상있는 수용가가 있으면 빨간색 마커 
+
+			//해당 동인 수용가 중에서 한가지라도 이상있는 수용가가 있으면 빨간색 마커
 			if( ( userConsumptionList[i].leak == 1 || userConsumptionList[i].freezed == 1 || userConsumptionList[i].absence == 1 ) ) {
 				color = abnormalColor;
 			}
@@ -1017,7 +1112,7 @@ function getDetailAreaInformation(addressArray) {
 		}
 
 	}
-	
+
 	//동에 해당하는 모든 마커를 만들고 나서 출력.
 	showDetailMarkers();
 
@@ -1196,7 +1291,7 @@ function entire_clicked(id) {
 }
 
 /* 누수 아이콘을 클릭했을때
- * 누수 플래그가 true가 되고 나머지 플래그는 false가 됨. 
+ * 누수 플래그가 true가 되고 나머지 플래그는 false가 됨.
  * 수용가 마커들은 숨김.
  */
 
@@ -1220,7 +1315,7 @@ function leak_clicked(id) {
 
 		// if (freezed_flag == true && absence_flag == true) {
 		// entire_flag = true;
-		//			
+		//
 		// $('#img_entire').css("background-color", "yellow");
 		// }
 
@@ -1236,7 +1331,7 @@ function leak_clicked(id) {
 
 // 동파 아이콘을 클릭했을때
 function freezed_clicked(id) {
-	
+
 	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
 	$("#left_section_box_init").show();
 	$("#left_section_box_report").hide();
@@ -1255,7 +1350,7 @@ function freezed_clicked(id) {
 
 		// if (leak_flag == true && absence_flag == true) {
 		// entire_flag = true;
-		//			
+		//
 		// $('#img_entire').css("background-color", "yellow");
 		// }
 	} else {
