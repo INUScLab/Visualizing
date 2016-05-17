@@ -1,5 +1,5 @@
-<%@ page import="sclab.db.AnalysisDataCtrl"%>
-<%@ page import="sclab.db.AnalysisData"%>
+<%@ page import="visualizing.analysis.AnalysisDataCtrl"%>
+<%@ page import="visualizing.analysis.AnalysisData"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -36,140 +36,94 @@
 </head>
 <body>
   <section class="hbox stretch">
-    <!-- aside -->
+		<!-- aside -->
 
-    <aside class="bg-dark aside-md" id="nav">
-      <section class="vbox">
-      
-     	<!-- 모바일 로고,목록 -->
-        <header class="dk nav-bar bg-dk-mobile visible-xs">
-          <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
-            <i class="fa fa-bars"></i>
-          </a>
-          <a href="../index.html" class="nav-brand "><img src="../images/logo-moblie.png" alt="수도검침서비스"/></a>
-        </header>
-        <!-- //모바일 로고,목록-->
+		<aside class="bg-dark aside-md" id="nav">
+			<section class="vbox">
 
-     	<!-- 웹,타블렛 로고-->
-        <header class="dk nav-bar bg-dk-mobile shift">
-          <a href="../index.html" class="nav-brand "><img src="../images/logo.png" alt="수도검침서비스"/></a>
-        </header>
-        <!-- //웹,타블렛 -->
-        		
-        <!-- 좌측 메뉴 -->
-        <section class="scrollable">
-        	<div class="slim-scroll" data-height="auto" data-disabsle-fade-out="true" data-distance="0" data-size="5px">
-             	<nav class="nav-primary hidden-xs" data-ride="collapse">
-                  <ul class="nav">
-                    <li>
-                      <a href="#" class="dropdown-toggle">
-                        <span class="pull-right auto">
-                          <i class="fa fa-angle-down text"></i>
-                          <i class="fa fa-angle-up text-active"></i>
-                        </span>
-                        <span>검침조회</span>
-                      </a>
-                      <ul class="nav none dker">                
-                        <li>
-                          <a href="#">시간별 검침조회</a>
-                        </li>
-                        <li>
-                          <a href="#">일별 검침조회</a>
-                        </li>
-                        <li>
-                          <a href="#">월별 검침조회</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#" class="dropdown-toggle">
-                        <span class="pull-right auto">
-                          <i class="fa fa-angle-down text"></i>
-                          <i class="fa fa-angle-up text-active"></i>
-                        </span>
-                        <span>통계분석</span>
-                      </a>
-                      <ul class="nav none dker">                
-                        <li>
-                          <a href="day-analysis.html">일별 통계</a>              
-                        </li>
-                        <li>
-                          <a href="month-analysis.html">월별 통계</a>
-                        </li>
-                        <li>
-                          <a href="year-analysis.html">년별 통계</a>                    
-                        </li>
-                        <li>
-                          <a href="local-analysis.html">지역별 통계 순위</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#" class="dropdown-toggle">
-                        <span class="pull-right auto">
-                          <i class="fa fa-angle-down text"></i>
-                          <i class="fa fa-angle-up text-active"></i>
-                        </span>
-                        <span>리포트</span>
-                      </a>
-                      <ul class="nav none dker">                
-                        <li>
-                          <a href="../report/day-report.html">일간 리포트</a>                    
-                        </li>
-                        <li>
-                          <a href="../report/week-report.html">주간 리포트</a>              
-                        </li>
-                        <li>
-                          <a href="../report/month-report.html">월간 리포트</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span class="pull-right auto">
-                          <i class="fa fa-angle-down text"></i>
-                          <i class="fa fa-angle-up text-active"></i>
-                        </span>
-                        <span>장애관리</span>
-                         </a>
-                        <ul class="nav none dker">                
-                           <li>
-                              <a href="#">검침기기 상태조회</a>                    
-                           </li>
-                           <li>
-                              <a href="#">검침값 상태조회</a>              
-                           </li>
-                           <li>
-                              <a href="#">통신 상태조회</a>
-                           </li>
-                        </ul>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span class="pull-right auto">
-                          <i class="fa fa-angle-down text"></i>
-                          <i class="fa fa-angle-up text-active"></i>
-                        </span>
-                        <span>관리자</span>
-                        </a>
-                        <ul class="nav none dker">                
-                           <li>
-                              <a href="#">로그이력</a>                    
-                           </li>
-                           <li>
-                              <a href="#">시스템 관리</a>              
-                           </li>
-                        </ul>
+				<!-- 모바일 로고,목록 -->
+				<header class="dk nav-bar bg-dk-mobile visible-xs">
+					<a class="btn btn-link visible-xs"
+						data-toggle="class:nav-off-screen" data-target="#nav"> <i
+						class="fa fa-bars"></i>
+					</a> <a href="../map/map_main.jsp" class="nav-brand "><img
+						src="../images/logo-moblie.png" alt="수도검침서비스" /></a>
+				</header>
+				<!-- //모바일 로고,목록-->
 
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </section>
-           <!-- //좌측 메뉴 -->
-      </section>
-    </aside>
-    <!-- /.aside -->
+				<!-- 웹,타블렛 로고-->
+				<header class="dk nav-bar bg-dk-mobile shift">
+					<a href="../map/map_main.jsp" class="nav-brand "><img
+						src="../images/logo.png" alt="수도검침서비스" /></a>
+				</header>
+				<!-- //웹,타블렛 -->
+
+				<!-- 좌측 메뉴 -->
+				<section class="scrollable">
+					<div class="slim-scroll" data-height="auto"
+						data-disabsle-fade-out="true" data-distance="0" data-size="5px">
+						<nav class="nav-primary hidden-xs" data-ride="collapse">
+							<ul class="nav">
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>검침조회</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="../read/readDay.jsp">일별 검침조회</a></li>
+										<li><a href="../read/readMonth.jsp">월별 검침조회</a></li>
+									</ul></li>
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>통계분석</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="../analysis/analysisDay.jsp">일별 통계</a></li>
+										<li><a href="../analysis/analysisMonth.jsp">월별 통계</a></li>
+										<li><a href="../analysis/analysisYear.jsp">년별 통계</a></li>
+										<li><a href="../analysis/analysisLocal.jsp">지역별 통계
+												순위</a></li>
+									</ul></li>
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>리포트</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="reportDay.jsp">일간 리포트</a></li>
+										<li><a href="reportMonth.jsp">월간 리포트</a></li>
+									</ul></li>
+								<li><a href="#"> <span class="pull-right auto">
+											<i class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>장애관리</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="#">검침기기 상태조회</a></li>
+										<li><a href="#">검침값 상태조회</a></li>
+										<li><a href="#">통신 상태조회</a></li>
+									</ul></li>
+								<li><a href="#"> <span class="pull-right auto">
+											<i class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>관리자</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="#">로그이력</a></li>
+										<li><a href="#">시스템 관리</a></li>
+									</ul></li>
+							</ul>
+						</nav>
+					</div>
+				</section>
+				<!-- //좌측 메뉴 -->
+			</section>
+		</aside>
+		<!-- /.aside -->
     
 
 	<section id="content">

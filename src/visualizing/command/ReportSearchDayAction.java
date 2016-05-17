@@ -8,8 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sclab.db.DetailData;
-import sclab.db.DetailDataCtrl;
+import visualizing.report.DetailData;
+import visualizing.report.DetailDataCtrl;
 
 public class ReportSearchDayAction implements CommandAction {
 

@@ -1,4 +1,4 @@
-package sclab.db;
+package visualizing.report;
 
 public class DetailData {
 

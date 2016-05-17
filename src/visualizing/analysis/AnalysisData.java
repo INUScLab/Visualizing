@@ -1,4 +1,4 @@
-package sclab.db;
+package visualizing.analysis;
 
 public class AnalysisData {
 

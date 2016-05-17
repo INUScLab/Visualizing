@@ -1,5 +1,5 @@
-<%@ page import="sclab.db.DetailDataCtrl"%>
-<%@ page import="sclab.db.DetailData"%>
+<%@ page import="visualizing.report.DetailDataCtrl"%>
+<%@ page import="visualizing.report.DetailData"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,7 +8,7 @@
 	String cp = request.getContextPath();
 %>
 
-<jsp:useBean id="ddctrl" class="sclab.db.DetailDataCtrl" />
+<jsp:useBean id="ddctrl" class="visualizing.report.DetailDataCtrl" />
 
 <%
 	Integer data_start_num = 0;
@@ -126,14 +126,14 @@
 					<a class="btn btn-link visible-xs"
 						data-toggle="class:nav-off-screen" data-target="#nav"> <i
 						class="fa fa-bars"></i>
-					</a> <a href="../index.html" class="nav-brand "><img
+					</a> <a href="../map/map_main.jsp" class="nav-brand "><img
 						src="../images/logo-moblie.png" alt="수도검침서비스" /></a>
 				</header>
 				<!-- //모바일 로고,목록-->
 
 				<!-- 웹,타블렛 로고-->
 				<header class="dk nav-bar bg-dk-mobile shift">
-					<a href="../index.html" class="nav-brand "><img
+					<a href="../map/map_main.jsp" class="nav-brand "><img
 						src="../images/logo.png" alt="수도검침서비스" /></a>
 				</header>
 				<!-- //웹,타블렛 -->
@@ -151,9 +151,8 @@
 									</span> <span>검침조회</span>
 								</a>
 									<ul class="nav none dker">
-										<li><a href="#">시간별 검침조회</a></li>
-										<li><a href="#">일별 검침조회</a></li>
-										<li><a href="#">월별 검침조회</a></li>
+										<li><a href="../read/readDay.jsp">일별 검침조회</a></li>
+										<li><a href="../read/readMonth.jsp">월별 검침조회</a></li>
 									</ul></li>
 								<li><a href="#" class="dropdown-toggle"> <span
 										class="pull-right auto"> <i
@@ -176,7 +175,6 @@
 								</a>
 									<ul class="nav none dker">
 										<li><a href="reportDay.jsp">일간 리포트</a></li>
-										<li><a href="reportWeek.jsp">주간 리포트</a></li>
 										<li><a href="reportMonth.jsp">월간 리포트</a></li>
 									</ul></li>
 								<li><a href="#"> <span class="pull-right auto">
