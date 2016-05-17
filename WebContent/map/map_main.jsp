@@ -55,7 +55,18 @@
 <script src="/Visualizing/js/pushy.min.js"></script>
 
 </head>
+
+
+
 <body onload="initialize(0, 0)">
+<c:if test="${empty sessionScope.id }">
+<script type="text/javascript">
+	alert("로그인 하세요!");
+	location.href="/Visualizing/mg/LoginForm.do";
+</script>
+</c:if>
+
+<c:if test="${!empty sessionScope.id }">
 
 
 
@@ -455,6 +466,6 @@
 				</section>
 		</div>
 
-
+</c:if>
 </body>
 </html>
