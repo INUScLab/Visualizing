@@ -1,5 +1,5 @@
-<%@ page import="visualizing.report.DetailDataCtrl"%>
-<%@ page import="visualizing.report.DetailData"%>
+<%@ page import="visualizing.read.ReadDataCtrl"%>
+<%@ page import="visualizing.read.ReadData"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.util.Locale"%>
@@ -11,7 +11,7 @@
 	String cp = request.getContextPath();
 %>
 
-<jsp:useBean id="ddctrl" class="visualizing.report.DetailDataCtrl" />
+<jsp:useBean id="rctrl" class="visualizing.read.ReadDataCtrl" />
 
 <%
 	Integer data_start_num = 0;
@@ -68,13 +68,13 @@
 	}
 
 	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear + "	" + dateMonth + "	" + dateDay);
-	
-	ArrayList<DetailData> array_list = ddctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
+	/*
+	ArrayList<ReadData> array_list = rctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
 
 	if (data_end_num > array_list.size()){
 		data_end_num = array_list.size();
 	}
-	
+	*/
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 	Date currentDate = new Date ();
@@ -428,11 +428,11 @@
 														<div class="form-group">
 															<label class="col-lg-3 control-label">미터상태</label>
 															<input type="checkbox" name="status" value="leak"> 누수
-															<input type="checkbox" name="status" value="freeze"> 동파
+															<input type="checkbox" name="status" value="freezed"> 동파
 															<input type="checkbox" name="status" value="fat"> 비만
 															<input type="checkbox" name="status" value="breakage"> 파손
 															<input type="checkbox" name="status" value="reverse"> 역류
-															<input type="checkbox" name="status" value="absent"> 부재중			
+															<input type="checkbox" name="status" value="absence"> 부재중			
 														</div>
 													</div>
 												</div>

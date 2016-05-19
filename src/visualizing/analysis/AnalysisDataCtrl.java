@@ -69,7 +69,7 @@ public class AnalysisDataCtrl {
 			this.detail = "true";
 		}
 		else{
-			this.detail = "u.detail='" + detail + "'";
+			this.detail = "u.detail like '%" + detail + "%'";
 		}
 		if(number == null){
 			this.number = "true";

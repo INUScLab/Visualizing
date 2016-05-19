@@ -1,5 +1,5 @@
-<%@ page import="visualizing.report.DetailDataCtrl"%>
-<%@ page import="visualizing.report.DetailData"%>
+<%@ page import="visualizing.read.ReadDataCtrl"%>
+<%@ page import="visualizing.read.ReadData"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.util.Locale"%>
@@ -11,7 +11,7 @@
 	String cp = request.getContextPath();
 %>
 
-<jsp:useBean id="ddctrl" class="visualizing.report.DetailDataCtrl" />
+<jsp:useBean id="rctrl" class="visualizing.read.ReadDataCtrl" />
 
 <%
 	Integer data_start_num = 0;
@@ -58,13 +58,13 @@
 	}
 
 	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear + "	" + dateMonth);
-	
+	/*
 	ArrayList<DetailData> array_list = ddctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
 
 	if (data_end_num > array_list.size()){
 		data_end_num = array_list.size();
 	}
-	
+	*/
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 	Date currentDate = new Date ();
