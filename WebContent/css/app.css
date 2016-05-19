@@ -507,6 +507,7 @@ border-top:1px solid #2d7ecb;
   position: relative;
   background: #4c5566;
 }
+
 .modal-center {
   position: absolute;
   left: 50%;
@@ -791,7 +792,7 @@ html.layout-box .vbox > footer {
   font-size: 25px;
   line-height: 60px;
   display: block;
-  border-bottom:#08427b solid 1px;/* 추가 */
+  border-bottom:#08427b solid 1px;/* 異붽� */
 }
 .nav-brand:hover {
   text-decoration: none;
@@ -1067,7 +1068,7 @@ html.layout-box .vbox > footer {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-	border-right:#383f52 solid 1px;/* 추가 */
+	border-right:#383f52 solid 1px;/* 異붽� */
   }
   .nav-off-screen .nav-primary {
     display: block !important;

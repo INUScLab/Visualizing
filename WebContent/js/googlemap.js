@@ -72,11 +72,7 @@ function initialize(x, y) {
 			hideConsumerMarkersMarkers();
 
 			//infoWindow 닫기
-			infoWindow.close();
-
-			// 초기 리포트 페이지를 띄움.
-			$("#left_section_box_init").show();
-			$("#left_section_box_report").hide();
+//			infoWindow.close();
 
 			//현재 켜진 아이콘의 동 마커들을 출력.
 //			showIcon();
@@ -188,28 +184,25 @@ function createDongMarkers( ) {
 			marker.set(globalMap);
 
 			// 생성한 동들의 마커에 대한 클 이벤트 생성.
-
+			var contentString = document.getElementById("modal-dialog");
+			
 			marker.addListener('click', function() {
-
-				var contentString = document.getElementById("modal-dialog");
-				console.log(contentString);
 				
+
+		
+				$("#modal-dialog").show();
 				globalMap.setCenter(this.position);
 				globalMap.setOptions({ 'zoom' : 15 });
 
 				infoWindow = new google.maps.InfoWindow({
                 		content: contentString,
-                		maxWidth : 800,
+                		maxWidth : 850,
                 		position : this.postion
                 });
 
 				
-				infoWindow.close();
+//				infoWindow.close();
 				infoWindow.open(globalMap, this);
-               
-//                infoWindow.setPosition( this.position );
-				console.log(marker.position.lat() ,marker.position.lng() )
-				console.log(infoWindow.position.lat() , infoWindow.position.lng() )
                 
 //                hideDongMarkers();
                 var address = this.title;
@@ -622,10 +615,6 @@ function drawDongSummaryReport(addressArray) {
 	var count_breakage = 0;
 
 	var dongList = [ ];
-
-	// 초기 리포트 페이지를 숨기고 요약 리포트 페이지 보이기.
-	$("#left_section_box_init").hide();
-	$("#left_section_box_report").show();
 
 	for (var i = 0; i < len; i++) {
 		address += addressArray[i] + ' ';
@@ -1168,8 +1157,7 @@ function showIcon() {
 function entire_clicked(id) {
 
 	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
-	$("#left_section_box_init").show();
-	$("#left_section_box_report").hide();
+
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13
@@ -1209,9 +1197,7 @@ function entire_clicked(id) {
 
 function leak_clicked(id) {
 
-	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
-	$("#left_section_box_init").show();
-	$("#left_section_box_report").hide();
+
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13
@@ -1244,9 +1230,7 @@ function leak_clicked(id) {
 // 동파 아이콘을 클릭했을때
 function freezed_clicked(id) {
 
-	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
-	$("#left_section_box_init").show();
-	$("#left_section_box_report").hide();
+
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13
@@ -1279,9 +1263,7 @@ function freezed_clicked(id) {
 // 부재중 알림 아이콘을 클릭했을때
 function absence_clicked(id) {
 
-	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
-	$("#left_section_box_init").show();
-	$("#left_section_box_report").hide();
+
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13

@@ -479,11 +479,10 @@
 
 
 <!-- 팝업창 default = 숨김 -->
-<div class="modal-dialog" id="modal-dialog">
+<div class="modal-dialog" id="modal-dialog" style="width:1000px; height:300px;">
 	<div class="modal-content">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">&times;</button>
+			
 			<h4 class="modal-title">인천광역시 남구 숭의 1~3동</h4>
 		</div>
 
@@ -557,13 +556,10 @@
 
 		</div>
 	</div>
-	<div class="leaflet-popup-tip-container">
-		<div class="leaflet-popup-tip"></div>
-	</div>
+	
 </div>
 <!-- /.modal-content -->
 </div>
-
 
 <script type="text/javascript">
 $("#modal-dialog").hide();
