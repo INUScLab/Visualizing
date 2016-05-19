@@ -27,17 +27,29 @@
 	String meterNum = request.getParameter("meterNum");
 	String dateYear = request.getParameter("dateYear");
 	String dateMonth = request.getParameter("dateMonth");
+	String dateDay = request.getParameter("dateDay");
+	
+	String[] str = request.getParameterValues("status");
 
+	if(str != null){
+		for(int i=0;i<str.length;i++){
+			System.out.println(str[i]);
+		}
+	}
 	if (dateYear == null || dateYear.equals(""))
 		dateYear = "2015";
 	if (dateMonth == null || dateMonth.equals(""))
 		dateMonth = "02";
+	if (dateDay == null || dateDay.equals(""))
+		dateDay = "01";
+
 	if (si == null || si.equals(""))
 		si = "인천광역시";
 	if (guGun == null || guGun.equals(""))
 		guGun = "전체";
 	if (umDong == null || umDong.equals(""))
 		umDong = "전체";
+	
 	if (consumerNum != null)
 		if (consumerNum.equals(""))
 			consumerNum = null;
@@ -55,7 +67,7 @@
 		page_start_num = "1";
 	}
 
-	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear + "	" + dateMonth);
+	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear + "	" + dateMonth + "	" + dateDay);
 	
 	ArrayList<DetailData> array_list = ddctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
 
@@ -119,6 +131,13 @@
 		else datemonth = request.getParameter("dateMonth");
 		%>
 		search_form.dateMonth.value = "<%=datemonth%>";
+		
+		<% 
+		String dateday;
+		if(request.getParameter("dateDay") == null) dateday = "01";
+		else dateday = request.getParameter("dateDay");
+		%>
+		search_form.dateDay.value = "<%=dateday%>";
 	};
 </script>
 </head>
@@ -291,7 +310,7 @@
 								<div class="row padder">
 									<div class="col-md-12">
 										<!-- 검색조건 -->
-										<form action="reportDay.jsp" method="post" id=search_form>
+										<form action="readDay.jsp" method="post" id=search_form>
 											<div class="well">
 												<div class="row text-sm">
 													<div class="col-sm-4">
@@ -333,6 +352,39 @@
 																<option value="11">11월</option>
 																<option value="12">12월</option>
 															</select>
+															<select name=dateDay class="input-sm form-control input-s-sm inline">
+																<option value="01">01일</option>
+																<option value="02">02일</option>
+																<option value="03">03일</option>
+																<option value="04">04일</option>
+																<option value="05">05일</option>
+																<option value="06">06일</option>
+																<option value="07">07일</option>
+																<option value="08">08일</option>
+																<option value="09">09일</option>
+																<option value="10">10일</option>
+																<option value="11">11일</option>
+																<option value="12">12일</option>
+																<option value="13">13일</option>
+																<option value="14">14일</option>
+																<option value="15">15일</option>
+																<option value="16">16일</option>
+																<option value="17">17일</option>
+																<option value="18">18일</option>
+																<option value="19">19일</option>
+																<option value="20">20일</option>
+																<option value="21">21일</option>
+																<option value="22">22일</option>
+																<option value="23">23일</option>
+																<option value="24">24일</option>
+																<option value="25">25일</option>
+																<option value="26">26일</option>
+																<option value="27">27일</option>
+																<option value="28">28일</option>
+																<option value="29">29일</option>
+																<option value="30">30일</option>
+																<option value="31">31일</option>
+															</select>
 														</div>
 													</div>
 													<div class="col-sm-4 p-l-none">
@@ -371,6 +423,19 @@
 														</div>
 													</div>
 												</div>
+												<div class="row text-sm">
+													<div class="col-sm-4 p-l-none">
+														<div class="form-group">
+															<label class="col-lg-3 control-label">미터상태</label>
+															<input type="checkbox" name="status" value="leak"> 누수
+															<input type="checkbox" name="status" value="freeze"> 동파
+															<input type="checkbox" name="status" value="fat"> 비만
+															<input type="checkbox" name="status" value="breakage"> 파손
+															<input type="checkbox" name="status" value="reverse"> 역류
+															<input type="checkbox" name="status" value="absent"> 부재중			
+														</div>
+													</div>
+												</div>
 												<!-- 검색 버튼-->
 												<div class="row ">
 													<div class="col-sm-12 text-right">
@@ -388,7 +453,7 @@
 										<section class="panel">
 											<div class="table-responsive">
 												<header class="panel-heading text-primary font-semibold h5">
-													<i class="fa fa-chevron-circle-right"></i> <%=dateYear + "년 " + dateMonth + "월" %>
+													<i class="fa fa-chevron-circle-right"></i> <%=dateYear + "년 " + dateMonth + "월 " + dateDay + "일" %>
 												</header>
 												<table class="table table-striped b-t-blue"
 													style="width: 2500px;">
@@ -399,70 +464,15 @@
 															<th width="70">지시부번호</th>
 															<th width="60">미터번호</th>
 															<th width="60">미터타입</th>
-															<th width="50">검침월</th>
-															<th width="50">사용량</th>
-															<th width="10">01일</th>
-															<th width="10">02일</th>
-															<th width="10">03일</th>
-															<th width="10">04일</th>
-															<th width="10">05일</th>
-															<th width="10">06일</th>
-															<th width="10">07일</th>
-															<th width="10">08일</th>
-															<th width="10">09일</th>
-															<th width="10">10일</th>
-															<th width="10">11일</th>
-															<th width="10">12일</th>
-															<th width="10">13일</th>
-															<th width="10">14일</th>
-															<th width="10">15일</th>
-															<th width="10">16일</th>
-															<th width="10">17일</th>
-															<th width="10">18일</th>
-															<th width="10">19일</th>
-															<th width="10">20일</th>
-															<th width="10">21일</th>
-															<th width="10">22일</th>
-															<th width="10">23일</th>
-															<th width="10">24일</th>
-															<th width="10">25일</th>
-															<th width="10">26일</th>
-															<th width="10">27일</th>
-															<th width="10">28일</th>
-															<th width="10">29일</th>
-															<th width="10">30일</th>
-															<th width="10">31일</th>
+															<th width="50">미터상태</th>
+															<th width="50">검침일</th>
+															<th width="10">검침값</th>
 														</tr>
 													</thead>
 													<tbody>
-														<%
-															for (int i = data_start_num; i < data_end_num; i++) {
-														%>
 														<tr>
-															<td><%=array_list.get(i).getCode()%></td>
-															<td><%=array_list.get(i).getDetail()%></td>
-															<td><%=array_list.get(i).getNumber()%></td>
-															<td><%=array_list.get(i).getMeter_num()%></td>
-															<td><%=array_list.get(i).getMeter_type()%></td>
-															<td><%=dateYear%>-<%=dateMonth%></td>
-															<td><%=array_list.get(i).getTotal_consumed()%></td>
-															<%
-																for (String a : array_list.get(i).getConsumed_days()) {
-															%>
-															<td><%=a%></td>
-															<%
-																}
-
-																	for (int j = 31 - array_list.get(i).getConsumed_days().length; j > 0; j--) {
-															%>
-															<td>0.00</td>
-															<%
-																}
-															%>
+															<td></td>
 														</tr>
-														<%
-															}
-														%>
 													</tbody>
 												</table>
 											</div>
@@ -519,8 +529,6 @@
 
 				</aside>
 				<!-- //Quick menu -->
-
-
 			</section>
 		</section>
 </body>

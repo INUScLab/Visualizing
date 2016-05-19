@@ -26,15 +26,20 @@
 	String telNumber = request.getParameter("telNumber");
 	String meterNum = request.getParameter("meterNum");
 	String dateYear = request.getParameter("dateYear");
+	String dateMonth = request.getParameter("dateMonth");
 
 	if (dateYear == null || dateYear.equals(""))
 		dateYear = "2015";
+	if (dateMonth == null || dateMonth.equals(""))
+		dateMonth = "02";
+
 	if (si == null || si.equals(""))
 		si = "인천광역시";
 	if (guGun == null || guGun.equals(""))
 		guGun = "전체";
 	if (umDong == null || umDong.equals(""))
 		umDong = "전체";
+	
 	if (consumerNum != null)
 		if (consumerNum.equals(""))
 			consumerNum = null;
@@ -52,9 +57,9 @@
 		page_start_num = "1";
 	}
 
-	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear);
+	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear + "	" + dateMonth);
 	
-	ArrayList<DetailData> array_list = ddctrl.returnDatas2(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear);
+	ArrayList<DetailData> array_list = ddctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
 
 	if (data_end_num > array_list.size()){
 		data_end_num = array_list.size();
@@ -102,12 +107,21 @@
 			else gugun = request.getParameter("guGun");
 		%>
 		search_form.guGun.value = "<%=gugun%>";
+		
 		<% 
 		String dateyear;
 		if(request.getParameter("dateYear") == null) dateyear = "2015";
 		else dateyear = request.getParameter("dateYear");
 		%>
 		search_form.dateYear.value = "<%=dateyear%>";
+		
+		<% 
+		String datemonth;
+		if(request.getParameter("dateMonth") == null) datemonth = "02";
+		else datemonth = request.getParameter("dateMonth");
+		%>
+		search_form.dateMonth.value = "<%=datemonth%>";
+
 	};
 </script>
 </head>
@@ -280,7 +294,7 @@
 								<div class="row padder">
 									<div class="col-md-12">
 										<!-- 검색조건 -->
-										<form action="reportMonth.jsp" method="post" id=search_form>
+										<form action="readDay.jsp" method="post" id=search_form>
 											<div class="well">
 												<div class="row text-sm">
 													<div class="col-sm-4">
@@ -307,6 +321,20 @@
 															<select name=dateYear class="input-sm form-control input-s-sm inline">
 																<option value="2015">2015년</option>
 																<option value="2016">2016년</option>
+															</select>
+															<select name=dateMonth class="input-sm form-control input-s-sm inline">
+																<option value="01">01월</option>
+																<option value="02">02월</option>
+																<option value="03">03월</option>
+																<option value="04">04월</option>
+																<option value="05">05월</option>
+																<option value="06">06월</option>
+																<option value="07">07월</option>
+																<option value="08">08월</option>
+																<option value="09">09월</option>
+																<option value="10">10월</option>
+																<option value="11">11월</option>
+																<option value="12">12월</option>
 															</select>
 														</div>
 													</div>
@@ -363,7 +391,7 @@
 										<section class="panel">
 											<div class="table-responsive">
 												<header class="panel-heading text-primary font-semibold h5">
-													<i class="fa fa-chevron-circle-right"></i> <%=dateYear + "년 "%>
+													<i class="fa fa-chevron-circle-right"></i> <%=dateYear + "년 " + dateMonth + "월 " %>
 												</header>
 												<table class="table table-striped b-t-blue"
 													style="width: 2500px;">
@@ -373,52 +401,15 @@
 															<th width="70">수용가명</th>
 															<th width="70">지시부번호</th>
 															<th width="60">미터번호</th>
-															<th width="60">미터타입</th>
-															<th width="50">검침월</th>
-															<th width="50">사용량</th>
-															<th width="10">01월</th>
-															<th width="10">02월</th>
-															<th width="10">03월</th>
-															<th width="10">04월</th>
-															<th width="10">05월</th>
-															<th width="10">06월</th>
-															<th width="10">07월</th>
-															<th width="10">08월</th>
-															<th width="10">09월</th>
-															<th width="10">10월</th>
-															<th width="10">11월</th>
-															<th width="10">12월</th>
+															<th width="60">검침월</th>
+															<th width="50">검침값</th>
+															<th width="10">전월검침값</th>
 														</tr>
 													</thead>
 													<tbody>
-														<%
-															for (int i = data_start_num; i < data_end_num; i++) {
-														%>
 														<tr>
-															<td><%=array_list.get(i).getCode()%></td>
-															<td><%=array_list.get(i).getDetail()%></td>
-															<td><%=array_list.get(i).getNumber()%></td>
-															<td><%=array_list.get(i).getMeter_num()%></td>
-															<td><%=array_list.get(i).getMeter_type()%></td>
-															<td><%=dateYear%></td>
-															<td><%=array_list.get(i).getTotal_consumed()%></td>
-															<%
-																for (String a : array_list.get(i).getConsumed_days()) {
-															%>
-															<td><%=a%></td>
-															<%
-																}
-
-																	for (int j = 12 - array_list.get(i).getConsumed_days().length; j > 0; j--) {
-															%>
-															<td>0.00</td>
-															<%
-																}
-															%>
+															<td></td>
 														</tr>
-														<%
-															}
-														%>
 													</tbody>
 												</table>
 											</div>
@@ -475,8 +466,6 @@
 
 				</aside>
 				<!-- //Quick menu -->
-
-
 			</section>
 		</section>
 </body>
