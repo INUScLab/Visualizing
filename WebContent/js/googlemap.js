@@ -188,91 +188,12 @@ function createDongMarkers( ) {
 			marker.set(globalMap);
 
 			// 생성한 동들의 마커에 대한 클 이벤트 생성.
-			var contentString = '<link rel="stylesheet" href="/Visualizing/css/bootstrap.css" type="text/css" />'+
-			'<link rel="stylesheet" href="/Visualizing/css/font-awesome.min.css" type="text/css" />' +
-			'<link rel="stylesheet" href="/Visualizing/css/font.css" type="text/css" cache="false" />' +
-			'<link rel="stylesheet" href="/Visualizing/css/app.css" type="text/css" />' +
-			
-			'<div class="modal-dialog">' +
-			'<div class="modal-content">' +
-			'<div class="modal-header">' +
-			'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' +  '&times'; + '</button>' +
-			'<h4 class="modal-title">인천광역시 남구 숭의 1~3동</h4>'+
-			'</div>'+
-			
-			'<div class="modal-body">'+
-			'<div class="panel wrapper">'+
-			
-			'<div class="row">'+
-			'<div class="col-xs-2 text-center">'+
-			'<a href="#"> <span class="m-b-xs h4 block">50<small class="text-muted">건</small></span> <small class="text-muted h5">누수</small></a>'+
-			'</div>'+
-			'<div class="col-xs-2 text-center">'+
-			'<a href="#"> <span class="m-b-xs h4 block">55<small class="text-muted">건</small></span> <small class="text-muted h5">동파</small></a>'+
-			'</div>'+
-			'<div class="col-xs-2 text-center">'+
-			'<a href="#"> <span class="m-b-xs h4 block">0<small class="text-muted">건</small></span> <small class="text-muted h5">비만</small>'+
-			'</a>'+
-			'</div>'+
-			'<div class="col-xs-2 text-center">'+
-			'<a href="#"> <span class="m-b-xs h4 block">0<small class="text-muted">건</small></span> <small class="text-muted h5">파손</small>'+
-			'</a>'+
-			'</div>'+
-			'<div class="col-xs-2 text-center">'+
-			'<a href="#"> <span class="m-b-xs h4 block">0<small class="text-muted">건</small></span> <small class="text-muted h5">역류</small>'+
-			'</a>'+
-			'</div>'+
-			'<div class="col-xs-2 text-center">'+
-			'<a href="#"> <span class="m-b-xs h4 block">0<small class="text-muted">건</small></span> <small class="text-muted h5">부재중</small>'+
-			'</a>'+
-			'</div>'+
-			'</div>'+
-			'</div>'+
-			
-			'<div class="row m-t m-b">'+
-			'<div class="col-lg-4">'+
-			'<section class="panel">'+
-			'<header class="panel-heading">사용량비교</header>'+
-			'<div class="panel-body text-center">'+
-			'<img src="../images/chart-1.jpg">'+
-			'</div>'+
-			'</section>'+
-			'</div>'+
-			
-			'<div class="col-lg-4">'+
-			'<section class="panel">'+
-			'<header class="panel-heading">일주일 사용량 비교</header>'+
-			'<div class="panel-body text-center">'+
-			'<img src="../images/chart-2.jpg">'+
-			'</div>'+
-			'</section>'+
-			'</div>'+
-			
-			'<div class="col-lg-4">'+
-			'<section class="panel">'+
-			'<header class="panel-heading">3월달 부가서비스 발생횟수</header>'+
-			'<div class="panel-body text-center">'+
-			'<img src="../images/chart-3.jpg">'+
-			'</div>'+
-			'</section>'+
-			'</div>'+
-			
-			'</div>'+
-			
-			
-			'</div>'+
-			'</div>'+
-			'<div class="leaflet-popup-tip-container">'+
-			'<div class="leaflet-popup-tip"></div>'+
-			'</div>'+
-			'</div>'+
-			'</div>';
-			
-			var summaryReport = document.getElementById("modal-dialog");
-			console.log(summaryReport);
-			
+
 			marker.addListener('click', function() {
 
+				var contentString = document.getElementById("modal-dialog");
+				console.log(contentString);
+				
 				globalMap.setCenter(this.position);
 				globalMap.setOptions({ 'zoom' : 15 });
 
@@ -283,7 +204,6 @@ function createDongMarkers( ) {
                 });
 
 				
-				console.log(infoWindow.close());
 				infoWindow.close();
 				infoWindow.open(globalMap, this);
                
@@ -311,15 +231,7 @@ function createDongMarkers( ) {
 
 //수용가 마커를 생성하고 클릭 이벤트를 등록.
 function createConsumerMarkers ( addressArray ) {
-	/*
-	 * 1.클릭한 동의 구와 동을 입력받는다.
-	 * 2.수용가의 수 만큼 반복한다.
-	 * 	2.1 구와 동이 일치하는 수용가를 찾는다.
-	 * 	2.1.1 마커를 생성한다.
-	 * 	2.1.2 배열에 넣는다.
-	 * 	2.1.2 클릭 이벤트를 등록한다.
-	 * 3.종료한다.
-	 */
+
 
 	var gu = addressArray[1];
 	var dong = addressArray[2];
