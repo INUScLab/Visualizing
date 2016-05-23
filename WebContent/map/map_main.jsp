@@ -412,6 +412,7 @@ summaryReportList.push( {
 						<!-- 지도영역-->
 						<script type="text/javascript" src="../js/googlemap.js"></script>
 						<section class="panel m-t-xxs" id="map_canvas">
+							<div id="color-interpolation" class="color-interpolation"></div>
 	
 							<div class="panel-body">
 							
@@ -423,7 +424,6 @@ summaryReportList.push( {
 						<section>
 
 							<div id="map_canvas" style="width: 100%; height: 95%;"></div>
-							<div id="color-interpolation" class="color-interpolation"></div>
 
 							<script type="text/javascript" src="../js/googlemap.js"></script>
 
