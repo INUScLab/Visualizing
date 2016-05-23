@@ -25,7 +25,7 @@
 		guGun = "강화군";
 
 	RankData rd_data = rdctrl.returnDatas(si, guGun);
-
+	
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
 	Date currentDate = new Date();

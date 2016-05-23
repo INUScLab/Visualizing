@@ -116,11 +116,11 @@ public class RankDataCtrl {
 		
 		// 상위 랭킹의 한달간 데이터 받아오기
 		return_data.setUpper_leak_data(getUpperDatas("sum(leak)",return_data.getLeak_rank()));
-		return_data.setUpper_freezed_data(getUpperDatas("sum(freezed)",return_data.getLeak_rank()));
-		return_data.setUpper_fat_data(getUpperDatas("sum(fat)",return_data.getLeak_rank()));
-		return_data.setUpper_breakage_data(getUpperDatas("sum(breakage)",return_data.getLeak_rank()));
-		return_data.setUpper_reverse_data(getUpperDatas("sum(reverse)",return_data.getLeak_rank()));
-		return_data.setUpper_absence_data(getUpperDatas("sum(absence)",return_data.getLeak_rank()));
+		return_data.setUpper_freezed_data(getUpperDatas("sum(freezed)",return_data.getFreezed_rank()));
+		return_data.setUpper_fat_data(getUpperDatas("sum(fat)",return_data.getFat_rank()));
+		return_data.setUpper_breakage_data(getUpperDatas("sum(breakage)",return_data.getBreakage_rank()));
+		return_data.setUpper_reverse_data(getUpperDatas("sum(reverse)",return_data.getReverse_rank()));
+		return_data.setUpper_absence_data(getUpperDatas("sum(absence)",return_data.getAbsence_rank()));
 		
 		// DB연결 해제
 		disconnect();
