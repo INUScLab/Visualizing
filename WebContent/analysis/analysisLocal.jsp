@@ -24,14 +24,7 @@
 	if (guGun == null || guGun.equals(""))
 		guGun = "강화군";
 
-	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
-
 	RankData rd_data = rdctrl.returnDatas(si, guGun);
-
-	System.out.println(rd_data.getUpper_freezed_data().get(0));
-	System.out.println(rd_data.getUpper_freezed_data().get(1));
-	System.out.println(rd_data.getUpper_freezed_data().get(2));
-	System.out.println(rd_data.getUpper_freezed_data().get(3));
 
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
@@ -105,8 +98,8 @@
 		
 		// Set options for chart.
 		var options = {
-			width : 300,
-			height : 300
+			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
+	        legend: { position: "none" }
 		};
 
 		// Instantiate and draw the chart
@@ -128,8 +121,8 @@
 		
 		// Set options for chart.
 		var options = {
-			width : 300,
-			height : 300
+			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
+	        legend: { position: "none" }
 		};
 
 		// Instantiate and draw the chart
@@ -151,8 +144,8 @@
 		
 		// Set options for chart.
 		var options = {
-			width : 300,
-			height : 300
+			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
+	        legend: { position: "none" }
 		};
 
 		// Instantiate and draw the chart
@@ -174,8 +167,8 @@
 		
 		// Set options for chart.
 		var options = {
-			width : 300,
-			height : 300
+			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
+	        legend: { position: "none" }
 		};
 
 		// Instantiate and draw the chart
@@ -197,8 +190,8 @@
 		
 		// Set options for chart.
 		var options = {
-			width : 300,
-			height : 300
+			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
+	        legend: { position: "none" }
 		};
 
 		// Instantiate and draw the chart
@@ -220,8 +213,8 @@
 		
 		// Set options for chart.
 		var options = {
-			width : 300,
-			height : 300
+			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
+	        legend: { position: "none" }
 		};
 
 		// Instantiate and draw the chart
@@ -231,7 +224,7 @@
 	// 누수 상위 데이터 그래프
 	function drawUpperLeakRankChart() {
 
-		<%textDate = "2015-02-01";%>
+		<%textDate = "02-01";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -240,17 +233,16 @@
          [ '<%=textDate%>' ,<%=rd_data.getUpper_leak_data().get(0).get(i)%>, <%=rd_data.getUpper_leak_data().get(1).get(i)%>, <%=rd_data.getUpper_leak_data().get(2).get(i)%>, <%=rd_data.getUpper_leak_data().get(3).get(i)%>],
          <%// 시간 더하기
 	   	  Calendar cal = Calendar.getInstance();
-          Date sdate = mSimpleDateFormat.parse(textDate);
+          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
-	      textDate = mSimpleDateFormat.format(cal.getTime()); 
+	      textDate = DateFormat.format(cal.getTime()); 
 	      }%>
 		 ]);
 		
 		// Set options for chart.
 		var options = {
-			width : 800,
-			height : 300,
 			colors: ['#b87333', 'silver','gold', '#e5e4e2']
 		};
 
@@ -262,7 +254,7 @@
 	// 동파 상위 데이터 그래프
 	function drawUpperFreezedRankChart() {
 
-		<%textDate = "2015-02-01";%>
+		<%textDate = "02-01";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -270,18 +262,17 @@
          <% for(int i=0; i<rd_data.getUpper_freezed_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_freezed_data().get(0).get(i)%>, <%=rd_data.getUpper_freezed_data().get(1).get(i)%>, <%=rd_data.getUpper_freezed_data().get(2).get(i)%>, <%=rd_data.getUpper_freezed_data().get(3).get(i)%>],
          <%// 시간 더하기
-	   	  Calendar cal = Calendar.getInstance();
-          Date sdate = mSimpleDateFormat.parse(textDate);
+          Calendar cal = Calendar.getInstance();
+          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
-	      textDate = mSimpleDateFormat.format(cal.getTime()); 
+	      textDate = DateFormat.format(cal.getTime()); 
 	      }%>
 		 ]);
 		
 		// Set options for chart.
 		var options = {
-			width : 800,
-			height : 300,
 			colors: ['#b87333', 'silver','gold', '#e5e4e2']
 		};
 
@@ -293,7 +284,7 @@
 	// 비만관 상위 데이터 그래프
 	function drawUpperFatRankChart() {
 
-		<%textDate = "2015-02-01";%>
+		<%textDate = "02-01";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -301,21 +292,19 @@
          <% for(int i=0; i<rd_data.getUpper_fat_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_fat_data().get(0).get(i)%>, <%=rd_data.getUpper_fat_data().get(1).get(i)%>, <%=rd_data.getUpper_fat_data().get(2).get(i)%>, <%=rd_data.getUpper_fat_data().get(3).get(i)%>],
          <%// 시간 더하기
-	   	  Calendar cal = Calendar.getInstance();
-          Date sdate = mSimpleDateFormat.parse(textDate);
+          Calendar cal = Calendar.getInstance();
+          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
-	      textDate = mSimpleDateFormat.format(cal.getTime()); 
+	      textDate = DateFormat.format(cal.getTime()); 
 	      }%>
 		 ]);
 		
 		// Set options for chart.
 		var options = {
-			width : 800,
-			height : 300,
 			colors: ['#b87333', 'silver','gold', '#e5e4e2']
 		};
-
 
 		// Instantiate and draw the chart
 		var chart = new google.visualization.LineChart(document.getElementById('fat_upper_chart_div'));
@@ -326,7 +315,7 @@
 	function drawUpperBreakageRankChart() {
 
 
-		<%textDate = "2015-02-01";%>
+		<%textDate = "02-01";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -334,21 +323,19 @@
          <% for(int i=0; i<rd_data.getUpper_breakage_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_breakage_data().get(0).get(i)%>, <%=rd_data.getUpper_breakage_data().get(1).get(i)%>, <%=rd_data.getUpper_breakage_data().get(2).get(i)%>, <%=rd_data.getUpper_breakage_data().get(3).get(i)%>],
          <%// 시간 더하기
-	   	  Calendar cal = Calendar.getInstance();
-          Date sdate = mSimpleDateFormat.parse(textDate);
+          Calendar cal = Calendar.getInstance();
+          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
-	      textDate = mSimpleDateFormat.format(cal.getTime()); 
+	      textDate = DateFormat.format(cal.getTime()); 
 	      }%>
 		 ]);
 		
 		// Set options for chart.
 		var options = {
-			width : 800,
-			height : 300,
 			colors: ['#b87333', 'silver','gold', '#e5e4e2']
 		};
-
 
 		// Instantiate and draw the chart
 		var chart = new google.visualization.LineChart(document.getElementById('breakage_upper_chart_div'));
@@ -359,7 +346,7 @@
 	function drawUpperReverseRankChart() {
 
 
-		<%textDate = "2015-02-01";%>
+		<%textDate = "02-01";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -367,21 +354,19 @@
          <% for(int i=0; i<rd_data.getUpper_reverse_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_reverse_data().get(0).get(i)%>, <%=rd_data.getUpper_reverse_data().get(1).get(i)%>, <%=rd_data.getUpper_reverse_data().get(2).get(i)%>, <%=rd_data.getUpper_reverse_data().get(3).get(i)%>],
          <%// 시간 더하기
-	   	  Calendar cal = Calendar.getInstance();
-          Date sdate = mSimpleDateFormat.parse(textDate);
+          Calendar cal = Calendar.getInstance();
+          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
-	      textDate = mSimpleDateFormat.format(cal.getTime()); 
+	      textDate = DateFormat.format(cal.getTime()); 
 	      }%>
 		 ]);
 		
 		// Set options for chart.
 		var options = {
-			width : 800,
-			height : 300,
 			colors: ['#b87333', 'silver','gold', '#e5e4e2']
 		};
-
 
 		// Instantiate and draw the chart
 		var chart = new google.visualization.LineChart(document.getElementById('reverse_upper_chart_div'));
@@ -392,7 +377,7 @@
 	function drawUpperAbsenceRankChart() {
 
 
-		<%textDate = "2015-02-01";%>
+		<%textDate = "02-01";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -400,21 +385,19 @@
          <% for(int i=0; i<rd_data.getUpper_absence_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_absence_data().get(0).get(i)%>, <%=rd_data.getUpper_absence_data().get(1).get(i)%>, <%=rd_data.getUpper_absence_data().get(2).get(i)%>, <%=rd_data.getUpper_absence_data().get(3).get(i)%>],
          <%// 시간 더하기
-	   	  Calendar cal = Calendar.getInstance();
-          Date sdate = mSimpleDateFormat.parse(textDate);
+          Calendar cal = Calendar.getInstance();
+          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
-	      textDate = mSimpleDateFormat.format(cal.getTime()); 
+	      textDate = DateFormat.format(cal.getTime()); 
 	      }%>
 		 ]);
 		
 		// Set options for chart.
 		var options = {
-			width : 800,
-			height : 300,
 			colors: ['#b87333', 'silver','gold', '#e5e4e2']
 		};
-
 
 		// Instantiate and draw the chart
 		var chart = new google.visualization.LineChart(document.getElementById('absence_upper_chart_div'));
@@ -600,18 +583,14 @@
 												<div class="col-lg-3">
 													<section class="panel">
 														<header class="panel-heading">누수 지역별 순위</header>
-														<div class="panel-body text-center">
-															<div id="leak_rank_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="leak_rank_chart_div"></div>
 													</section>
 												</div>
 
 												<div class="col-lg-9">
 													<section class="panel">
 														<header class="panel-heading">누수 평균값 비교</header>
-														<div class="panel-body text-center">
-															<div id="leak_upper_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="leak_upper_chart_div"></div>
 													</section>
 												</div>
 
@@ -628,18 +607,14 @@
 												<div class="col-lg-3">
 													<section class="panel">
 														<header class="panel-heading">동파 지역별 순위</header>
-														<div class="panel-body text-center">
-															<div id="freezed_rank_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="freezed_rank_chart_div"></div>
 													</section>
 												</div>
 
 												<div class="col-lg-9">
 													<section class="panel">
 														<header class="panel-heading">동파 평균값 비교</header>
-														<div class="panel-body text-center">
-															<div id="freezed_upper_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="freezed_upper_chart_div"></div>
 													</section>
 												</div>
 
@@ -657,18 +632,14 @@
 												<div class="col-lg-3">
 													<section class="panel">
 														<header class="panel-heading">비만관 지역별 순위</header>
-														<div class="panel-body text-center">
-															<div id="fat_rank_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="fat_rank_chart_div"></div>
 													</section>
 												</div>
 
 												<div class="col-lg-9">
 													<section class="panel">
 														<header class="panel-heading">비만관 평균값 비교</header>
-														<div class="panel-body text-center">
-															<div id="fat_upper_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="fat_upper_chart_div"></div>
 													</section>
 												</div>
 
@@ -685,18 +656,14 @@
 												<div class="col-lg-3">
 													<section class="panel">
 														<header class="panel-heading">파손 지역별 순위</header>
-														<div class="panel-body text-center">
-															<div id="breakage_rank_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="breakage_rank_chart_div"></div>
 													</section>
 												</div>
 
 												<div class="col-lg-9">
 													<section class="panel">
 														<header class="panel-heading">파손 평균값 비교</header>
-														<div class="panel-body text-center">
-															<div id="breakage_upper_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="breakage_upper_chart_div"></div>
 													</section>
 												</div>
 
@@ -713,18 +680,14 @@
 												<div class="col-lg-3">
 													<section class="panel">
 														<header class="panel-heading">역류 지역별 순위</header>
-														<div class="panel-body text-center">
-															<div id="reverse_rank_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="reverse_rank_chart_div"></div>
 													</section>
 												</div>
 
 												<div class="col-lg-9">
 													<section class="panel">
 														<header class="panel-heading">역류 평균값 비교</header>
-														<div class="panel-body text-center">
-															<div id="reverse_upper_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="reverse_upper_chart_div"></div>
 													</section>
 												</div>
 
@@ -741,23 +704,17 @@
 												<div class="col-lg-3">
 													<section class="panel">
 														<header class="panel-heading">부재중 지역별 순위</header>
-														<div class="panel-body text-center">
-															<div id="absence_rank_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="absence_rank_chart_div"></div>
 													</section>
 												</div>
 
 												<div class="col-lg-9">
 													<section class="panel">
 														<header class="panel-heading">부재중 평균값 비교</header>
-														<div class="panel-body text-center">
-															<div id="absence_upper_chart_div"></div>
-														</div>
+														<div class="panel-body text-center" id="absence_upper_chart_div"></div>
 													</section>
 												</div>
-
 											</div>
-
 										</section>
 									</div>
 								</div>
