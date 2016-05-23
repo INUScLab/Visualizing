@@ -13,7 +13,7 @@
 <head>
 
 <script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJHzLkYApb-mrj0mz7d8zakkvBuE0IZTE"></script>
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJHzLkYApb-mrj0mz7d8zakkvBuE0IZTE&signed_in=true&libraries=places"></script>
 
 <script type="text/javascript"
 	src='https://www.google.com/jsapi?autoload={
@@ -52,7 +52,7 @@
 <script src="/Visualizing/js/pushy.min.js"></script>
 
 </head>
-<body onload="initialize(0, 0)">
+<body onload="initialize()">
 
 	<c:if test="${empty sessionScope.id }">
 		<script type="text/javascript">
@@ -240,9 +240,10 @@ summaryReportList.push( {
 								<div class="form-group ">
 									<div class="input-group">
 										<input type="text" class="form-control font-thin no-radius"
-											placeholder="동을 입력해 주세요"> <span
-											class="input-group-btn">
-											<button type="submit" class="btn btn-white no-radius">
+											id="searchbox" placeholder="동을 입력해 주세요"
+											onkeypress="if(event.keyCode==13) {codeAddress();}">
+										<span class="input-group-btn" onclick="codeAddress()">
+											<button class="btn btn-white no-radius">
 												<i class="fa fa-search"></i>
 											</button>
 										</span>
@@ -409,6 +410,16 @@ summaryReportList.push( {
 						</header>
 
 						<!-- 지도영역-->
+						<script type="text/javascript" src="../js/googlemap.js"></script>
+						<section class="panel m-t-xxs" id="map_canvas">
+	
+							<div class="panel-body">
+							
+							</div>
+						</section>
+
+
+<!-- 
 						<section>
 
 							<div id="map_canvas" style="width: 100%; height: 95%;"></div>
@@ -418,6 +429,7 @@ summaryReportList.push( {
 
 
 						</section>
+						 -->
 						<!-- //지도영역-->
 					</section>
 
@@ -447,7 +459,7 @@ summaryReportList.push( {
 	<!-- 팝업창 default = 숨김 -->
 
 	<div class="modal-dialog" id="modal-dialog"
-		style="width: 630px; height: 350px;">
+		style="width: 750px; height: 400px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="modal-title"></h4>
@@ -509,39 +521,17 @@ summaryReportList.push( {
 						</section>
 					</div>
 
-					<div class="col-lg-4">
-						<section class="panel">
-							<header class="panel-heading">지난달 부가서비스 발생횟수</header>
-							<div class="panel-body text-center" id="info_service">
-								<div class="info_leak" id="info_leak">
-									<div class="leak_text" id="leak_text"></div>
-									<div class="leak_graph" id="leak_graph"></div>
-								</div>
-								<div class="info_absence" id="info_absence">
-									<div class="absence_text" id="absence_text"></div>
-									<div class="absence_graph" id="absence_graph"></div>
-								</div>
-								<div class="info_freezed" id="info_freezed">
-									<div class="freeze_text" id="freeze_text"></div>
-									<div class="freeze_graph" id="freeze_graph"></div>
-								</div>
-								<!-- img src="../images/chart-3.jpg" -->
-							</div>
-						</section>
-					</div>
-
+					<div class="col-lg-4"></div>
 				</div>
-
-
 			</div>
-
 		</div>
 	</div>
 
-
 	<script type="text/javascript">
-$("#modal-dialog").hide();
+$("#modal-dialog").hide();	
 </script>
+
+
 
 </body>
 </html>
