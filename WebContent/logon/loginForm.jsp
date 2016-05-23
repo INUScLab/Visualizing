@@ -8,98 +8,94 @@
 
 <html>
 <head>
-<title>WATER FOOTPRINTS VISUALIZING WEB</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js">
-	
-</script>
+<meta charset="utf-8" />
+<title>::: 수도검침서비스 :::</title>
+<meta name="description" content="" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<link rel="stylesheet" href="/Visualizing/css/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="/Visualizing/css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="/Visualizing/css/font.css" type="text/css" cache="false" />
+<link rel="stylesheet" href="/Visualizing/css/app.css" type="text/css" cache="false" />
+<!--[if lt IE 9]>
+    <script src="js/ie/respond.min.js" cache="false"></script>
+    <script src="js/ie/html5.js" cache="false"></script>
+    <script src="js/ie/fix.js" cache="false"></script>
+  <![endif]-->
+
+<script src="/Visualizing/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/Visualizing/js/bootstrap.js"></script>
+<!-- App -->
+<script src="/Visualizing/js/app.js"></script>
+<script src="/Visualizing/js/app.plugin.js"></script>
+<script src="/Visualizing/js/app.data.js"></script>
+<script src="/Visualizing/js/pushy.min.js"></script>
 <script type="text/javascript">
-function sendIt(){
+function sendIt() {
 	var f = document.loginF;
 	
-	if(!f.userId.value){
-		alert("id를 입력하세요!");
-		f.userId.focus();
-		return;
-	}
-	
-	if(!f.userPasswd.value){
-		alert("비밀번호를 입력하세요!");
-		f.userPasswd.focus();
-		return;
-	}
-	
-	f.action = "<%=cp%>/mg/LoginPro.do";
+	f.action = "/Visualizing/mg/LoginPro.do";
 	f.submit();
-	
 }
+
 </script>
-<style>
-.body {
-	background-color: #E2E2E2;
-}
-
-#layout {
-	padding-bottom: 70px;
-	padding-top: 100px;
-	background-color: white;
-	border-color: black;
-}
-
-#subject {
-	font-size: 22px;
-	color: #949191;
-}
-</style>
-
 </head>
 
-<body class="body">
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<div class="row">
-		<div class="span6"></div>
-
-		<div class="span6">
-			<strong id="subject"><center>WATER FOOTPRINTS VISUALIZING WEB</center></strong>
 
 
-			<form class="form-horizontal" id="layout" name="loginF" method="post">
-				<div class="control-group">
-					<label class="control-label" for="inputID">ID</label>
-					<div class="controls">
-						<input type="text" id="inputID" placeholder="ID" name="userId">
+<body class="bg-login">
+	<c:if test="${empty sessionScope.id }">
+		<section id="content" style="margin-top: 200px">
+
+			<div id="login-box">
+				<header class="m-b-xlg text-center m-t-login">
+					<img src="/Visualizing/images/login-logo.png" alt="수도미터검침서비스" />
+				</header>
+
+
+				<form class="bs-example form-horizontal" name="loginF" method="post">
+					<div class="form-group">
+						<label class="col-lg-3 control-label">ID</label>
+						<div class="col-lg-9">
+							<input type="id" class="form-control" placeholder="아이디를 입력해 주세요" name="userId" style="width: 250px;">
+						</div>
 					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="inputPassword">Password</label>
-					<div class="controls">
-						<input type="password" id="inputPassword" placeholder="Password" name="userPasswd">
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Password</label>
+						<div class="col-lg-9">
+							<input type="password" class="form-control" placeholder="비밀번호를 입력해 주세요" name="userPasswd" style="width: 250px;">
+						</div>
 					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-
-						<button class="btn" id="login" onclick="sendIt();">Sign in</button>
+					<div class="form-group">
+						<div class="col-lg-offset-3 col-lg-9">
+							<button type="submit" class="btn btn-s-md btn-info font-semibold" onclick="sendIt();">LOGIN</button>
+						</div>
 					</div>
-				</div>
-			</form>
-		</div>
+				</form>
 
-<%=cp %>
+			</div>
+		</section>
+		<!-- footer -->
+		<footer id="footer">
+			<div class="text-center padder clearfix">
+				<p>
+					<small class="text-white">copyright<br>&copy; 2013
+					</small>
+				</p>
+			</div>
+		</footer>
+		<!-- / footer -->
+	</c:if>
 
+	<c:if test="${!empty sessionScope.id }">
 
+		<script type="text/javascript">
+			location.href = "/Visualizing/map/Map.do";
+		</script>
+	</c:if>
+</body>
 
-
-	</div>
 
 
 </body>
