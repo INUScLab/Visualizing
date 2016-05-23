@@ -196,9 +196,11 @@ function createDongMarkers( ) {
 
 				infoWindow = new google.maps.InfoWindow({
                 		content: contentString,
-                		maxWidth : 850,
+                		//maxWidth : 850,
                 		position : this.postion
                 });
+				
+				
 
 				
 //				infoWindow.close();
@@ -208,7 +210,7 @@ function createDongMarkers( ) {
                 var address = this.title;
                 var addressArray = address.split(' ');
                 
-//                drawDongSummaryReport(addressArray) // 요약 리포트
+                drawDongSummaryReport(addressArray) // 요약 리포트
 //                createConsumerMarkers(addressArray); //수용가 마커 생성.
                 /*마커를 지우고 infoWindow 생성.
 				this.setMap(null);
@@ -302,7 +304,8 @@ function drawConsumerReport( addressArray ){
 		if(summaryReportList[i].gu == gu && summaryReportList[i].dong == dong && summaryReportList[i].detail == detail ) {
 
 			//1.주소칸
-			document.getElementById('info_date').innerHTML = incheon+ ' ' + gu + ' ' + dong + ' ' + detail;
+			document.getElementById('modal-title').innerHTML = incheon+ ' ' + gu + ' ' + dong + ' ' + detail;
+			console.log(incheon+ ' ' + gu + ' ' + dong + ' ' + detail);
 			info_date.style.fontSize = "90%"; // 주소 출력 폰트 사이즈
 
 			$(".checkBox").prop('checked', false) ;
@@ -362,6 +365,8 @@ function drawConsumerReport( addressArray ){
 			console.log(summaryReportList[i].day1 , summaryReportList[i].day2 , summaryReportList[i].day3 , summaryReportList[i].day4 , summaryReportList[i].day5
 					, summaryReportList[i].day6 , summaryReportList[i].day7 , sum_weeklyConsumption/7)
 		}
+		
+		
 	}
 }
 
@@ -404,6 +409,7 @@ function drawColumn(cons, pred, week, region) {
 }
 
 // 부가서비스 누수 column 그래프
+
 function drawLeak(cons, pred, upperName, Name) {
 	var data = google.visualization.arrayToDataTable([ [ 'Element', 'value', {
 		role : "style"
@@ -576,6 +582,40 @@ function drawHistory(day1, day2, day3, day4, day5, day6, day7, avg) {
 	chart.draw(data, options);
 }
 
+//요약 리포트 부가 서비스별 최근 발생 횟수 및 한달간 발생 빈도 그래프
+function drawServiceFrequency( count_leak , count_absence , count_freezed , count_reverse , count_fat , count_breakage ) {
+	var data = google.visualization.arrayToDataTable([
+	                                                  ["Element", "Density", { role: "style" } ],
+	                                                  ["누수", count_leak, "color: blue"],
+	                                                  ["부재중", count_absence, "color: blue"],
+	                                                  ["동파", count_freezed, "color: blue"],
+	                                                  ["역류", count_reverse, "color: blue"],
+	                                                  ["비만", count_fat, "color: blue"],
+	                                                  ["파손", count_breakage, "color: blue"]
+	                                                  ]);
+	
+	var view = new google.visualization.DataView(data);
+	view.setColumns([0, 1,
+	                 { calc: "stringify",
+		sourceColumn: 1,
+		type: "string",
+		role: "annotation" },
+		2]);
+	
+	var options = {
+			title: "지번 달 부가서비스 발생 횟수",
+			width: 300,
+			height: 230,
+			chartArea: {'width': '80%', 'height': '80%'},
+			bar: {groupWidth: "40%"},
+			legend: { position: "none" },
+	};
+	var chart = new google.visualization.ColumnChart(document.getElementById("info_service"));
+	chart.draw(view, options);
+	
+}
+
+
 // 동 요약 리포트
 /*
  * 2016.4.3 수정 : summaryReport데이터에서 요약리포트 만드는것으로 바꿈.(욱현)
@@ -599,6 +639,8 @@ function drawDongSummaryReport(addressArray) {
 	var sum_day6 = 0;
 	var sum_day7 = 0;
 	var sum_weeklyConsumption = 0;
+	
+	
 
 	var userCount = 0;
 	var dongCount = 0;
@@ -613,6 +655,13 @@ function drawDongSummaryReport(addressArray) {
 	var count_reverse = 0;
 	var count_fat = 0;
 	var count_breakage = 0;
+	
+	var leakFrequency = 0;
+	var absenceFrequency = 0;
+	var freezedFrequency = 0;
+	var reverseFrequency = 0;
+	var fatFrequency = 0;
+	var breakageFrequency = 0;
 
 	var dongList = [ ];
 
@@ -674,51 +723,78 @@ function drawDongSummaryReport(addressArray) {
 			if ( summaryReportList[j].breakage == 1 ) {
 				count_breakage ++;
 			}
+			
+			leakFrequency += Number (summaryReportList[j].countLeak);
+			absenceFrequency += Number (summaryReportList[j].countAbsence);
+			freezedFrequency += Number(summaryReportList[j].countFreezed);
+			reverseFrequency += Number(summaryReportList[j].countReverse);
+			fatFrequency += Number(summaryReportList[j].countFat);
+			breakageFrequency += Number(summaryReportList[j].countBreakage);
 		}
 	}
 
 	//1.주소칸
-	document.getElementById('info_date').innerHTML = address; // 주소 출력
-	info_date.style.fontSize = "90%"; // 주소 출력 폰트 사이즈
+	document.getElementById('modal-title').innerHTML = incheon+ ' ' + gu + ' ' + dong ; // 주소 출력
+
+
 
 	$(".checkBox").prop('checked', false) ;
 
 	//2.부가서비스별 발생 횟수.
-	document.getElementById('check_leak').innerHTML = "누수 : " + count_leak + "명";
-	check_leak.style.fontSize = "80%";
-	if (count_leak != 0 ) {
+	document.getElementById('blockLeak').innerHTML = count_leak + "건";
+	blockLeak.style.fontSize = "130%";
+	/*
+	 if (count_leak != 0 ) {
 		document.getElementById("checkBox_leak").checked = true;
 	}
-
-	document.getElementById('check_absence').innerHTML = "부재중 : " + count_absence + "명";
-	check_absence.style.fontSize = "80%";
-	if (count_absence != 0 ) {
-		document.getElementById("checkBox_absence").checked = true;
-	}
-
-	document.getElementById('check_freezed').innerHTML = "동파 : " + count_freezed + "명";
-	check_freezed.style.fontSize = "80%";
+	*/
+	
+	document.getElementById('blockFreezed').innerHTML = count_freezed + "건";
+	blockFreezed.style.fontSize = "130%";
+	/*
 	if (count_freezed != 0 ) {
 		document.getElementById("checkBox_freezed").checked = true;
 	}
-
-	document.getElementById('check_reverse').innerHTML = "역류 : " + count_reverse + "명";
-	check_reverse.style.fontSize = "80%";
-	if (count_reverse != 0 ) {
-		document.getElementById("checkBox_reverse").checked = true;
-	}
-
-	document.getElementById('check_fat').innerHTML = "비만 : " + count_fat + "명";
-	check_fat.style.fontSize = "80%";
+	*/
+	document.getElementById('blockFat').innerHTML = count_fat + "건";
+	blockFat.style.fontSize = "130%";
+	/*
 	if (count_fat != 0 ) {
 		document.getElementById("checkBox_fat").checked = true;
 	}
-
-	document.getElementById('check_breakage').innerHTML = "파손 : " + count_breakage + "명";
-	check_breakage.style.fontSize = "80%";
+	*/
+	document.getElementById('blockBreakage').innerHTML = count_breakage + "건";
+	blockBreakage.style.fontSize = "130%";
+	/*
 	if (count_breakage != 0 ) {
 		document.getElementById("checkBox_breakage").checked = true;
 	}
+	*/
+	
+	document.getElementById('blockReverse').innerHTML = count_reverse + "건";
+	blockReverse.style.fontSize = "130%";
+	
+	/*
+	if (count_reverse != 0 ) {
+		document.getElementById("checkBox_reverse").checked = true;
+	}
+	*/
+
+	document.getElementById('blockAbsence').innerHTML = count_absence + "건";
+	blockAbsence.style.fontSize = "130%";
+	/*
+	if (count_absence != 0 ) {
+		document.getElementById("checkBox_absence").checked = true;
+	}
+	*/
+
+	
+
+
+
+	
+
+
 
 	//일주일치 사용량 합 구하기.
 	sum_weeklyConsumption += sum_day1 + sum_day2 + sum_day3 + sum_day4 + sum_day5 + sum_day6 + sum_day7;
@@ -728,11 +804,13 @@ function drawDongSummaryReport(addressArray) {
 
 	//4.요약 report history 그래프 그리기.
 	drawHistory(sum_day7 , sum_day6 , sum_day5 , sum_day4 , sum_day3 , sum_day2 , sum_day1 , sum_weeklyConsumption/7 );
+	
+	drawServiceFrequency(leakFrequency, absenceFrequency, freezedFrequency, reverseFrequency, fatFrequency, breakageFrequency);
 
 
-	leak_text.style.fontSize = "80%";
-	absence_text.style.fontSize = "80%";
-	freeze_text.style.fontSize = "80%";
+	//leak_text.style.fontSize = "80%";
+	//absence_text.style.fontSize = "80%";
+	//freeze_text.style.fontSize = "80%";
 
 //	if (leak_date != "null")
 //		document.getElementById('leak_text').innerHTML = '최근 누수 날짜 :' + ' '

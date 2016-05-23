@@ -5,6 +5,9 @@ body {
   background-color: #fff;
 
 }
+
+
+
 .h1,
 .h2,
 .h3,
@@ -17,6 +20,20 @@ a {
   color: #575757;
   text-decoration: none;
 }
+
+
+.gm-style-iw{
+top: 0px;
+position: absolute;
+left: 0px;
+width: 484px;
+overflow: auto;
+max-height: 350px;
+max-width: 850px;
+}
+
+
+
 a:hover,
 a:focus {
   color: #7d7d7d;
@@ -516,6 +533,7 @@ border-top:1px solid #2d7ecb;
 .modal-content {
   -webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.25);
   box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  border : 0px solid;
 }
 .icon-lg:before {
   vertical-align: -10%;
@@ -792,7 +810,7 @@ html.layout-box .vbox > footer {
   font-size: 25px;
   line-height: 60px;
   display: block;
-  border-bottom:#08427b solid 1px;/* 異붽� */
+  border-bottom:#08427b solid 1px;/* �빊遺쏙옙 */
 }
 .nav-brand:hover {
   text-decoration: none;
@@ -1068,7 +1086,7 @@ html.layout-box .vbox > footer {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-	border-right:#383f52 solid 1px;/* 異붽� */
+	border-right:#383f52 solid 1px;/* �빊遺쏙옙 */
   }
   .nav-off-screen .nav-primary {
     display: block !important;
