@@ -413,14 +413,12 @@ summaryReportList.push( {
 						<script type="text/javascript" src="../js/googlemap.js"></script>
 						<section class="panel m-t-xxs" id="map_canvas">
 							<div id="color-interpolation" class="color-interpolation"></div>
-	
-							<div class="panel-body">
-							
-							</div>
+
+							<div class="panel-body"></div>
 						</section>
 
 
-<!-- 
+						<!-- 
 						<section>
 
 							<div id="map_canvas" style="width: 100%; height: 95%;"></div>
@@ -458,8 +456,7 @@ summaryReportList.push( {
 
 	<!-- 팝업창 default = 숨김 -->
 
-	<div class="modal-dialog" id="modal-dialog"
-		style="width: 750px; height: 400px;">
+	<div class="modal-dialog" id="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="modal-title"></h4>
@@ -521,7 +518,16 @@ summaryReportList.push( {
 						</section>
 					</div>
 
-					<div class="col-lg-4"></div>
+<!--  지난달 부가서비스 발생횟수 없앰
+					<div class="col-lg-4">
+						<section class="panel">
+							<header class="panel-heading">지난달 부가서비스 발생횟수</header>
+							<div class="panel-body text-center">
+								<img src="../images/chart-3.jpg">
+							</div>
+						</section>
+					</div>
+-->
 				</div>
 			</div>
 		</div>
