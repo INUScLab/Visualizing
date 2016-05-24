@@ -391,7 +391,7 @@
 												<header class="panel-heading text-primary font-semibold h5">
 													<i class="fa fa-chevron-circle-right"></i> <%=dateYear + "년 " + dateMonth + "월" %>
 												</header>
-												<table class="table table-striped b-t-blue">
+												<table class="table table-striped b-t-blue" style="width: 4500px;">
 													<thead>
 														<tr>
 															<th width="5">번호</th>
