@@ -39,29 +39,26 @@
 <head>
 <meta charset="utf-8" />
 <title>::: 수도검침서비스 :::</title>
-<meta name="description" content="" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1" />
-<link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
-<link rel="stylesheet" href="../css/font-awesome.min.css"
-	type="text/css" />
-<link rel="stylesheet" href="../css/font.css" type="text/css"
-	cache="false" />
-<link rel="stylesheet" href="../css/app.css" type="text/css" />
-<!--[if lt IE 9]>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="/Visualizing/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="/Visualizing/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="/Visualizing/css/font.css" type="text/css" cache="false" />
+  <link rel="stylesheet" href="/Visualizing/css/app.css" type="text/css" />
+  <!--[if lt IE 9]>
     <script src="js/ie/respond.min.js" cache="false"></script>
     <script src="js/ie/html5.js" cache="false"></script>
     <script src="js/ie/fix.js" cache="false"></script>
   <![endif]-->
-<script src="../js/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="../js/bootstrap.js"></script>
-<!-- App -->
-<script src="../js/app.js"></script>
-<script src="../js/app.plugin.js"></script>
-<script src="../js/app.data.js"></script>
-<!-- datepicker -->
-<script src="../js/datepicker/bootstrap-datepicker.js"></script>
+  <script src="/Visualizing/js/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="/Visualizing/js/bootstrap.js"></script>
+  <!-- App -->
+  <script src="/Visualizing/js/app.js"></script>
+  <script src="/Visualizing/js/app.plugin.js"></script>
+  <script src="/Visualizing/js/app.data.js"></script>
+  <!-- datepicker -->
+  <script src="/Visualizing/js/datepicker/bootstrap-datepicker.js"></script>
 <!--구글 그래프 그리기-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">

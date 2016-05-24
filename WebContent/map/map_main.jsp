@@ -49,7 +49,6 @@
 <script src="/Visualizing/js/app.js"></script>
 <script src="/Visualizing/js/app.plugin.js"></script>
 <script src="/Visualizing/js/app.data.js"></script>
-<script src="/Visualizing/js/pushy.min.js"></script>
 
 </head>
 <body onload="initialize()">
