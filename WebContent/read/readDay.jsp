@@ -28,14 +28,10 @@
 	String dateYear = request.getParameter("dateYear");
 	String dateMonth = request.getParameter("dateMonth");
 	String dateDay = request.getParameter("dateDay");
+	String searchDate;
 	
 	String[] str = request.getParameterValues("status");
 
-	if(str != null){
-		for(int i=0;i<str.length;i++){
-			System.out.println(str[i]);
-		}
-	}
 	if (dateYear == null || dateYear.equals(""))
 		dateYear = "2015";
 	if (dateMonth == null || dateMonth.equals(""))
@@ -43,6 +39,8 @@
 	if (dateDay == null || dateDay.equals(""))
 		dateDay = "01";
 
+	searchDate = dateYear + "-" + dateMonth + "-" + dateDay;
+	
 	if (si == null || si.equals(""))
 		si = "인천광역시";
 	if (guGun == null || guGun.equals(""))
@@ -67,14 +65,14 @@
 		page_start_num = "1";
 	}
 
-	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear + "	" + dateMonth + "	" + dateDay);
-	/*
-	ArrayList<ReadData> array_list = rctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
+	System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + searchDate);
+	
+	ArrayList<ReadData> array_list = rctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, str, searchDate);
 
 	if (data_end_num > array_list.size()){
 		data_end_num = array_list.size();
 	}
-	*/
+	
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 	Date currentDate = new Date ();
@@ -470,9 +468,26 @@
 														</tr>
 													</thead>
 													<tbody>
+														<%
+															for (int i = data_start_num; i < data_end_num; i++) {
+														%>
 														<tr>
-															<td></td>
+															<td><%=array_list.get(i).getCode()%></td>
+															<td><%=array_list.get(i).getDetail()%></td>
+															<td><%=array_list.get(i).getNumber()%></td>
+															<td><%=array_list.get(i).getMeter_num()%></td>
+															<td><%=array_list.get(i).getMeter_type()%></td>
+															<% if(array_list.get(i).getMeter_status()=="정상"){ %>
+																<td><%=array_list.get(i).getMeter_status()%></td>
+															<%}else{%>
+																<td style="font-weight:bold;color:red"><%=array_list.get(i).getMeter_status()%></td>
+															<%}%>
+															<td><%=array_list.get(i).getDate()%></td>
+															<td><%=array_list.get(i).getConsumed()%></td>
 														</tr>
+														<%
+															}
+														%>
 													</tbody>
 												</table>
 											</div>
