@@ -978,44 +978,7 @@ function codeAddress() {
 				j++;
 			}
 			
-			
-			var i = 0;
-			while (i < guDongLatLngList.length) {
-				if (guDongLatLngList[i].umDong == address) {
-					addressArray[0] = "인천광역시";
-					addressArray[1] = guDongLatLngList[i].guGun;
-					addressArray[2] = guDongLatLngList[i].umDong;
-				}
-				i++;
-			}
-			
-
-			dongSummary(addressArray);
-
-			// if address is dong or block or specific area , zoom level + 3
-			if (dongList.indexOf(addressArray[2]) != -1
-					|| dongList.indexOf(address) != -1) {
-
-				getDetailAreaInformation(addressArray);
-				// if address is not a dong or specific area , restore zoom
-				// level to 13
-			}
-
-			else {
-
-				globalMap.setOptions({
-					'zoom' : 13
-				});
-
-				// Create Marker
-				searchMarker = new google.maps.Marker({
-					map : globalMap,
-					position : results[0].geometry.location,
-					icon : pinImage,
-					shadow : pinShadow
-				});
-			}
-
+	
 		} else {
 			alert('Geocode was not successful for the following reason: '
 					+ status);
