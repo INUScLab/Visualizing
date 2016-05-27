@@ -16,6 +16,13 @@ var abnormalColor = "FF0000";
 var normalColor = "2ECCFA";
 var incheon = "인천광역시";
 var infoWindow ;
+var leakcount = 0;
+var freezecount = 0;
+var fatcount = 0;
+var breakcount = 0;
+var reversecount = 0;
+var absencecount = 0;
+
 
 // 맵 초기화initialize 
 function initialize( ) {
@@ -177,6 +184,11 @@ function createInfoWindow(markerinfo, contentString){
                 drawDongSummaryReport(addressArray) // 요약 리포트
 }
 
+
+
+
+
+		
 
 // 전체 사용자들 가운데 누수/동파/부재중/역류/비만관/파손 에 해당하는 사용자들을 포함하는 동을 빨간색, 나머지는 초록색으로 표시
 function createDongMarkers( ) {
@@ -378,6 +390,37 @@ function drawConsumerReport( addressArray ){
 		
 	}
 }
+
+//누수, 동파, 비만, 파손, 역류, 부재중  동단위 count
+
+function countTrouble(){
+	for (var i = 0; i < dongInfoList.length; i++) {
+		if(dongInfoList[i].leak != 0)
+			leakcount++;
+		if(dongInfoList[i].freezed != 0)
+			freezecount++;
+		if(dongInfoList[i].fat != 0)
+			fatcount++;
+		if(dongInfoList[i].breakage != 0)
+			breakcount++;
+		if(dongInfoList[i].reverse != 0)
+			reversecount++;
+		if(dongInfoList[i].absence != 0)
+			absencecount++;
+	}
+}
+
+countTrouble();
+
+
+//아이콘 숫자 생성
+document.getElementById('overusedIcon').innerHTML = leakcount;
+console.log(leakcount);
+document.getElementById('freezeIcon').innerHTML = freezecount;
+document.getElementById('fatIcon').innerHTML = fatcount;
+document.getElementById('breakIcon').innerHTML = breakcount;
+document.getElementById('reverseIcon').innerHTML = reversecount;
+document.getElementById('absenceIcon').innerHTML = absencecount;
 
 //요약 report column 그래프(사용량, 예측량, 일주일 평균, 지역 평균
 function drawColumn(cons, pred, week, region) {
@@ -742,6 +785,11 @@ function drawDongSummaryReport(addressArray) {
 		}
 	}
 
+	
+	
+	
+	
+	
 	//1.주소칸
 	document.getElementById('modal-title').innerHTML = incheon+ ' ' + gu + ' ' + dong ; // 주소 출력
 

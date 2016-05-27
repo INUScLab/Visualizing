@@ -2120,7 +2120,7 @@ pre code {
     width: 41.66666667%;
   }
   .col-lg-4 {
-    width: 50%;
+    width: 33.33333333%;
   }
   .col-lg-3 {
     width: 25%;
@@ -5969,8 +5969,8 @@ button.close {
 .modal-dialog:after {
   position: absolute;
   display: block;
-  width: 0;
-  height: 0;
+  width: 800px;
+  height: 500px;
   border-color: transparent;
   border-style: solid;
 }

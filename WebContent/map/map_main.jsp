@@ -357,39 +357,43 @@ summaryReportList.push( {
 									<!-- 누수 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/water.png" data-toggle="tooltip"
-											data-placement="bottom" title="누수"><span
-											class="badge bg-danger">6</span>
+											data-placement="bottom" title="누수">
+											<span class="badge bg-danger"><div id="overusedIcon"></div></span>
 									</a></li>
 									<!-- 누수 end -->
 									<!-- 동파 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/winter.png" data-toggle="tooltip"
 											data-placement="bottom" title="동파">
+											<span class="badge bg-danger"><div id="freezeIcon"></div></span>
 									</a></li>
 									<!-- 동파 end -->
 									<!-- 비만 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/obesity.png" data-toggle="tooltip"
-											data-placement="bottom" title="비만"><span
-											class="badge bg-warning">7</span>
+											data-placement="bottom" title="비만">
+											<span class="badge bg-warning"><div id="fatIcon"></div></span>
 									</a></li>
 									<!-- 비만 end -->
 									<!-- 파손 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/damage.png" data-toggle="tooltip"
 											data-placement="bottom" title="파손">
+											<span class="badge bg-danger"><div id="breakIcon"></div></span>
 									</a></li>
 									<!-- 파손 end -->
 									<!-- 역류 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/backwash.png" data-toggle="tooltip"
 											data-placement="bottom" title="역류">
+											<span class="badge bg-danger"><div id="reverseIcon"></div></span>
 									</a></li>
 									<!-- 역류 end -->
 									<!-- 비만 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/absence.png" data-toggle="tooltip"
 											data-placement="bottom" title="부재중">
+											<span class="badge bg-danger"><div id="absenceIcon"></div></span>
 									</a></li>
 									<!-- 비만 end -->
 								</ul>
@@ -516,7 +520,7 @@ summaryReportList.push( {
 						</section>
 					</div>
 
-<!--  지난달 부가서비스 발생횟수 없앰
+
 					<div class="col-lg-4">
 						<section class="panel">
 							<header class="panel-heading">지난달 부가서비스 발생횟수</header>
@@ -525,7 +529,7 @@ summaryReportList.push( {
 							</div>
 						</section>
 					</div>
--->
+
 				</div>
 			</div>
 		</div>
