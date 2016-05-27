@@ -945,24 +945,40 @@ function codeAddress() {
 			"http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
 			new google.maps.Size(40, 37), new google.maps.Point(0, 0),
 			new google.maps.Point(12, 35));
+	var contentString = document.getElementById("modal-dialog");
 
 	console.log(address);
+	
 	globalGeocoder.geocode({
 		'address' : address
 	}, function(results, status) {
 		if (status === google.maps.GeocoderStatus.OK) {
 
 			searchMarker.setMap(null);
-
+			
+			var addressArray = address.split(" ");
+			var dongMarkerstTitle = dongMarkers
+			console.log(address);
+			console.log(dongMarkers[1].title);
+			
+			
 			// Locate to map
 			globalMap.setCenter(results[0].geometry.location);
 
-			var dongList = normalUsedDongList.concat(overUsedDongList);
-			var addressArray = address.split(' ');
-			addressArray = addressArray[1] + " " + addressArray[2] + " "
-					+ addressArray[3];
-			addressArray = addressArray.split(" ");
-
+			//var dongList = normalUsedDongList.concat(overUsedDongList);
+			
+			var j = 0;
+			while(j < dongMarkers.length){
+				var dong = dongMarkers[j].title.split(" ");
+				console.log(dong[j]);
+				if(addressArray[3] == dong[2]){
+					createInfoWindow(dongMarkers[j], contentString)
+					
+				}
+				j++;
+			}
+			
+			
 			var i = 0;
 			while (i < guDongLatLngList.length) {
 				if (guDongLatLngList[i].umDong == address) {
@@ -972,6 +988,7 @@ function codeAddress() {
 				}
 				i++;
 			}
+			
 
 			dongSummary(addressArray);
 

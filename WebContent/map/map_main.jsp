@@ -233,22 +233,21 @@ summaryReportList.push( {
 					<!-- 주소 검색 -->
 					<aside class="aside-lg bg-white b-r-line">
 						<section class="vbox">
-							<form
-								class="navbar-form1 navbar-left no-padder-mobile bg-dk-mobile"
-								role="search">
+							<div class="navbar-form1 navbar-left no-padder-mobile bg-dk-mobile" role="search">
+								
 								<div class="form-group ">
 									<div class="input-group">
 										<input type="text" class="form-control font-thin no-radius"
 											id="searchbox" placeholder="동을 입력해 주세요"
 											onkeypress="if(event.keyCode==13) {codeAddress();}">
 										<span class="input-group-btn" onclick="codeAddress()">
-											<button class="btn btn-white no-radius">
+											<button class="btn btn-white no-radius" onclick="codeAddress()">
 												<i class="fa fa-search"></i>
 											</button>
 										</span>
 									</div>
 								</div>
-							</form>
+							</div>
 							<!-- 도로명 주소,지번주소 tab 영역-->
 							<header class="header bg-gradient-1 shift">
 								<ul class="nav nav-tabs">
