@@ -583,6 +583,7 @@ function drawServiceFrequency( count_leak , count_absence , count_freezed , coun
 	
 	var options = {
 			title: "지번 달 부가서비스 발생 횟수",
+			height: 200,
 			chartArea: {'width': '80%', 'height': '80%'},
 			bar: {groupWidth: "40%"},
 			legend: { position: "none" },
