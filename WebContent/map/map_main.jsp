@@ -72,9 +72,9 @@
 			class="visualizing.Mapreport.SummaryReportCtrl" />
 
 		<%
-  ArrayList<DongInfo> dongInfoList = DongInfoCtrl.getDongInfoList();
-  ArrayList<SummaryReport> summaryReportList = SummaryReportCtrl.getSummaryReportList();
-%>
+			ArrayList<DongInfo> dongInfoList = DongInfoCtrl.getDongInfoList();
+				ArrayList<SummaryReport> summaryReportList = SummaryReportCtrl.getSummaryReportList();
+		%>
 		<script type="text/javascript">
 var dongInfoList = new Array();
 
@@ -133,10 +133,10 @@ summaryReportList.push( {
   countFat:"<%=summaryReportList.get(i).getCountFat()%>",
   countBreakage:"<%=summaryReportList.get(i).getCountBreakage()%>",
 
-      });
-<%}%>
-
-</script>
+});
+		<%}%>
+			
+		</script>
 
 		<section class="hbox stretch">
 			<!-- aside -->
@@ -233,15 +233,18 @@ summaryReportList.push( {
 					<!-- 주소 검색 -->
 					<aside class="aside-lg bg-white b-r-line">
 						<section class="vbox">
-							<div class="navbar-form1 navbar-left no-padder-mobile bg-dk-mobile" role="search">
-								
+							<div
+								class="navbar-form1 navbar-left no-padder-mobile bg-dk-mobile"
+								role="search">
+
 								<div class="form-group ">
 									<div class="input-group">
 										<input type="text" class="form-control font-thin no-radius"
 											id="searchbox" placeholder="동을 입력해 주세요"
 											onkeypress="if(event.keyCode==13) {codeAddress();}">
 										<span class="input-group-btn" onclick="codeAddress()">
-											<button class="btn btn-white no-radius" onclick="codeAddress()">
+											<button class="btn btn-white no-radius"
+												onclick="codeAddress()">
 												<i class="fa fa-search"></i>
 											</button>
 										</span>
@@ -257,7 +260,7 @@ summaryReportList.push( {
 										data-toggle="tab">지번주소</a></li>
 								</ul>
 							</header>
-							<!-- //도로명 주소,지번주소 tab 영역-->
+							<!-- //도로명 주소,지번주소 tab 영역.. 검색결과 갯수를 for로 늘림?    -->
 
 							<section class="scrollable m-t-lg shift">
 								<div class="tab-content">
@@ -266,11 +269,23 @@ summaryReportList.push( {
 										<h5 class="bg-gradient-tit">
 											검색결과 <span class="text-black font-semibold">(000 건)</span>
 										</h5>
+
 										<ul
 											class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
 											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
+													<strong class="block"> 장소</strong> <small>번호<br /></small>
+													<small>번지수</small>
+											</a></li>
+
+
+
+
+
+
+											<!-- 
+											<li class="list-group-item"><a href="#" class="clear">
+													<strong class="block"> </strong> <small> <br /></small>
+													<small> </small>
 											</a></li>
 											<li class="list-group-item"><a href="#" class="clear">
 													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
@@ -316,14 +331,27 @@ summaryReportList.push( {
 													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
 													<small>김시식지 1길 57-6</small>
 											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
+											 -->
+
+
+
+
 										</ul>
+
+
+
+
+										<!-- 
+										
 										<h5 class="bg-gradient-tit b-b b-t">
 											검색결과 <span class="text-black font-semibold">(000 건)</span>
 										</h5>
+										 -->
+
+
+
+
+
 									</div>
 									<!-- //도로명 주소 -->
 									<!-- 지번주소 -->
@@ -357,53 +385,59 @@ summaryReportList.push( {
 									<!-- 누수 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/water.png" data-toggle="tooltip"
-											data-placement="bottom" title="누수">
-											<span class="badge bg-danger"><div id="overusedIcon"></div></span>
+											data-placement="bottom" title="누수" id="img_leak"
+											onclick="icon_clicked('img_leak')"> <span
+											class="badge bg-danger"><div id="overusedIcon"></div></span>
 									</a></li>
 									<!-- 누수 end -->
 									<!-- 동파 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/winter.png" data-toggle="tooltip"
-											data-placement="bottom" title="동파">
-											<span class="badge bg-danger"><div id="freezeIcon"></div></span>
+											data-placement="bottom" title="동파" id="img_freeze"
+											onclick="icon_clicked('img_freeze')"> <span
+											class="badge bg-danger"><div id="freezeIcon"></div></span>
 									</a></li>
 									<!-- 동파 end -->
 									<!-- 비만 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/obesity.png" data-toggle="tooltip"
-											data-placement="bottom" title="비만">
-											<span class="badge bg-warning"><div id="fatIcon"></div></span>
+											data-placement="bottom" title="비만" id="img_fat"
+											onclick="icon_clicked('img_fat')"> <span
+											class="badge bg-danger"><div id="fatIcon"></div></span>
 									</a></li>
 									<!-- 비만 end -->
 									<!-- 파손 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/damage.png" data-toggle="tooltip"
-											data-placement="bottom" title="파손">
-											<span class="badge bg-danger"><div id="breakIcon"></div></span>
+											data-placement="bottom" title="파손" id="img_break"
+											onclick="icon_clicked('img_break')"> <span
+											class="badge bg-danger"><div id="breakIcon"></div></span>
 									</a></li>
 									<!-- 파손 end -->
 									<!-- 역류 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/backwash.png" data-toggle="tooltip"
-											data-placement="bottom" title="역류">
-											<span class="badge bg-danger"><div id="reverseIcon"></div></span>
+											data-placement="bottom" title="역류" id="img_reverse"
+											onclick="icon_clicked('img_reverse')"> <span
+											class="badge bg-danger"><div id="reverseIcon"></div></span>
 									</a></li>
 									<!-- 역류 end -->
-									<!-- 비만 start-->
+									<!-- 부재중 start-->
 									<li class="dropdown"><a class="dropdown-toggle" href="#">
 											<img src="../images/absence.png" data-toggle="tooltip"
-											data-placement="bottom" title="부재중">
-											<span class="badge bg-danger"><div id="absenceIcon"></div></span>
+											data-placement="bottom" title="부재중" id="img_absence"
+											onclick="icon_clicked('img_absence')"> <span
+											class="badge bg-danger"><div id="absenceIcon"></div></span>
 									</a></li>
-									<!-- 비만 end -->
+									<!-- 부재중 end -->
 								</ul>
 								<!--  nd -->
 							</div>
 
 							<%
-              java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-              String today = formatter.format(new java.util.Date());
-            %>
+								java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+									String today = formatter.format(new java.util.Date());
+							%>
 							<div class="pull-right m-r-lg m-t-xxs shift">
 								<p class="m-t m-b text-primary">
 									<i class="fa fa-clock-o"></i> Date: <strong><%=today%></strong>
@@ -431,6 +465,79 @@ summaryReportList.push( {
 						</section>
 						 -->
 						<!-- //지도영역-->
+						<div id="element_to_pop_up">
+							<a class="b-close">x<a/>
+								<div class="modal-dialog" id="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="modal-title"></h4>
+										</div>
+
+										<div class="modal-body">
+											<div class="panel wrapper">
+
+												<div class="row">
+													<div class="col-xs-2 text-center">
+														<a href="#"> <span class="m-b-xs h4 block"
+															id="blockLeak"></small></span> <small class="text-muted h5">누수</small>
+														</a>
+													</div>
+													<div class="col-xs-2 text-center">
+														<a href="#"> <span class="m-b-xs h4 block"
+															id="blockFreezed"></small></span> <small class="text-muted h5">동파</small>
+														</a>
+													</div>
+													<div class="col-xs-2 text-center">
+														<a href="#"> <span class="m-b-xs h4 block"
+															id="blockFat"></small></span> <small class="text-muted h5">비만</small>
+														</a>
+													</div>
+													<div class="col-xs-2 text-center">
+														<a href="#"> <span class="m-b-xs h4 block"
+															id="blockBreakage"></small></span> <small class="text-muted h5">파손</small>
+														</a>
+													</div>
+													<div class="col-xs-2 text-center">
+														<a href="#"> <span class="m-b-xs h4 block"
+															id="blockReverse"></small></span> <small class="text-muted h5">역류</small>
+														</a>
+													</div>
+													<div class="col-xs-2 text-center">
+														<a href="#"> <span class="m-b-xs h4 block"
+															id="blockAbsence"></small></span> <small class="text-muted h5">부재중</small>
+														</a>
+													</div>
+												</div>
+											</div>
+											<div class="row m-t m-b">
+												<div class="col-lg-4">
+													<section class="panel">
+														<header class="panel-heading">사용량비교</header>
+														<div class="panel-body text-center" id="info_graph">
+														</div>
+													</section>
+												</div>
+
+												<div class="col-lg-4">
+													<section class="panel">
+														<header class="panel-heading">일주일 사용량 비교</header>
+														<div class="panel-body text-center" id="info_history">
+														</div>
+													</section>
+												</div>
+
+												<div class="col-lg-4">
+													<section class="panel">
+														<header class="panel-heading">지난달 부가서비스 발생횟수</header>
+														<div class="panel-body text-center" id="info_service">
+														</div>
+													</section>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+						</div>
 					</section>
 
 
@@ -453,91 +560,9 @@ summaryReportList.push( {
 
 
 				</section>
+
 			</section>
 	</c:if>
-
-	<!-- 팝업창 default = 숨김 -->
-
-	<div class="modal-dialog" id="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="modal-title"></h4>
-			</div>
-
-			<div class="modal-body">
-				<div class="panel wrapper">
-
-					<div class="row">
-						<div class="col-xs-2 text-center">
-							<a href="#"> <span class="m-b-xs h4 block" id="blockLeak"></small></span>
-								<small class="text-muted h5">누수</small>
-							</a>
-						</div>
-						<div class="col-xs-2 text-center">
-							<a href="#"> <span class="m-b-xs h4 block" id="blockFreezed"></small></span>
-								<small class="text-muted h5">동파</small>
-							</a>
-						</div>
-						<div class="col-xs-2 text-center">
-							<a href="#"> <span class="m-b-xs h4 block" id="blockFat"></small></span>
-								<small class="text-muted h5">비만</small>
-							</a>
-						</div>
-						<div class="col-xs-2 text-center">
-							<a href="#"> <span class="m-b-xs h4 block" id="blockBreakage"></small></span>
-								<small class="text-muted h5">파손</small>
-							</a>
-						</div>
-						<div class="col-xs-2 text-center">
-							<a href="#"> <span class="m-b-xs h4 block" id="blockReverse"></small></span>
-								<small class="text-muted h5">역류</small>
-							</a>
-						</div>
-						<div class="col-xs-2 text-center">
-							<a href="#"> <span class="m-b-xs h4 block" id="blockAbsence"></small></span>
-								<small class="text-muted h5">부재중</small>
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="row m-t m-b">
-					<div class="col-lg-4">
-						<section class="panel">
-							<header class="panel-heading">사용량비교</header>
-							<div class="panel-body text-center" id="info_graph">
-								<!-- img src="../images/chart-1.jpg" -->
-							</div>
-						</section>
-					</div>
-
-					<div class="col-lg-4">
-						<section class="panel">
-							<header class="panel-heading">일주일 사용량 비교</header>
-							<div class="panel-body text-center" id="info_history">
-								<!-- img src="../images/chart-2.jpg" -->
-							</div>
-						</section>
-					</div>
-
-
-					<div class="col-lg-4">
-						<section class="panel">
-							<header class="panel-heading">지난달 부가서비스 발생횟수</header>
-							<div class="panel-body text-center">
-								<img src="../images/chart-3.jpg">
-							</div>
-						</section>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script type="text/javascript">
-$("#modal-dialog").hide();	
-</script>
 
 
 

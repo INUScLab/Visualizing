@@ -1,6 +1,12 @@
 var globalGeocoder;
 var globalMap;
 var searchMarker = new google.maps.Marker();
+var leakMarkers = [ ];
+var freezeMarkers = [ ];
+var fatMarkers = [ ];
+var breakMarkers = [ ];
+var reverseMarkers = [ ];
+var absenceMarkers = [ ];
 var searchMarkers = [ ];
 var dongMarkers = [ ];
 var consumerMarkers = [ ] ;
@@ -11,6 +17,9 @@ var cnt_freeze = 0;
 var entire_flag = true;
 var leak_flag = false;
 var freezed_flag = false;
+var fat_flag = false;
+var break_flag = false;
+var reverse_flag = false;
 var absence_flag = false;
 var abnormalColor = "FF0000";
 var normalColor = "2ECCFA";
@@ -22,6 +31,15 @@ var fatcount = 0;
 var breakcount = 0;
 var reversecount = 0;
 var absencecount = 0;
+
+
+var click_countleak=0;
+var click_countfreeze=0;
+var click_countfat=0;
+var click_countbreak=0;
+var click_countreverse=0;
+var click_countabsence=0;
+
 
 
 // 맵 초기화initialize 
@@ -56,6 +74,8 @@ function initialize( ) {
 
 	//Create Entire Markers And Show all sign of abnormal dongs.
 	createDongMarkers();
+	search_info();
+
 
 	// Search Box
 	var input = document.getElementById('searchbox');
@@ -110,85 +130,137 @@ function initialize( ) {
 	// autoComplete Event
 	var autocomplete = new google.maps.places.Autocomplete(input);
 	google.maps.event.addDomListener(window, 'load', initialize);
+	
+	//아이콘 숫자 생성
+	document.getElementById('overusedIcon').innerHTML = leakcount;
+	document.getElementById('freezeIcon').innerHTML = freezecount;
+	document.getElementById('fatIcon').innerHTML = fatcount;
+	document.getElementById('breakIcon').innerHTML = breakcount;
+	document.getElementById('reverseIcon').innerHTML = reversecount;
+	document.getElementById('absenceIcon').innerHTML = absencecount;
 
-	/* jQuery for SELECT BOX */
-	$('#umDong_select').change(
-			function(e) {
-				var optionSelected = $("option:selected", this);
-				var textSelected = optionSelected.text();
 
-				for (var i = 0; i < guDongLatLngList.length; i++) {
-					if (dongInfoList[i].dong == textSelected) {
+}
 
-						// 초기 리포트hide
 
-						// 여기다가 요약 리포트 추가 코드 넣으셈 수창
-						var addressArray = [];
-						addressArray[0] = "인천광역시";
-						addressArray[1] = dongInfoList[i].guGun;
-						addressArray[2] = dongInfoList[i].umDong;
-						dongSummary(addressArray);
+//leak 발생한 동 temp저장하고, leakMarkers 배열에 삽입
+function search_info() {
 
-						globalMap.setOptions({
-							'zoom' : 16
-						});
-						globalMap.setCenter(new google.maps.LatLng(
-								dongInfoList[i].lat,
-								dongInfoList[i].lng));
-					}
+	for (var i = 0; i < dongInfoList.length; i++) {
+
+		if (dongInfoList[i].leak != 0) {
+			temp = dongInfoList[i].dong
+			//dongInfoList[i].gu + 
+			for (var j = 0; j < dongMarkers.length; j++) {
+				if (temp == dongMarkers[j].title.split(' ')[2]) {
+					// 마커를 저장한다.
+					leakMarkers.push(dongMarkers[j]);
 				}
-			});
 
-	$('#guGun_select').change(function(e) {
-		$('#umDong_select').html('').append("<option value=''>읍/면/동</option>");
-		var optionSelected = $("option:selected", this);
-		var textSelected = optionSelected.text();
-
-		var umDong_select = document.getElementById("umDong_select");
-		for (var i = 0; i < DongSummaryReportList.length; i++) {
-			if (DongSummaryReportList[i].guGun == textSelected) {
-				var option = document.createElement("option");
-				option.text = DongSummaryReportList[i].umDong;
-				console.log(option.text);
-				umDong_select.add(option);
 			}
 		}
-	});
+	}
+	
+	for (var i = 0; i < dongInfoList.length; i++) {
 
+		if (dongInfoList[i].freezed != 0) {
+			temp = dongInfoList[i].dong
+			//dongInfoList[i].gu + 
+			for (var j = 0; j < dongMarkers.length; j++) {
+				if (temp == dongMarkers[j].title.split(' ')[2]) {
+					// 마커를 저장한다.
+					freezeMarkers.push(dongMarkers[j]);
+				}
+
+			}
+		}
+	}
+	
+	for (var i = 0; i < dongInfoList.length; i++) {
+
+		if (dongInfoList[i].fat != 0) {
+			temp = dongInfoList[i].dong
+			//dongInfoList[i].gu + 
+			for (var j = 0; j < dongMarkers.length; j++) {
+				if (temp == dongMarkers[j].title.split(' ')[2]) {
+					// 마커를 저장한다.
+					fatMarkers.push(dongMarkers[j]);
+				}
+
+			}
+		}
+	}
+	
+	for (var i = 0; i < dongInfoList.length; i++) {
+
+		if (dongInfoList[i].breakage != 0) {
+			temp = dongInfoList[i].dong
+			//dongInfoList[i].gu + 
+			for (var j = 0; j < dongMarkers.length; j++) {
+				if (temp == dongMarkers[j].title.split(' ')[2]) {
+					// 마커를 저장한다.
+					breakMarkers.push(dongMarkers[j]);
+				}
+
+			}
+		}
+	}
+	
+	for (var i = 0; i < dongInfoList.length; i++) {
+
+		if (dongInfoList[i].reverse != 0) {
+			temp = dongInfoList[i].dong
+			//dongInfoList[i].gu + 
+			for (var j = 0; j < dongMarkers.length; j++) {
+				if (temp == dongMarkers[j].title.split(' ')[2]) {
+					// 마커를 저장한다.
+					reverseMarkers.push(dongMarkers[j]);
+				}
+
+			}
+		}
+	}
+	
+	for (var i = 0; i < dongInfoList.length; i++) {
+
+		if (dongInfoList[i].absence != 0) {
+			temp = dongInfoList[i].dong
+			//dongInfoList[i].gu + 
+			for (var j = 0; j < dongMarkers.length; j++) {
+				if (temp == dongMarkers[j].title.split(' ')[2]) {
+					// 마커를 저장한다.
+					absenceMarkers.push(dongMarkers[j]);
+				}
+
+			}
+		}
+	}
 }
-//infowindow 호출 함수
+
+
+
 function createInfoWindow(markerinfo, contentString){
 
-	
-	$("#modal-dialog").show();
-				globalMap.setCenter(markerinfo.position);
-				globalMap.setOptions({ 'zoom' : 15 });
+		globalMap.setCenter(markerinfo.position);
+		globalMap.setOptions({ 'zoom' : 15 });
 
-				infoWindow = new google.maps.InfoWindow({
-                		content: contentString,
-                		//maxWidth : 850,
-                		position : markerinfo.postion
-                });
-				
-				
-				
-
-				
-				infoWindow.close();
-				infoWindow.open(globalMap, markerinfo);
-                
+		infoWindow = new google.maps.InfoWindow({
+        		content: contentString,
+        		//maxWidth : 850,
+        		position : markerinfo.postion
+        });
+		
+//		infoWindow.close();
+		infoWindow.open(globalMap, markerinfo);
+		
+		
 //                hideDongMarkers();
-                var address = markerinfo.title;
-                var addressArray = address.split(' ');
-                
-                drawDongSummaryReport(addressArray) // 요약 리포트
+        var address = markerinfo.title;
+        var addressArray = address.split(' ');
+        
+        drawDongSummaryReport(addressArray) // 요약 리포트
 }
 
-
-
-
-
-		
 
 // 전체 사용자들 가운데 누수/동파/부재중/역류/비만관/파손 에 해당하는 사용자들을 포함하는 동을 빨간색, 나머지는 초록색으로 표시
 function createDongMarkers( ) {
@@ -223,21 +295,10 @@ function createDongMarkers( ) {
 
 			marker.set(globalMap);
 
-			// 생성한 동들의 마커에 대한 클 이벤트 생성.
-			var contentString = document.getElementById("modal-dialog");
 			
 			marker.addListener('click', function() {
-				
-
-		
-				createInfoWindow ( this, contentString);
-				console.log(this);
-//                createConsumerMarkers(addressArray); //수용가 마커 생성.
-                /*마커를 지우고 infoWindow 생성.
-				this.setMap(null);
-				infoWindow = new google.maps.InfoWindow({ content: this.title });
-				infoWindow.open( globalMap );
-                 */
+				 $('#element_to_pop_up').bPopup();
+				 drawDongSummaryReport(this.title.split(' '));
 			});
 		}
 	}
@@ -392,7 +453,6 @@ function drawConsumerReport( addressArray ){
 }
 
 //누수, 동파, 비만, 파손, 역류, 부재중  동단위 count
-
 function countTrouble(){
 	for (var i = 0; i < dongInfoList.length; i++) {
 		if(dongInfoList[i].leak != 0)
@@ -413,14 +473,6 @@ function countTrouble(){
 countTrouble();
 
 
-//아이콘 숫자 생성
-document.getElementById('overusedIcon').innerHTML = leakcount;
-console.log(leakcount);
-document.getElementById('freezeIcon').innerHTML = freezecount;
-document.getElementById('fatIcon').innerHTML = fatcount;
-document.getElementById('breakIcon').innerHTML = breakcount;
-document.getElementById('reverseIcon').innerHTML = reversecount;
-document.getElementById('absenceIcon').innerHTML = absencecount;
 
 //요약 report column 그래프(사용량, 예측량, 일주일 평균, 지역 평균
 function drawColumn(cons, pred, week, region) {
@@ -460,131 +512,6 @@ function drawColumn(cons, pred, week, region) {
 	chart.draw(view, options);
 }
 
-// 부가서비스 누수 column 그래프
-
-function drawLeak(cons, pred, upperName, Name) {
-	var data = google.visualization.arrayToDataTable([ [ 'Element', 'value', {
-		role : "style"
-	} ], [ Name, cons, '#b87333' ], // RGB value
-	[ upperName + '평균', pred, 'silver' ] // English color name
-	]);
-
-	var view = new google.visualization.DataView(data);
-	view.setColumns([ 0, 1, {
-		calc : "stringify",
-		sourceColumn : 1,
-		type : "string",
-		role : "annotation"
-	}, 2 ]);
-
-	var options = {
-		title : "누수횟수",
-		titleTextStyle : {
-			color : "black",
-			fontSize : 11
-		},
-		fontSize : 11,
-		bar : {
-			groupWidth : "50%"
-		},
-		legend : {
-			position : "none"
-		},
-		vAxis : {
-			minValue : 0,
-			viewWindow : {
-				min : 0
-			}
-		}
-	};
-
-	chart = new google.visualization.ColumnChart(document
-			.getElementById("leak_graph"));
-
-	chart.draw(view, options);
-}
-
-// 부가서비스 부재중 알람 column 그래프
-function drawAbsence(cons, pred, upperName, Name) {
-	var data = google.visualization.arrayToDataTable([ [ 'Element', 'value', {
-		role : "style"
-	} ], [ Name, cons, '#b87333' ], // RGB value
-	[ upperName + '평균', pred, 'silver' ] // English color name
-	]);
-
-	var view = new google.visualization.DataView(data);
-	view.setColumns([ 0, 1, {
-		calc : "stringify",
-		sourceColumn : 1,
-		type : "string",
-		role : "annotation"
-	}, 2 ]);
-
-	var options = {
-		title : "부재중 알람 횟수",
-		titleTextStyle : {
-			color : "black",
-			fontSize : 11
-		},
-		fontSize : 11,
-		bar : {
-			groupWidth : "50%"
-		},
-		legend : {
-			position : "none"
-		},
-		vAxis : {
-			minValue : 0,
-			viewWindow : {
-				min : 0
-			}
-		}
-	};
-	chart = new google.visualization.ColumnChart(document
-			.getElementById("absence_graph"));
-	chart.draw(view, options);
-}
-
-// 부가서비스 동파 column 그래프
-function drawFreeze(cons, pred, upperName, Name) {
-	var data = google.visualization.arrayToDataTable([ [ 'Element', 'value', {
-		role : "style"
-	} ], [ Name, cons, '#b87333' ], // RGB value
-	[ upperName + '평균', pred, 'silver' ] // English color name
-	]);
-
-	var view = new google.visualization.DataView(data);
-	view.setColumns([ 0, 1, {
-		calc : "stringify",
-		sourceColumn : 1,
-		type : "string",
-		role : "annotation"
-	}, 2 ]);
-
-	var options = {
-		title : "동파 횟수",
-		titleTextStyle : {
-			color : "black",
-			fontSize : 11
-		},
-		fontSize : 11,
-		bar : {
-			groupWidth : "50%"
-		},
-		legend : {
-			position : "none"
-		},
-		vAxis : {
-			minValue : 0,
-			viewWindow : {
-				min : 0
-			}
-		}
-	};
-	chart = new google.visualization.ColumnChart(document
-			.getElementById("freeze_graph"));
-	chart.draw(view, options);
-}
 
 // 일주일간 히스토리 꺾은선 그래프 그리는 함수
 function drawHistory(day1, day2, day3, day4, day5, day6, day7, avg) {
@@ -656,8 +583,6 @@ function drawServiceFrequency( count_leak , count_absence , count_freezed , coun
 	
 	var options = {
 			title: "지번 달 부가서비스 발생 횟수",
-			width: 300,
-			height: 230,
 			chartArea: {'width': '80%', 'height': '80%'},
 			bar: {groupWidth: "40%"},
 			legend: { position: "none" },
@@ -666,7 +591,6 @@ function drawServiceFrequency( count_leak , count_absence , count_freezed , coun
 	chart.draw(view, options);
 	
 }
-
 
 // 동 요약 리포트
 /*
@@ -795,8 +719,6 @@ function drawDongSummaryReport(addressArray) {
 
 
 
-	$(".checkBox").prop('checked', false) ;
-
 	//2.부가서비스별 발생 횟수.
 	document.getElementById('blockLeak').innerHTML = count_leak + "건";
 	blockLeak.style.fontSize = "130%";
@@ -855,7 +777,7 @@ function drawDongSummaryReport(addressArray) {
 
 	//일주일치 사용량 합 구하기.
 	sum_weeklyConsumption += sum_day1 + sum_day2 + sum_day3 + sum_day4 + sum_day5 + sum_day6 + sum_day7;
-	console.log(sum_consumed_gu , dongCount );
+	
 	//3.요약 report 사용량,예측량, 일주일 평균 , 지역 평균 그래프 그리기.
 	drawColumn(Math.round(sum_consumed), Math.round(sum_predicted), Math.round(sum_weeklyConsumption/7) , Math.round(sum_consumed_gu / dongCount) );
 
@@ -866,7 +788,6 @@ function drawDongSummaryReport(addressArray) {
 
 
 }
-
 
 
 // 전체 동들의 마커를 지도에 출력
@@ -901,83 +822,6 @@ function hideConsumerMarkersMarkers() {
 	consumerMarkers = [ ];
 }
 
-// 동에 해당하는 사용자들의 마커를 생성하고 요약 리포트를 띄움
-function getDetailAreaInformation(addressArray) {
-
-	var abnormalColor = "FF0000";
-	var normalColor = "00FFBC";
-	var color = "";
-
-	// 모든 마커를 지움.
-//	hideEntireDongMarkers(); 3.8 initialize() 에서 생성하지 않아서 숨길 필요 없음.
-	hideDetailMarkers(); //초기화
-
-	// 구글맵에서 동을 검색했을때 확대되는 줌 값.
-	if (globalMap.getZoom() < 16) {
-		globalMap.setOptions({
-			'zoom' : 16
-		});
-	}
-
-	// 동에 해당하는 상세 주소 리스트를 받아오고 마커를 생성하고 띄움.
-	for (var i = 0; i < userConsumptionList.length; i++) {
-
-		// 누수 아이콘이 켜져있고 해당하는 동에 누수인 사람들이 있으면
-		if ((entire_flag == true || leak_flag == true) && userConsumptionList[i].umDong == addressArray[2] ) {
-
-			//해당 동인 수용가 중에서 한가지라도 이상있는 수용가가 있으면 빨간색 마커
-			if( ( userConsumptionList[i].leak == 1 || userConsumptionList[i].freezed == 1 || userConsumptionList[i].absence == 1 ) ) {
-				color = abnormalColor;
-			}
-			//정상이면 초록초록
-			else{
-				color = normalColor;
-			}
-
-			// Create Marker
-			var pinImage = new google.maps.MarkerImage(
-					"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|"
-							+ color, new google.maps.Size(21, 34),
-					new google.maps.Point(0, 0), new google.maps.Point(10, 34));
-			var pinShadow = new google.maps.MarkerImage(
-					"http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
-					new google.maps.Size(40, 37), new google.maps.Point(0, 0),
-					new google.maps.Point(12, 35));
-
-			var marker = new google.maps.Marker(
-					{
-						title : addressArray[0] + " " + addressArray[1] + " "
-								+ addressArray[2] + " "
-								+ userConsumptionList[i].detail,
-						position : new google.maps.LatLng(
-								userConsumptionList[i].lat,
-								userConsumptionList[i].lng),
-						draggable : false,
-						icon : pinImage,
-						shadow : pinShadow,
-					});
-			detailMarkers.push(marker);
-		}
-
-	}
-
-	//동에 해당하는 모든 마커를 만들고 나서 출력.
-	showDetailMarkers();
-
-	// 사용자를 클릭했을때 이벤트
-	for (var i = 0; i < detailMarkers.length; i++) {
-		detailMarkers[i].addListener('click', function() {
-
-			// globalMap.setCenter(this.position);
-			var address = this.title;
-			var addressArray = address.split(' ');
-
-			userSummary(addressArray); // 요약리포트
-		});
-	}
-
-}
-
 // 지도 검색 - 자동완성 기능을 사용했을때와 그냥 동 이름을 검색했을때를 다시 생각할것.
 function codeAddress() {
 
@@ -993,9 +837,8 @@ function codeAddress() {
 			"http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
 			new google.maps.Size(40, 37), new google.maps.Point(0, 0),
 			new google.maps.Point(12, 35));
-	var contentString = document.getElementById("modal-dialog");
 
-	console.log(address);
+	
 	
 	globalGeocoder.geocode({
 		'address' : address
@@ -1006,10 +849,7 @@ function codeAddress() {
 			
 			var addressArray = address.split(" ");
 			var dongMarkerstTitle = dongMarkers
-			console.log(address);
-			console.log(dongMarkers[1].title);
-			
-			
+		
 			// Locate to map
 			globalMap.setCenter(results[0].geometry.location);
 
@@ -1018,8 +858,7 @@ function codeAddress() {
 			var j = 0;
 			while(j < dongMarkers.length){
 				var dong = dongMarkers[j].title.split(" ");
-				console.log(dong[j]);
-				if(addressArray[3] == dong[2]){
+				if(addressArray[3] == dong[2] || addressArray[0] == dong[2]){
 					createInfoWindow(dongMarkers[j], contentString)
 					
 				}
@@ -1035,53 +874,8 @@ function codeAddress() {
 
 }
 
-// Flag가 True인 아이콘을 출력.
-function showIcon() {
-
-	if (entire_flag) {
-		showEntireDongMarkers();
-		$('#img_entire').css("background-color", "yellow");
-		console.log("ddd");
-	} else {
-		hideEntireDongMarkers();
-		hideAbsenceDongMarkers();
-		hideFreezedDongMarkers();
-		hideLeakDongMarkers();
-		hideoverUsedDongMarkers();
-		$('#img_entire').css("background-color", "#FFFFFF");
-		$('#img_leak').css("background-color", "#FFFFFF");
-		$('#img_freezed').css("background-color", "#FFFFFF");
-		$('#img_absence').css("background-color", "#FFFFFF");
-	}
-
-	if (leak_flag) {
-		showLeakDongMarkers();
-		$('#img_leak').css("background-color", "yellow");
-	} else {
-		hideLeakDongMarkers();
-		$('#img_leak').css("background-color", "#FFFFFF");
-	}
-
-	if (absence_flag) {
-		showAbsenceDongMarkers();
-		$('#img_absence').css("background-color", "yellow");
-	} else {
-		hideAbsenceDongMarkers();
-		$('#img_absence').css("background-color", "#FFFFFF");
-	}
-
-	if (freezed_flag) {
-		showFreezedDongMarkers();
-		$('#img_freezed').css("background-color", "yellow");
-	} else {
-		hideFreezedDongMarkers();
-		$('#img_freezed').css("background-color", "#FFFFFF");
-	}
-
-}
-
 // 전체 보기 아이콘을 클릭했을때
-function entire_clicked(id) {
+function icon_clicked(id) {
 
 	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
 
@@ -1089,7 +883,138 @@ function entire_clicked(id) {
 	globalMap.setOptions({
 		'zoom' : 13
 	});
+	
+	console.log(id);
+	
+	if(id=="img_leak")
+		click_countleak++;
+	if(id=="img_freeze")
+		click_countfreeze++;
+	if(id=="img_fat")
+		click_countfat++;
+	if(id=="img_break")
+		click_countbreak++;
+	if(id=="img_reverse")
+		click_countreverse++;
+	if(id=="img_absence")
+		click_countabsence++;
+	
 
+	
+
+	
+	if((click_countleak%2)==1){
+		if(id=="img_leak"){
+			$('#img_leak').css("background-color", "yellow");
+		}
+	}
+	if((click_countleak%2)==0){
+		if(id=="img_leak"){
+			$('#img_leak').css("background-color", "white");
+		}
+	}
+	
+	
+	if((click_countfreeze%2)==1){
+		if(id=="img_freeze"){
+			$('#img_freeze').css("background-color", "yellow");
+		}
+	}
+	if((click_countfreeze%2)==0){
+		if(id=="img_freeze"){
+			$('#img_freeze').css("background-color", "white");
+		}
+	}
+	
+	if((click_countfreeze%2)==1){
+		if(id=="img_fat"){
+			$('#img_fat').css("background-color", "yellow");
+		}
+	}
+	if((click_countfat%2)==0){
+		if(id=="img_fat"){
+			$('#img_fat').css("background-color", "white");
+		}
+	}
+	
+	if((click_countbreak%2)==1){
+		if(id=="img_break"){
+			$('#img_break').css("background-color", "yellow");
+		}
+	}
+	if((click_countbreak%2)==0){
+		if(id=="img_break"){
+			$('#img_break').css("background-color", "white");
+		}
+	}
+	
+	if((click_countreverse%2)==1){
+		if(id=="img_reverse"){
+			$('#img_reverse').css("background-color", "yellow");
+		}
+	}
+	if((click_countreverse%2)==0){
+		if(id=="img_reverse"){
+			$('#img_reverse').css("background-color", "white");
+		}
+	}
+	
+	if((click_countabsence%2)==1){
+		if(id=="img_absence"){
+			$('#img_absence').css("background-color", "yellow");
+		}
+	}
+	if((click_countabsence%2)==0){
+		if(id=="img_absence"){
+			$('#img_absence').css("background-color", "white");
+		}
+	}
+	
+	
+	
+	console.log(click_countleak);
+	console.log(click_countleak%2);
+	/*
+	
+	if((countleak%2)==1){
+		if(id=="img_freeze")
+			$('#img_freeze').css("background-color", "yellow");
+		else
+			$('#img_freeze').css("background-color", "FFFFFF");
+	}
+	if((countleak%2)==1){
+		if(id=="img_fat")
+			$('#img_fat').css("background-color", "yellow");
+		else
+			$('#img_fat').css("background-color", "FFFFFF");
+	}
+	if((countleak%2)==1){
+		if(id=="img_break")
+			$('#img_break').css("background-color", "yellow");
+		else
+			$('#img_break').css("background-color", "FFFFFF");
+	}
+	if((countleak%2)==1){
+		if(id=="img_reverse")
+			$('#img_reverse').css("background-color", "yellow");
+		else
+			$('#img_reverse').css("background-color", "FFFFFF");
+	}
+	if((countleak%2)==1){
+		if(id=="img_absence")
+			$('#img_absence').css("background-color", "yellow");
+		else
+			$('#img_absence').css("background-color", "FFFFFF");
+	}
+	*/
+/*	
+	
+	
+	
+	
+	
+	
+	
 	if (entire_flag == false) {
 		entire_flag = true;
 
@@ -1115,13 +1040,22 @@ function entire_clicked(id) {
 	}
 
 	showIcon();
+	*/
 }
+
+
+
+
+
+
+
+
 
 /* 누수 아이콘을 클릭했을때
  * 누수 플래그가 true가 되고 나머지 플래그는 false가 됨.
  * 수용가 마커들은 숨김.
  */
-
+/*
 function leak_clicked(id) {
 
 
@@ -1217,3 +1151,22 @@ function absence_clicked(id) {
 
 	showIcon();
 }
+*/
+
+
+
+
+
+
+
+
+
+
+
+/*================================================================================
+ * @name: bPopup - if you can't get it up, use bPopup
+ * @author: (c)Bjoern Klinggaard (twitter@bklinggaard)
+ * @demo: http://dinbror.dk/bpopup
+ * @version: 0.9.4.min
+ ================================================================================*/
+ (function(b){b.fn.bPopup=function(z,F){function K(){a.contentContainer=b(a.contentContainer||c);switch(a.content){case "iframe":var h=b('<iframe class="b-iframe" '+a.iframeAttr+"></iframe>");h.appendTo(a.contentContainer);r=c.outerHeight(!0);s=c.outerWidth(!0);A();h.attr("src",a.loadUrl);k(a.loadCallback);break;case "image":A();b("<img />").load(function(){k(a.loadCallback);G(b(this))}).attr("src",a.loadUrl).hide().appendTo(a.contentContainer);break;default:A(),b('<div class="b-ajax-wrapper"></div>').load(a.loadUrl,a.loadData,function(){k(a.loadCallback);G(b(this))}).hide().appendTo(a.contentContainer)}}function A(){a.modal&&b('<div class="b-modal '+e+'"></div>').css({backgroundColor:a.modalColor,position:"fixed",top:0,right:0,bottom:0,left:0,opacity:0,zIndex:a.zIndex+t}).appendTo(a.appendTo).fadeTo(a.speed,a.opacity);D();c.data("bPopup",a).data("id",e).css({left:"slideIn"==a.transition||"slideBack"==a.transition?"slideBack"==a.transition?g.scrollLeft()+u:-1*(v+s):l(!(!a.follow[0]&&m||f)),position:a.positionStyle||"absolute",top:"slideDown"==a.transition||"slideUp"==a.transition?"slideUp"==a.transition?g.scrollTop()+w:x+-1*r:n(!(!a.follow[1]&&p||f)),"z-index":a.zIndex+t+1}).each(function(){a.appending&&b(this).appendTo(a.appendTo)});H(!0)}function q(){a.modal&&b(".b-modal."+c.data("id")).fadeTo(a.speed,0,function(){b(this).remove()});a.scrollBar||b("html").css("overflow","auto");b(".b-modal."+e).unbind("click");g.unbind("keydown."+e);d.unbind("."+e).data("bPopup",0<d.data("bPopup")-1?d.data("bPopup")-1:null);c.undelegate(".bClose, ."+a.closeClass,"click."+e,q).data("bPopup",null);H();return!1}function G(h){var b=h.width(),e=h.height(),d={};a.contentContainer.css({height:e,width:b});e>=c.height()&&(d.height=c.height());b>=c.width()&&(d.width=c.width());r=c.outerHeight(!0);s=c.outerWidth(!0);D();a.contentContainer.css({height:"auto",width:"auto"});d.left=l(!(!a.follow[0]&&m||f));d.top=n(!(!a.follow[1]&&p||f));c.animate(d,250,function(){h.show();B=E()})}function L(){d.data("bPopup",t);c.delegate(".bClose, ."+a.closeClass,"click."+e,q);a.modalClose&&b(".b-modal."+e).css("cursor","pointer").bind("click",q);M||!a.follow[0]&&!a.follow[1]||d.bind("scroll."+e,function(){B&&c.dequeue().animate({left:a.follow[0]?l(!f):"auto",top:a.follow[1]?n(!f):"auto"},a.followSpeed,a.followEasing)}).bind("resize."+e,function(){w=y.innerHeight||d.height();u=y.innerWidth||d.width();if(B=E())clearTimeout(I),I=setTimeout(function(){D();c.dequeue().each(function(){f?b(this).css({left:v,top:x}):b(this).animate({left:a.follow[0]?l(!0):"auto",top:a.follow[1]?n(!0):"auto"},a.followSpeed,a.followEasing)})},50)});a.escClose&&g.bind("keydown."+e,function(a){27==a.which&&q()})}function H(b){function d(e){c.css({display:"block",opacity:1}).animate(e,a.speed,a.easing,function(){J(b)})}switch(b?a.transition:a.transitionClose||a.transition){case "slideIn":d({left:b?l(!(!a.follow[0]&&m||f)):g.scrollLeft()-(s||c.outerWidth(!0))-C});break;case "slideBack":d({left:b?l(!(!a.follow[0]&&m||f)):g.scrollLeft()+u+C});break;case "slideDown":d({top:b?n(!(!a.follow[1]&&p||f)):g.scrollTop()-(r||c.outerHeight(!0))-C});break;case "slideUp":d({top:b?n(!(!a.follow[1]&&p||f)):g.scrollTop()+w+C});break;default:c.stop().fadeTo(a.speed,b?1:0,function(){J(b)})}}function J(b){b?(L(),k(F),a.autoClose&&setTimeout(q,a.autoClose)):(c.hide(),k(a.onClose),a.loadUrl&&(a.contentContainer.empty(),c.css({height:"auto",width:"auto"})))}function l(a){return a?v+g.scrollLeft():v}function n(a){return a?x+g.scrollTop():x}function k(a){b.isFunction(a)&&a.call(c)}function D(){x=p?a.position[1]:Math.max(0,(w-c.outerHeight(!0))/2-a.amsl);v=m?a.position[0]:(u-c.outerWidth(!0))/2;B=E()}function E(){return w>c.outerHeight(!0)&&u>c.outerWidth(!0)}b.isFunction(z)&&(F=z,z=null);var a=b.extend({},b.fn.bPopup.defaults,z);a.scrollBar||b("html").css("overflow","hidden");var c=this,g=b(document),y=window,d=b(y),w=y.innerHeight||d.height(),u=y.innerWidth||d.width(),M=/OS 6(_\d)+/i.test(navigator.userAgent),C=200,t=0,e,B,p,m,f,x,v,r,s,I;c.close=function(){a=this.data("bPopup");e="__b-popup"+d.data("bPopup")+"__";q()};return c.each(function(){b(this).data("bPopup")||(k(a.onOpen),t=(d.data("bPopup")||0)+1,e="__b-popup"+t+"__",p="auto"!==a.position[1],m="auto"!==a.position[0],f="fixed"===a.positionStyle,r=c.outerHeight(!0),s=c.outerWidth(!0),a.loadUrl?K():A())})};b.fn.bPopup.defaults={amsl:50,appending:!0,appendTo:"body",autoClose:!1,closeClass:"b-close",content:"ajax",contentContainer:!1,easing:"swing",escClose:!0,follow:[!0,!0],followEasing:"swing",followSpeed:500,iframeAttr:'scrolling="no" frameborder="0"',loadCallback:!1,loadData:!1,loadUrl:!1,modal:!0,modalClose:!0,onClose:!1,onOpen:!1,opacity:0.7,position:["auto","auto"],positionStyle:"absolute",scrollBar:!0,speed:250,transition:"fadeIn",transitionClose:!1,zIndex:9997}})(jQuery);

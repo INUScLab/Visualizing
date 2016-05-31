@@ -531,8 +531,8 @@ border-top:1px solid #2d7ecb;
     padding-bottom: 0px;
 }
 .modal-dialog{
-	width: 570px;
-	height: 410px;
+	width: 1100px;
+	height: 470px;
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
@@ -825,7 +825,7 @@ html.layout-box .vbox > footer {
   font-size: 25px;
   line-height: 60px;
   display: block;
-  border-bottom:#08427b solid 1px;/* 추가 */
+  border-bottom:#08427b solid 1px;/* ç•°ë¶½ï¿½ */
 }
 .nav-brand:hover {
   text-decoration: none;
@@ -1101,7 +1101,7 @@ html.layout-box .vbox > footer {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-	border-right:#383f52 solid 1px;/* 추가 */
+	border-right:#383f52 solid 1px;/* ç•°ë¶½ï¿½ */
   }
   .nav-off-screen .nav-primary {
     display: block !important;
@@ -3567,7 +3567,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 .b-b-n{border-bottom:none}
 
-/* 로그인 */
+/* æ¿¡ì’“ë ‡ï¿½ì”¤ */
 #login-box {
 	width:566px;
 	height: 379px;
@@ -3583,4 +3583,31 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 .bg-login{
 	background: url(../images/login-bg.jpg) no-repeat top left 100%;
-	}
+}
+
+
+
+
+
+#element_to_pop_up { 
+    background-color:#fff;
+    border-radius:15px;
+    color:#000;
+    display:none; 
+    padding:20px;
+    min-width:850px;
+    min-height: 180px;
+}
+.b-close{
+    cursor:pointer;
+    position:absolute;
+    right:10px;
+    top:5px;
+}
+	
+	
+	
+	
+	
+	
+	
