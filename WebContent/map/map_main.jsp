@@ -376,51 +376,45 @@ summaryReportList.push( {
                 	<li class="shift"><a href="#subNav" data-toggle="class:hide" class="btn active"><i class="fa fa-chevron-right text fa fa-large font-size-m"></i><i class="fa fa-chevron-left text-active fa fa-large font-size-m"></i></a></li>
                   -->
 									<!-- 누수 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown" onclick="icon_clicked('img_leak')"><a class="dropdown-toggle" href="#">
 											<img src="../images/water.png" data-toggle="tooltip"
-											data-placement="bottom" title="누수" id="img_leak"
-											onclick="icon_clicked('img_leak')"> <span
-											class="badge bg-danger"><div id="overusedIcon"></div></span>
+											data-placement="bottom" title="누수" id="img_leak"> <span
+											class="badge bg-danger" id="overusedimage"><div id="overusedIcon"></div></span>
 									</a></li>
 									<!-- 누수 end -->
 									<!-- 동파 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown" onclick="icon_clicked('img_freeze')"><a class="dropdown-toggle" href="#">
 											<img src="../images/winter.png" data-toggle="tooltip"
-											data-placement="bottom" title="동파" id="img_freeze"
-											onclick="icon_clicked('img_freeze')"> <span
-											class="badge bg-danger"><div id="freezeIcon"></div></span>
+											data-placement="bottom" title="동파" id="img_freeze"> <span
+											class="badge bg-danger" id="freezeimage"><div id="freezeIcon"></div></span>
 									</a></li>
 									<!-- 동파 end -->
 									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown" onclick="icon_clicked('img_fat')"><a class="dropdown-toggle" href="#">
 											<img src="../images/obesity.png" data-toggle="tooltip"
-											data-placement="bottom" title="비만" id="img_fat"
-											onclick="icon_clicked('img_fat')"> <span
-											class="badge bg-danger"><div id="fatIcon"></div></span>
+											data-placement="bottom" title="비만" id="img_fat"> <span
+											class="badge bg-danger" id="fatimage"><div id="fatIcon"></div></span>
 									</a></li>
 									<!-- 비만 end -->
 									<!-- 파손 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown" onclick="icon_clicked('img_break')"><a class="dropdown-toggle" href="#">
 											<img src="../images/damage.png" data-toggle="tooltip"
-											data-placement="bottom" title="파손" id="img_break"
-											onclick="icon_clicked('img_break')"> <span
-											class="badge bg-danger"><div id="breakIcon"></div></span>
+											data-placement="bottom" title="파손" id="img_break"> <span
+											class="badge bg-danger" id="breakimage"><div id="breakIcon"></div></span>
 									</a></li>
 									<!-- 파손 end -->
 									<!-- 역류 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown" onclick="icon_clicked('img_reverse')"><a class="dropdown-toggle" href="#">
 											<img src="../images/backwash.png" data-toggle="tooltip"
-											data-placement="bottom" title="역류" id="img_reverse"
-											onclick="icon_clicked('img_reverse')"> <span
-											class="badge bg-danger"><div id="reverseIcon"></div></span>
+											data-placement="bottom" title="역류" id="img_reverse"> <span
+											class="badge bg-danger" id="reverseimage"><div id="reverseIcon"></div></span>
 									</a></li>
 									<!-- 역류 end -->
 									<!-- 부재중 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown" onclick="icon_clicked('img_absence')"><a class="dropdown-toggle" href="#">
 											<img src="../images/absence.png" data-toggle="tooltip"
-											data-placement="bottom" title="부재중" id="img_absence"
-											onclick="icon_clicked('img_absence')"> <span
-											class="badge bg-danger"><div id="absenceIcon"></div></span>
+											data-placement="bottom" title="부재중" id="img_absence"> <span
+											class="badge bg-danger" id="absenceimage"><div id="absenceIcon"></div></span>
 									</a></li>
 									<!-- 부재중 end -->
 								</ul>
