@@ -57,7 +57,7 @@ public class MyUtil {
 		
 		if(totalPage-currentPageSetup>numPerBlock){
 			
-			sb.append("<li><button onclick=\"pagePass("+ currentPageSetup +")\"><i class=\"fa fa-chevron-right\"></i></button></li>");
+			sb.append("<li><button onclick=\"pagePass("+ page +")\"><i class=\"fa fa-chevron-right\"></i></button></li>");
 			//<a href="list.jsp?pageNum=11">다음</a>&nbsp;
 			
 		}
