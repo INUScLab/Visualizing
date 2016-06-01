@@ -1,5 +1,5 @@
-<%@ page import="visualizing.read.ReadDataCtrl"%>
-<%@ page import="visualizing.read.ReadData"%>
+<%@ page import="visualizing.read.ReadMonthCtrl"%>
+<%@ page import="visualizing.read.ReadMonth"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.util.Locale"%>
@@ -11,7 +11,7 @@
 	String cp = request.getContextPath();
 %>
 
-<jsp:useBean id="rctrl" class="visualizing.read.ReadDataCtrl" />
+<jsp:useBean id="rmctrl" class="visualizing.read.ReadMonthCtrl" />
 
 <%
 	Integer data_start_num = 0;
@@ -31,7 +31,7 @@
 	if (dateYear == null || dateYear.equals(""))
 		dateYear = "2015";
 	if (dateMonth == null || dateMonth.equals(""))
-		dateMonth = "02";
+		dateMonth = "03";
 
 	if (si == null || si.equals(""))
 		si = "인천광역시";
@@ -58,13 +58,13 @@
 	}
 
 	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear + "	" + dateMonth);
-	/*
-	ArrayList<DetailData> array_list = ddctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
+	
+	ArrayList<ReadMonth> array_list = rmctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
 
 	if (data_end_num > array_list.size()){
 		data_end_num = array_list.size();
 	}
-	*/
+	
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 	Date currentDate = new Date ();
@@ -294,7 +294,7 @@
 								<div class="row padder">
 									<div class="col-md-12">
 										<!-- 검색조건 -->
-										<form action="readDay.jsp" method="post" id=search_form>
+										<form action="readMonth.jsp" method="post" id=search_form>
 											<div class="well">
 												<div class="row text-sm">
 													<div class="col-sm-4">
@@ -406,9 +406,21 @@
 														</tr>
 													</thead>
 													<tbody>
+														<%
+															for (int i = data_start_num; i < data_end_num; i++) {
+														%>
 														<tr>
-															<td></td>
+															<td><%=array_list.get(i).getCode()%></td>
+															<td><%=array_list.get(i).getDetail()%></td>
+															<td><%=array_list.get(i).getNumber()%></td>
+															<td><%=array_list.get(i).getMeter_num()%></td>
+															<td><%=array_list.get(i).getMonth()%></td>
+															<td><%=array_list.get(i).getValue()%></td>
+															<td><%=array_list.get(i).getPre_value()%></td>
 														</tr>
+														<%
+															}
+														%>
 													</tbody>
 												</table>
 											</div>
