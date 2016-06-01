@@ -297,8 +297,16 @@ function createDongMarkers( ) {
 
 			
 			marker.addListener('click', function() {
-				 $('#element_to_pop_up').bPopup();
-				 drawDongSummaryReport(this.title.split(' '));
+				$('#element_to_pop_up').bPopup();
+				drawDongSummaryReport(this.title.split(' '));
+				
+				//change zoom level and position
+				globalMap.setCenter(this.position);
+				globalMap.setOptions({ 'zoom' : 15 });
+				
+				hideDongMarkers();
+				createConsumerMarkers(this.title.split(' '));
+					
 			});
 		}
 	}
@@ -350,14 +358,12 @@ function createConsumerMarkers ( addressArray ) {
 
 			marker.set(globalMap);
 
-			// 생성한 동들의 마커에 대한 클 이벤트 생성.
+			// 수용가 마커를 클릭했을때의 이벤트 처리 함수
 			marker.addListener('click', function() {
 
 				globalMap.setCenter(this.position);
-
-				var address = this.title;
-				var addressArray = address.split(' ');
-				drawConsumerReport(addressArray);
+				$('#element_to_pop_up').bPopup();
+				drawConsumerReport(this.title.split(' '));
 
 			});
 		}
@@ -390,44 +396,44 @@ function drawConsumerReport( addressArray ){
 			console.log(incheon+ ' ' + gu + ' ' + dong + ' ' + detail);
 			info_date.style.fontSize = "90%"; // 주소 출력 폰트 사이즈
 
-			$(".checkBox").prop('checked', false) ;
-
-			//2.부가서비스별 발생 횟수.
-			document.getElementById('check_leak').innerHTML = "누수" ;
-			check_leak.style.fontSize = "80%";
-			if (summaryReportList[i].leak != 0 ) {
-				document.getElementById("checkBox_leak").checked = true;
-			}
-
-			document.getElementById('check_absence').innerHTML = "부재중";
-			check_absence.style.fontSize = "80%";
-			if (summaryReportList[i].absence != 0 ) {
-				document.getElementById("checkBox_absence").checked = true;
-			}
-
-			document.getElementById('check_freezed').innerHTML = "동파";
-			check_freezed.style.fontSize = "80%";
-			if (summaryReportList[i].freezed != 0 ) {
-				document.getElementById("checkBox_freezed").checked = true;
-			}
-
-			document.getElementById('check_reverse').innerHTML = "역류";
-			check_reverse.style.fontSize = "80%";
-			if (summaryReportList[i].reverse != 0 ) {
-				document.getElementById("checkBox_reverse").checked = true;
-			}
-
-			document.getElementById('check_fat').innerHTML = "비만";
-			check_fat.style.fontSize = "80%";
-			if (summaryReportList[i].fat != 0 ) {
-				document.getElementById("checkBox_fat").checked = true;
-			}
-
-			document.getElementById('check_breakage').innerHTML = "파손";
-			check_breakage.style.fontSize = "80%";
-			if (summaryReportList[i].breakage != 0 ) {
-				document.getElementById("checkBox_breakage").checked = true;
-			}
+//			$(".checkBox").prop('checked', false) ;
+//
+//			//2.부가서비스별 발생 횟수.
+//			document.getElementById('check_leak').innerHTML = "누수" ;
+//			check_leak.style.fontSize = "80%";
+//			if (summaryReportList[i].leak != 0 ) {
+//				document.getElementById("checkBox_leak").checked = true;
+//			}
+//
+//			document.getElementById('check_absence').innerHTML = "부재중";
+//			check_absence.style.fontSize = "80%";
+//			if (summaryReportList[i].absence != 0 ) {
+//				document.getElementById("checkBox_absence").checked = true;
+//			}
+//
+//			document.getElementById('check_freezed').innerHTML = "동파";
+//			check_freezed.style.fontSize = "80%";
+//			if (summaryReportList[i].freezed != 0 ) {
+//				document.getElementById("checkBox_freezed").checked = true;
+//			}
+//
+//			document.getElementById('check_reverse').innerHTML = "역류";
+//			check_reverse.style.fontSize = "80%";
+//			if (summaryReportList[i].reverse != 0 ) {
+//				document.getElementById("checkBox_reverse").checked = true;
+//			}
+//
+//			document.getElementById('check_fat').innerHTML = "비만";
+//			check_fat.style.fontSize = "80%";
+//			if (summaryReportList[i].fat != 0 ) {
+//				document.getElementById("checkBox_fat").checked = true;
+//			}
+//
+//			document.getElementById('check_breakage').innerHTML = "파손";
+//			check_breakage.style.fontSize = "80%";
+//			if (summaryReportList[i].breakage != 0 ) {
+//				document.getElementById("checkBox_breakage").checked = true;
+//			}
 
 			//일주일치 사용량 합 구하기.
 			sum_weeklyConsumption = Number(summaryReportList[i].day1) + Number ( summaryReportList[i].day2 ) + Number ( summaryReportList[i].day3 ) +
@@ -447,8 +453,6 @@ function drawConsumerReport( addressArray ){
 			console.log(summaryReportList[i].day1 , summaryReportList[i].day2 , summaryReportList[i].day3 , summaryReportList[i].day4 , summaryReportList[i].day5
 					, summaryReportList[i].day6 , summaryReportList[i].day7 , sum_weeklyConsumption/7)
 		}
-		
-		
 	}
 }
 
