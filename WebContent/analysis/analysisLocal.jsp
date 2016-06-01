@@ -18,7 +18,7 @@
 	String si = request.getParameter("si");
 	String guGun = request.getParameter("guGun");
 	String textDate;
-
+	
 	if (si == null || si.equals(""))
 		si = "인천광역시";
 	if (guGun == null || guGun.equals(""))
@@ -39,26 +39,29 @@
 <head>
 <meta charset="utf-8" />
 <title>::: 수도검침서비스 :::</title>
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <link rel="stylesheet" href="/Visualizing/css/bootstrap.css" type="text/css" />
-  <link rel="stylesheet" href="/Visualizing/css/font-awesome.min.css" type="text/css" />
-  <link rel="stylesheet" href="/Visualizing/css/font.css" type="text/css" cache="false" />
-  <link rel="stylesheet" href="/Visualizing/css/app.css" type="text/css" />
-  <!--[if lt IE 9]>
+<meta name="description" content="" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="../css/font-awesome.min.css"
+	type="text/css" />
+<link rel="stylesheet" href="../css/font.css" type="text/css"
+	cache="false" />
+<link rel="stylesheet" href="../css/app.css" type="text/css" />
+<!--[if lt IE 9]>
     <script src="js/ie/respond.min.js" cache="false"></script>
     <script src="js/ie/html5.js" cache="false"></script>
     <script src="js/ie/fix.js" cache="false"></script>
   <![endif]-->
-  <script src="/Visualizing/js/jquery.min.js"></script>
-  <!-- Bootstrap -->
-  <script src="/Visualizing/js/bootstrap.js"></script>
-  <!-- App -->
-  <script src="/Visualizing/js/app.js"></script>
-  <script src="/Visualizing/js/app.plugin.js"></script>
-  <script src="/Visualizing/js/app.data.js"></script>
-  <!-- datepicker -->
-  <script src="/Visualizing/js/datepicker/bootstrap-datepicker.js"></script>
+<script src="../js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../js/bootstrap.js"></script>
+<!-- App -->
+<script src="../js/app.js"></script>
+<script src="../js/app.plugin.js"></script>
+<script src="../js/app.data.js"></script>
+<!-- datepicker -->
+<script src="../js/datepicker/bootstrap-datepicker.js"></script>
 <!--구글 그래프 그리기-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -87,16 +90,18 @@
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getLeak_rank().get(0).get(0)%>', <%=rd_data.getLeak_rank().get(0).get(1)%>, '#b87333'],            // RGB value
-         ['<%=rd_data.getLeak_rank().get(1).get(0)%>', <%=rd_data.getLeak_rank().get(1).get(1)%>, 'silver'],            // English color name
-         ['<%=rd_data.getLeak_rank().get(2).get(0)%>', <%=rd_data.getLeak_rank().get(2).get(1)%>, 'gold'],
-		 ['<%=rd_data.getLeak_rank().get(3).get(0)%>', <%=rd_data.getLeak_rank().get(3).get(1)%>, 'color: #e5e4e2' ], // CSS-style declaration
+         ['<%=rd_data.getLeak_rank().get(0).get(0)%>', <%=rd_data.getLeak_rank().get(0).get(1)%>, '#FF4943'],
+         ['<%=rd_data.getLeak_rank().get(1).get(0)%>', <%=rd_data.getLeak_rank().get(1).get(1)%>, '#7DCDF2'],  
+         ['<%=rd_data.getLeak_rank().get(2).get(0)%>', <%=rd_data.getLeak_rank().get(2).get(1)%>, '#33B1EB'],
+		 ['<%=rd_data.getLeak_rank().get(3).get(0)%>', <%=rd_data.getLeak_rank().get(3).get(1)%>, '#1871CD'],
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
-	        legend: { position: "none" }
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+	        legend: { position: "none" },
+	        hAxis: {title: '읍/면/동'},
+	        vAxis: {title: '누수 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -110,16 +115,18 @@
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getFreezed_rank().get(0).get(0)%>', <%=rd_data.getFreezed_rank().get(0).get(1)%>, '#b87333'],            // RGB value
-         ['<%=rd_data.getFreezed_rank().get(1).get(0)%>', <%=rd_data.getFreezed_rank().get(1).get(1)%>, 'silver'],            // English color name
-         ['<%=rd_data.getFreezed_rank().get(2).get(0)%>', <%=rd_data.getFreezed_rank().get(2).get(1)%>, 'gold'],
-		 ['<%=rd_data.getFreezed_rank().get(3).get(0)%>', <%=rd_data.getFreezed_rank().get(3).get(1)%>, 'color: #e5e4e2' ], // CSS-style declaration
+         ['<%=rd_data.getFreezed_rank().get(0).get(0)%>', <%=rd_data.getFreezed_rank().get(0).get(1)%>, '#FF4943'], 
+         ['<%=rd_data.getFreezed_rank().get(1).get(0)%>', <%=rd_data.getFreezed_rank().get(1).get(1)%>, '#7DCDF2'],
+         ['<%=rd_data.getFreezed_rank().get(2).get(0)%>', <%=rd_data.getFreezed_rank().get(2).get(1)%>, '#33B1EB'],
+		 ['<%=rd_data.getFreezed_rank().get(3).get(0)%>', <%=rd_data.getFreezed_rank().get(3).get(1)%>, '#1871CD'],
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
-	        legend: { position: "none" }
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			legend: { position: "none" },
+	        hAxis: {title: '읍/면/동'},
+	        vAxis: {title: '동파 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -133,16 +140,18 @@
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getFat_rank().get(0).get(0)%>', <%=rd_data.getFat_rank().get(0).get(1)%>, '#b87333'],            // RGB value
-         ['<%=rd_data.getFat_rank().get(1).get(0)%>', <%=rd_data.getFat_rank().get(1).get(1)%>, 'silver'],            // English color name
-         ['<%=rd_data.getFat_rank().get(2).get(0)%>', <%=rd_data.getFat_rank().get(2).get(1)%>, 'gold'],
-		 ['<%=rd_data.getFat_rank().get(3).get(0)%>', <%=rd_data.getFat_rank().get(3).get(1)%>, 'color: #e5e4e2' ], // CSS-style declaration
+         ['<%=rd_data.getFat_rank().get(0).get(0)%>', <%=rd_data.getFat_rank().get(0).get(1)%>, '#FF4943'],
+         ['<%=rd_data.getFat_rank().get(1).get(0)%>', <%=rd_data.getFat_rank().get(1).get(1)%>, '#7DCDF2'],
+         ['<%=rd_data.getFat_rank().get(2).get(0)%>', <%=rd_data.getFat_rank().get(2).get(1)%>, '#33B1EB'],
+		 ['<%=rd_data.getFat_rank().get(3).get(0)%>', <%=rd_data.getFat_rank().get(3).get(1)%>, '#1871CD'],
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
-	        legend: { position: "none" }
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			legend: { position: "none" },
+	        hAxis: {title: '읍/면/동'},
+	        vAxis: {title: '비만관 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -156,16 +165,18 @@
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getBreakage_rank().get(0).get(0)%>', <%=rd_data.getBreakage_rank().get(0).get(1)%>, '#b87333'],            // RGB value
-         ['<%=rd_data.getBreakage_rank().get(1).get(0)%>', <%=rd_data.getBreakage_rank().get(1).get(1)%>, 'silver'],            // English color name
-         ['<%=rd_data.getBreakage_rank().get(2).get(0)%>', <%=rd_data.getBreakage_rank().get(2).get(1)%>, 'gold'],
-		 ['<%=rd_data.getBreakage_rank().get(3).get(0)%>', <%=rd_data.getBreakage_rank().get(3).get(1)%>, 'color: #e5e4e2' ], // CSS-style declaration
+         ['<%=rd_data.getBreakage_rank().get(0).get(0)%>', <%=rd_data.getBreakage_rank().get(0).get(1)%>, '#FF4943'],
+         ['<%=rd_data.getBreakage_rank().get(1).get(0)%>', <%=rd_data.getBreakage_rank().get(1).get(1)%>, '#7DCDF2'],
+         ['<%=rd_data.getBreakage_rank().get(2).get(0)%>', <%=rd_data.getBreakage_rank().get(2).get(1)%>, '#33B1EB'],
+		 ['<%=rd_data.getBreakage_rank().get(3).get(0)%>', <%=rd_data.getBreakage_rank().get(3).get(1)%>, '#1871CD'],
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
-	        legend: { position: "none" }
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			legend: { position: "none" },
+	        hAxis: {title: '읍/면/동'},
+	        vAxis: {title: '파손 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -179,16 +190,18 @@
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getReverse_rank().get(0).get(0)%>', <%=rd_data.getReverse_rank().get(0).get(1)%>, '#b87333'],            // RGB value
-         ['<%=rd_data.getReverse_rank().get(1).get(0)%>', <%=rd_data.getReverse_rank().get(1).get(1)%>, 'silver'],            // English color name
-         ['<%=rd_data.getReverse_rank().get(2).get(0)%>', <%=rd_data.getReverse_rank().get(2).get(1)%>, 'gold'],
-		 ['<%=rd_data.getReverse_rank().get(3).get(0)%>', <%=rd_data.getReverse_rank().get(3).get(1)%>, 'color: #e5e4e2' ], // CSS-style declaration
+         ['<%=rd_data.getReverse_rank().get(0).get(0)%>', <%=rd_data.getReverse_rank().get(0).get(1)%>, '#FF4943'],
+         ['<%=rd_data.getReverse_rank().get(1).get(0)%>', <%=rd_data.getReverse_rank().get(1).get(1)%>, '#7DCDF2'],
+         ['<%=rd_data.getReverse_rank().get(2).get(0)%>', <%=rd_data.getReverse_rank().get(2).get(1)%>, '#33B1EB'],
+		 ['<%=rd_data.getReverse_rank().get(3).get(0)%>', <%=rd_data.getReverse_rank().get(3).get(1)%>, '#1871CD'],
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
-	        legend: { position: "none" }
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			legend: { position: "none" },
+	        hAxis: {title: '읍/면/동'},
+	        vAxis: {title: '역류 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -202,16 +215,18 @@
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getAbsence_rank().get(0).get(0)%>', <%=rd_data.getAbsence_rank().get(0).get(1)%>, '#b87333'],            // RGB value
-         ['<%=rd_data.getAbsence_rank().get(1).get(0)%>', <%=rd_data.getAbsence_rank().get(1).get(1)%>, 'silver'],            // English color name
-         ['<%=rd_data.getAbsence_rank().get(2).get(0)%>', <%=rd_data.getAbsence_rank().get(2).get(1)%>, 'gold'],
-		 ['<%=rd_data.getAbsence_rank().get(3).get(0)%>', <%=rd_data.getAbsence_rank().get(3).get(1)%>, 'color: #e5e4e2' ], // CSS-style declaration
+         ['<%=rd_data.getAbsence_rank().get(0).get(0)%>', <%=rd_data.getAbsence_rank().get(0).get(1)%>, '#FF4943'],
+         ['<%=rd_data.getAbsence_rank().get(1).get(0)%>', <%=rd_data.getAbsence_rank().get(1).get(1)%>, '#7DCDF2'],
+         ['<%=rd_data.getAbsence_rank().get(2).get(0)%>', <%=rd_data.getAbsence_rank().get(2).get(1)%>, '#33B1EB'],
+		 ['<%=rd_data.getAbsence_rank().get(3).get(0)%>', <%=rd_data.getAbsence_rank().get(3).get(1)%>, '#1871CD'],
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2'],
-	        legend: { position: "none" }
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			legend: { position: "none" },
+	        hAxis: {title: '읍/면/동'},
+	        vAxis: {title: '부재중 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -221,7 +236,7 @@
 	// 누수 상위 데이터 그래프
 	function drawUpperLeakRankChart() {
 
-		<%textDate = "02-01";%>
+		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -230,7 +245,7 @@
          [ '<%=textDate%>' ,<%=rd_data.getUpper_leak_data().get(0).get(i)%>, <%=rd_data.getUpper_leak_data().get(1).get(i)%>, <%=rd_data.getUpper_leak_data().get(2).get(i)%>, <%=rd_data.getUpper_leak_data().get(3).get(i)%>],
          <%// 시간 더하기
 	   	  Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -240,7 +255,9 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2']
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+	        hAxis: {title: '날짜'},
+	        vAxis: {title: '누수 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -251,7 +268,7 @@
 	// 동파 상위 데이터 그래프
 	function drawUpperFreezedRankChart() {
 
-		<%textDate = "02-01";%>
+		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -260,7 +277,7 @@
          [ '<%=textDate%>' ,<%=rd_data.getUpper_freezed_data().get(0).get(i)%>, <%=rd_data.getUpper_freezed_data().get(1).get(i)%>, <%=rd_data.getUpper_freezed_data().get(2).get(i)%>, <%=rd_data.getUpper_freezed_data().get(3).get(i)%>],
          <%// 시간 더하기
           Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -270,7 +287,9 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2']
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+	        hAxis: {title: '날짜'},
+	        vAxis: {title: '동파 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -281,7 +300,7 @@
 	// 비만관 상위 데이터 그래프
 	function drawUpperFatRankChart() {
 
-		<%textDate = "02-01";%>
+		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -290,7 +309,7 @@
          [ '<%=textDate%>' ,<%=rd_data.getUpper_fat_data().get(0).get(i)%>, <%=rd_data.getUpper_fat_data().get(1).get(i)%>, <%=rd_data.getUpper_fat_data().get(2).get(i)%>, <%=rd_data.getUpper_fat_data().get(3).get(i)%>],
          <%// 시간 더하기
           Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -300,7 +319,9 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2']
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			hAxis: {title: '날짜'},
+	        vAxis: {title: '비만관 횟수'}		
 		};
 
 		// Instantiate and draw the chart
@@ -312,7 +333,7 @@
 	function drawUpperBreakageRankChart() {
 
 
-		<%textDate = "02-01";%>
+		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -321,7 +342,7 @@
          [ '<%=textDate%>' ,<%=rd_data.getUpper_breakage_data().get(0).get(i)%>, <%=rd_data.getUpper_breakage_data().get(1).get(i)%>, <%=rd_data.getUpper_breakage_data().get(2).get(i)%>, <%=rd_data.getUpper_breakage_data().get(3).get(i)%>],
          <%// 시간 더하기
           Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -331,7 +352,9 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2']
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			hAxis: {title: '날짜'},
+	        vAxis: {title: '파손 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -343,7 +366,7 @@
 	function drawUpperReverseRankChart() {
 
 
-		<%textDate = "02-01";%>
+		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -352,7 +375,7 @@
          [ '<%=textDate%>' ,<%=rd_data.getUpper_reverse_data().get(0).get(i)%>, <%=rd_data.getUpper_reverse_data().get(1).get(i)%>, <%=rd_data.getUpper_reverse_data().get(2).get(i)%>, <%=rd_data.getUpper_reverse_data().get(3).get(i)%>],
          <%// 시간 더하기
           Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -362,7 +385,9 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2']
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			hAxis: {title: '날짜'},
+	        vAxis: {title: '역류 횟수'}
 		};
 
 		// Instantiate and draw the chart
@@ -374,7 +399,7 @@
 	function drawUpperAbsenceRankChart() {
 
 
-		<%textDate = "02-01";%>
+		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -383,7 +408,7 @@
          [ '<%=textDate%>' ,<%=rd_data.getUpper_absence_data().get(0).get(i)%>, <%=rd_data.getUpper_absence_data().get(1).get(i)%>, <%=rd_data.getUpper_absence_data().get(2).get(i)%>, <%=rd_data.getUpper_absence_data().get(3).get(i)%>],
          <%// 시간 더하기
           Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("MM-dd", Locale.KOREA);
+          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -393,7 +418,9 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#b87333', 'silver','gold', '#e5e4e2']
+			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			hAxis: {title: '날짜'},
+	        vAxis: {title: '부재중 횟수'}
 		};
 
 		// Instantiate and draw the chart

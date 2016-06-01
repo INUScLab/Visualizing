@@ -33,7 +33,7 @@ public class RankDataCtrl {
 		this.sido = sido;
 		this.sigoon = sigoon;
 		this.startday = "20150201";
-		this.endday = "20150231";
+		this.endday = "20150215";
 	}
 	
 	ArrayList<ArrayList<String>> getRanks(String column) {

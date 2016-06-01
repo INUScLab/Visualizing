@@ -6053,7 +6053,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499ded', end
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 800px;
+    width: 1000px;
     margin: 30px auto;
   }
   .modal-content {
