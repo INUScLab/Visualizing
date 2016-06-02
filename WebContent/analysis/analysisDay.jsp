@@ -78,7 +78,7 @@
 	if(currentPage > totalPage)
 		currentPage = totalPage;
 	
-	int start = (currentPage-1)*numPerPage +1;
+	int start = (currentPage-1)*numPerPage;
 	int end = currentPage*numPerPage;
 	
 	List<AnalysisData> lists = adctrl.getList(start, end, array_list);

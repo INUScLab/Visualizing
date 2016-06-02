@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import sclab.db.DbConnector;
 
 public class AnalysisDataCtrl {
@@ -150,6 +152,16 @@ public class AnalysisDataCtrl {
 		disconnect();
 		
 		return info_array;
+	}
+	
+	public List<AnalysisData> getList (int start, int end, ArrayList<AnalysisData> arrayList){
+		List<AnalysisData> lists = new ArrayList<AnalysisData>();
+		
+		for (int i=start; i<end; i++){
+			lists.add(arrayList.get(i));
+		}
+		
+		return lists;
 	}
 	
 }
