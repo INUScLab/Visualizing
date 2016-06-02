@@ -1031,114 +1031,65 @@ function icon_clicked(id) {
 
 function icon_clicked(id){
 	
-	if($('#img_leak').css("background-color") === 'rgb(255, 255, 255)' || $('#img_leak').css("background-color") === 'rgba(0, 0, 0, 0)' ){
-		$('.color').css("background-color", "white");
-		console.log("흰색일때");
-		$('#img_leak').css("background-color", "yellow");
+	if (id == 'leak') {
+		leak_flag = true;
+		absence_flag = false;
+		freezed_flag = false;
+		fat_flag = false;
+		break_flag = false;
+		reverse_flag = false;
 	}
 	
-	else if ( $('#img_leak').css("background-color") === 'rgb(255, 255, 0)') {
-		$('#img_leak').css("background-color", "white");
-		console.log("노란색일때");
+	else if ( id =='absence'){
+		absence_flag = true;
+		leak_flag = false;
+		freezed_flag = false;
+		fat_flag = false;
+		break_flag = false;
+		reverse_flag = false;
 	}
 	
-	console.log($('#img_leak').css("background-color"))
-	
-	if(id=="img_freeze"){
-		$('#img_freeze').css("background-color", "yellow");
+	else if ( id == 'freeze' ) {
+		freezed_flag = true;
+		leak_flag = false;
+		absence_flag = false;
+		fat_flag = false;
+		break_flag = false;
+		reverse_flag = false;
+	}
+	else if ( id == 'fat' ) {
+		fat_flag = true;
+		leak_flag = false;
+		absence_flag = false;
+		freezed_flag = false;
+		break_flag = false;
+		reverse_flag = false;
 	}
 	
-	if(id=="img_fat"){
-		$('#img_fat').css("background-color", "yellow");
-	}
-	
-	if(id=="img_break"){
-		$('#img_break').css("background-color", "yellow");
-	}
-	
-	if(id=="img_reverse"){
-		$('#img_reverse').css("background-color", "yellow");
-	}
-	
-	if(id=="img_absence"){
-		$('#img_absence').css("background-color", "yellow");
-	}
-}
-	/*
-	
-	if((countleak%2)==1){
-		if(id=="img_freeze")
-			$('#img_freeze').css("background-color", "yellow");
-		else
-			$('#img_freeze').css("background-color", "FFFFFF");
-	}
-	if((countleak%2)==1){
-		if(id=="img_fat")
-			$('#img_fat').css("background-color", "yellow");
-		else
-			$('#img_fat').css("background-color", "FFFFFF");
-	}
-	if((countleak%2)==1){
-		if(id=="img_break")
-			$('#img_break').css("background-color", "yellow");
-		else
-			$('#img_break').css("background-color", "FFFFFF");
-	}
-	if((countleak%2)==1){
-		if(id=="img_reverse")
-			$('#img_reverse').css("background-color", "yellow");
-		else
-			$('#img_reverse').css("background-color", "FFFFFF");
-	}
-	if((countleak%2)==1){
-		if(id=="img_absence")
-			$('#img_absence').css("background-color", "yellow");
-		else
-			$('#img_absence').css("background-color", "FFFFFF");
-	}
-	*/
-/*	
-	
-	
-	
-	
-	
-	
-	
-	if (entire_flag == false) {
-		entire_flag = true;
-
+	else if ( id == 'break') {
+		break_flag = true;
 		leak_flag = false;
 		freezed_flag = false;
 		absence_flag = false;
-
-		// $('#img_entire').css("background-color", "yellow");
-		// $('#img_leak').css("background-color", "yellow");
-		// $('#img_freezed').css("background-color", "yellow");
-		// $('#img_absence').css("background-color", "yellow");
-
-	} else {
-		entire_flag = false;
-		leak_flag = false;
-		freezed_flag = false;
-		absence_flag = false;
-
-		// $('#img_entire').css("background-color", "#FFFFFF");
-		// $('#img_leak').css("background-color", "#FFFFFF");
-		// $('#img_freezed').css("background-color", "#FFFFFF");
-		// $('#img_absence').css("background-color", "#FFFFFF");
+		fat_flag = false;
+		reverse_flag = false;
 	}
-
+	
+	else {
+		reverse_flag = true;
+		leak_flag = false;
+		absence_flag = false;
+		freezed_flag = false;
+		fat_flag = false;
+		break_flag = false;
+	}
+	
 	showIcon();
-	*/
+	
+}
+	
 
-
-
-
-
-
-
-function leak_clicked( ) {
+function showIcon( ) {
 
 	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
