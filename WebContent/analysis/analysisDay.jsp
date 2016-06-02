@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="visualizing.util.MyUtil"%>
 <%@ page import="visualizing.analysis.AnalysisDataCtrl"%>
 <%@ page import="visualizing.analysis.AnalysisData"%>
 <%@ page import="java.util.ArrayList"%>
@@ -28,34 +30,20 @@
 	String sdate = request.getParameter("sdate");
 	String edate = request.getParameter("edate");
 
-	if (sdate == null || sdate.equals(""))
-		sdate = "2015-01-31";
-	if (edate == null || edate.equals(""))
-		edate = "2015-02-28";
-	if (si == null || si.equals(""))
-		si = "인천광역시";
-	if (guGun == null || guGun.equals(""))
-		guGun = "전체";
-	if (umDong == null || umDong.equals(""))
-		umDong = "전체";
-	if (consumerNum != null)
-		if (consumerNum.equals(""))
-			consumerNum = null;
-	if (consumerName != null)
-		if (consumerName.equals(""))
-			consumerName = null;
-	if (telNumber != null)
-		if (telNumber.equals(""))
-			telNumber = null;
-	if (meterNum != null)
-		if (meterNum.equals(""))
-			meterNum = null;
-
+	if (sdate == null || sdate.equals(""))		sdate = "2015-01-31";
+	if (edate == null || edate.equals(""))		edate = "2015-02-28";
+	if (si == null || si.equals(""))			si = "인천광역시";
+	if (guGun == null || guGun.equals(""))		guGun = "전체";
+	if (umDong == null || umDong.equals(""))	umDong = "전체";
+	if (consumerNum != null)if (consumerNum.equals(""))		consumerNum = null;
+	if (consumerName != null)if (consumerName.equals(""))	consumerName = null;
+	if (telNumber != null)if (telNumber.equals("")) 		telNumber = null;
+	if (meterNum != null)if (meterNum.equals(""))			meterNum = null;
 	if (page_start_num == null) {
 		page_start_num = "1";
 	}
 
-	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
+	System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
 
 	String[] sdates = new String(sdate).split("-");
 	String[] edates = new String(edate).split("-");
@@ -71,6 +59,32 @@
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 	Date currentDate = new Date ();
 	String date = mSimpleDateFormat.format ( currentDate );
+%>
+
+<%
+	MyUtil myUtil = new MyUtil();
+
+	String pageNum = request.getParameter("pageNum");
+	int currentPage = 1;
+	
+	if(pageNum != null) //넘어온 값이 있을때
+		currentPage = Integer.parseInt(pageNum);
+	
+	int dataCount = array_list.size();
+	
+	int numPerPage = 10;
+	int totalPage = myUtil.getPageCount(numPerPage, dataCount);
+	
+	if(currentPage > totalPage)
+		currentPage = totalPage;
+	
+	int start = (currentPage-1)*numPerPage +1;
+	int end = currentPage*numPerPage;
+	
+	List<AnalysisData> lists = adctrl.getList(start, end, array_list);
+	
+	String listUrl = "/Visualizing/analysis/SearchDay.do";
+	String pageIndexList = myUtil.pageIndexList(currentPage, totalPage, listUrl);	
 %>
 
 <!DOCTYPE html>
@@ -125,6 +139,14 @@
 		search_form.edate.value = "<%=e%>";
 		
 	};
+	
+	function pagePass (page) {
+		f = document.pagePassF;
+		f.action = "/Visualizing/analysis/SearchDay.do?pageNum="+page;
+		f.submit();
+		
+		return true;
+	}
 </script>
 </head>
 <body>
@@ -413,18 +435,18 @@
 													</thead>
 													<tbody>
 														<%
-															for (int i = data_start_num; i < data_end_num; i++) {
+															for (AnalysisData ad : lists) {
 														%>
 														<tr>
-															<td><%=array_list.get(i).getCode()%></td>
-															<td><%=array_list.get(i).getDetail()%></td>
-															<td><%=array_list.get(i).getNumber()%></td>
-															<td><%=array_list.get(i).getMeter_num()%></td>
-															<td><%=array_list.get(i).getMeter_type()%></td>
-															<td><%=array_list.get(i).getTerm()%></td>
-															<td><%=array_list.get(i).getTotal_consumed()%></td>
-															<td><%=array_list.get(i).getCount()%></td>
-															<td><%=array_list.get(i).getAvg_consumed()%></td>
+															<td><%=ad.getCode()%></td>
+															<td><%=ad.getDetail()%></td>
+															<td><%=ad.getNumber()%></td>
+															<td><%=ad.getMeter_num()%></td>
+															<td><%=ad.getMeter_type()%></td>
+															<td><%=ad.getTerm()%></td>
+															<td><%=ad.getTotal_consumed()%></td>
+															<td><%=ad.getCount()%></td>
+															<td><%=ad.getAvg_consumed()%></td>
 
 														</tr>
 														<%
@@ -439,15 +461,20 @@
 													</div>
 													<div class="col-sm-6 text-center text-center">
 															<input type="hidden" name="s_name" />
-															<ul class="pagination pagination-sm m-t-none m-b-none">
-																<li><a href="anlaysisDay.jsp?page_start_num=<%=Integer.parseInt(page_start_num)-5%>"><i class="fa fa-chevron-left"></i></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)%></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)+1%></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)+2%></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)+3%></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)+4%></a></li>
-																<li><a href="#" onclick="document.getElementById('search_form').submit();"><i class="fa fa-chevron-right"></i></a></li>
-															</ul>
+															<form action="" method="post" name="pagePassF">
+															<input type="hidden" name="si" value="${param['si']}">
+															<input type="hidden" name="guGun" value="${param['guGun']}">
+															<input type="hidden" name="umDong" value="${param['umDong']}">
+															<input type="hidden" name="sdate" value="${param['sdate']}">
+															<input type="hidden" name="edate" value="${param['edate']}">
+															<input type="hidden" name="consumerNum" value="${param['consumerNum']}">
+															<input type="hidden" name="consumerName" value="${param['consumerName']}">
+															<input type="hidden" name="telNumber" value="${param['telNumber']}">
+															<input type="hidden" name="meterNum" value="${param['meterNum']}">
+																<ul class="pagination pagination-sm m-t-none m-b-none">
+																	<%=pageIndexList %>
+																</ul>
+															</form>
 													</div>
 													<div class="col-sm-3 text-right hidden-xs">
 													</div>
