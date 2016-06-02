@@ -46,7 +46,7 @@ public class MyUtil {
 				
 			}else{
 				
-				sb.append("<li><button onclick=\"pagePass(" + page + ")\"><b>" + page + "</b></button></li>");
+				sb.append("<li><button onclick=\"pagePass(" + page + ")\">" + page + "</button></li>");
 				//<a href="list.jsp?pageNum=6">6</a>&nbsp;
 				
 			}
