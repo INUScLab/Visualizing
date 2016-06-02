@@ -76,7 +76,7 @@
 	
 	List<AnalysisData> lists = adctrl.getList(start, end, array_list);
 	
-	String listUrl = "/Visualizing/analysis/SearchDay.do";
+	String listUrl = "/Visualizing/analysis/analysisDay.jsp";
 	String pageIndexList = myUtil.pageIndexList(currentPage, totalPage, listUrl);	
 %>
 
@@ -135,7 +135,7 @@
 	
 	function pagePass (page) {
 		f = document.pagePassF;
-		f.action = "/Visualizing/analysis/SearchDay.do?pageNum="+page;
+		f.action = "/Visualizing/analysis/analysisDay.jsp?pageNum="+page;
 		f.submit();
 		
 		return true;

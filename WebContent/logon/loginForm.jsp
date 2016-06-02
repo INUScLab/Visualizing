@@ -34,7 +34,7 @@
 function sendIt() {
 	var f = document.loginF;
 	
-	f.action = "/Visualizing/mg/LoginPro.do";
+	f.action = "/Visualizing/logon/loginPro.jsp";
 	f.submit();
 }
 
@@ -90,7 +90,7 @@ function sendIt() {
 	<c:if test="${!empty sessionScope.id }">
 
 		<script type="text/javascript">
-			location.href = "/Visualizing/map/Map.do";
+			location.href = "/Visualizing/map/map_main.jsp";
 		</script>
 	</c:if>
 </body>
