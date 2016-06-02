@@ -1187,50 +1187,6 @@ function absence_clicked(id) {
 }
 
 
-//Flag가 켜진 아이콘의 마커를 출력.
-function showIcon(  ) {
-	
-	//누수 아이콘을 눌렀을때
-	if ( leakFlag == true ) {
-		leak_flag = false;
-		$('#img_leak').css("background-color", "yellow");
-		for ( var i = 0 ; i < leakMarkers.length ; i ++ ) {
-			leakMarkers[i].setMap(globalMap);
-		}
-	}
-	else {
-		for ( var i = 0 ; i < leakMarkers.length ; i ++ ) {
-			leakMarkers[i].setMap(null);
-		}
-	}
-		
-	
-	
-	else {
-		hideLeakabnormalDongmarkers();
-		$('#img_leak').css("background-color", "#FFFFFF");
-	}
-
-	if (absence_flag) {
-		showAbsenceabnormalDongmarkers();
-		$('#img_absence').css("background-color", "yellow");
-	} else {
-		hideAbsenceabnormalDongmarkers();
-		$('#img_absence').css("background-color", "#FFFFFF");
-	}
-
-	if (freezed_flag) {
-		showFreezedabnormalDongmarkers();
-		$('#img_freezed').css("background-color", "yellow");
-	} else {
-		hideFreezedabnormalDongmarkers();
-		$('#img_freezed').css("background-color", "#FFFFFF");
-	}
-
-}
-
-
-
 /*================================================================================
  * @name: bPopup - if you can't get it up, use bPopup
  * @author: (c)Bjoern Klinggaard (twitter@bklinggaard)
