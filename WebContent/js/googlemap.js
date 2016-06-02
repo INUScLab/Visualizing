@@ -39,7 +39,7 @@ var click_countfat=0;
 var click_countbreak=0;
 var click_countreverse=0;
 var click_countabsence=0;
-
+var icon_on = 0;
 
 
 // 맵 초기화initialize 
@@ -131,13 +131,43 @@ function initialize( ) {
 	var autocomplete = new google.maps.places.Autocomplete(input);
 	google.maps.event.addDomListener(window, 'load', initialize);
 	
+	//아이콘 삭제
+	document.getElementById('overusedimage');
+	document.getElementById('freezeimage');
+	document.getElementById('fatimage');
+	document.getElementById('breakimage');
+	document.getElementById('reverseimage');
+	document.getElementById('absenceimage');
+	
+	if(leakcount==0)
+		$("#overusedimage").hide();
+	if(freezecount==0)
+		$("#freezeimage").hide();
+	if(fatcount==0)
+		$("#fatimage").hide();
+	if(breakcount==0)
+		$("#breakimage").hide();
+	if(reversecount==0)
+		$("#reverseimage").hide();
+	if(absencecount==0)
+		$("#absenceimage").hide();
+	
+	
+	
+	
 	//아이콘 숫자 생성
-	document.getElementById('overusedIcon').innerHTML = leakcount;
-	document.getElementById('freezeIcon').innerHTML = freezecount;
-	document.getElementById('fatIcon').innerHTML = fatcount;
-	document.getElementById('breakIcon').innerHTML = breakcount;
-	document.getElementById('reverseIcon').innerHTML = reversecount;
-	document.getElementById('absenceIcon').innerHTML = absencecount;
+	if(leakcount!=0)
+		document.getElementById('overusedIcon').innerHTML = leakcount;
+	if(freezecount!=0)
+		document.getElementById('freezeIcon').innerHTML = freezecount;
+	if(fatcount!=0)
+		document.getElementById('fatIcon').innerHTML = fatcount;
+	if(breakcount!=0)
+		document.getElementById('breakIcon').innerHTML = breakcount;
+	if(reversecount!=0)
+		document.getElementById('reverseIcon').innerHTML = reversecount;
+	if(absencecount!=0)
+		document.getElementById('absenceIcon').innerHTML = absencecount;
 
 
 }
@@ -880,6 +910,8 @@ function codeAddress() {
 }
 
 // 전체 보기 아이콘을 클릭했을때
+
+/*
 function icon_clicked(id) {
 
 	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
@@ -891,8 +923,8 @@ function icon_clicked(id) {
 	
 	console.log(id);
 	
-	if(id=="img_leak")
-		click_countleak++;
+//	if(id=="img_leak")
+//		click_countleak++;
 	if(id=="img_freeze")
 		click_countfreeze++;
 	if(id=="img_fat")
@@ -906,18 +938,33 @@ function icon_clicked(id) {
 	
 
 	
-
 	
-	if((click_countleak%2)==1){
+	if((click_countleak%2)==0){
 		if(id=="img_leak"){
-			$('#img_leak').css("background-color", "yellow");
+			
+				$('#img_leak').css("background-color", "yellow");
+				click_countleak++;
+				
+			
+			
+			else if(icon_on==1){
+				$('#img_leak').css("background-color", "white");
+				
+				icon_on=0;
+			}
 		}
 	}
-	if((click_countleak%2)==0){
+	else{
+		$('#img_leak').css("background-color", "white");
+		click_countleak++;
+	}
+
+	if((click_countleak%2)==1){
 		if(id=="img_leak"){
 			$('#img_leak').css("background-color", "white");
 		}
 	}
+
 	
 	
 	if((click_countfreeze%2)==1){
@@ -931,7 +978,7 @@ function icon_clicked(id) {
 		}
 	}
 	
-	if((click_countfreeze%2)==1){
+	if((click_countfat%2)==1){
 		if(id=="img_fat"){
 			$('#img_fat').css("background-color", "yellow");
 		}
@@ -979,6 +1026,44 @@ function icon_clicked(id) {
 	
 	console.log(click_countleak);
 	console.log(click_countleak%2);
+	*/
+
+
+function icon_clicked(id){
+	
+	if($('#img_leak').css("background-color") === 'rgb(255, 255, 255)' || $('#img_leak').css("background-color") === 'rgba(0, 0, 0, 0)' ){
+		$('.color').css("background-color", "white");
+		console.log("흰색일때");
+		$('#img_leak').css("background-color", "yellow");
+	}
+	
+	else if ( $('#img_leak').css("background-color") === 'rgb(255, 255, 0)') {
+		$('#img_leak').css("background-color", "white");
+		console.log("노란색일때");
+	}
+	
+	console.log($('#img_leak').css("background-color"))
+	
+	if(id=="img_freeze"){
+		$('#img_freeze').css("background-color", "yellow");
+	}
+	
+	if(id=="img_fat"){
+		$('#img_fat').css("background-color", "yellow");
+	}
+	
+	if(id=="img_break"){
+		$('#img_break').css("background-color", "yellow");
+	}
+	
+	if(id=="img_reverse"){
+		$('#img_reverse').css("background-color", "yellow");
+	}
+	
+	if(id=="img_absence"){
+		$('#img_absence').css("background-color", "yellow");
+	}
+}
 	/*
 	
 	if((countleak%2)==1){
@@ -1046,7 +1131,6 @@ function icon_clicked(id) {
 
 	showIcon();
 	*/
-}
 
 
 
@@ -1054,24 +1138,14 @@ function icon_clicked(id) {
 
 
 
+function leak_clicked( ) {
 
-
-/* 누수 아이콘을 클릭했을때
- * 누수 플래그가 true가 되고 나머지 플래그는 false가 됨.
- * 수용가 마커들은 숨김.
- */
-/*
-function leak_clicked(id) {
-
-
+	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
-	globalMap.setOptions({
-		'zoom' : 13
-	});
+	globalMap.setOptions({ 'zoom' : 13 });
 
 	if (leak_flag == false) {
 		leak_flag = true;
-		entire_flag = false;
 		freezed_flag = false;
 		absence_flag = false;
 
@@ -1079,7 +1153,7 @@ function leak_clicked(id) {
 
 		// if (freezed_flag == true && absence_flag == true) {
 		// entire_flag = true;
-		//
+		//			
 		// $('#img_entire').css("background-color", "yellow");
 		// }
 
@@ -1095,8 +1169,10 @@ function leak_clicked(id) {
 
 // 동파 아이콘을 클릭했을때
 function freezed_clicked(id) {
-
-
+	
+	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
+	$("#left_section_box_init").show();
+	$("#left_section_box_report").hide();
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13
@@ -1112,7 +1188,7 @@ function freezed_clicked(id) {
 
 		// if (leak_flag == true && absence_flag == true) {
 		// entire_flag = true;
-		//
+		//			
 		// $('#img_entire').css("background-color", "yellow");
 		// }
 	} else {
@@ -1129,7 +1205,9 @@ function freezed_clicked(id) {
 // 부재중 알림 아이콘을 클릭했을때
 function absence_clicked(id) {
 
-
+	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
+	$("#left_section_box_init").show();
+	$("#left_section_box_report").hide();
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13
@@ -1156,15 +1234,49 @@ function absence_clicked(id) {
 
 	showIcon();
 }
-*/
 
 
+//Flag가 켜진 아이콘의 마커를 출력.
+function showIcon(  ) {
+	
+	//누수 아이콘을 눌렀을때
+	if ( leakFlag == true ) {
+		leak_flag = false;
+		$('#img_leak').css("background-color", "yellow");
+		for ( var i = 0 ; i < leakMarkers.length ; i ++ ) {
+			leakMarkers[i].setMap(globalMap);
+		}
+	}
+	else {
+		for ( var i = 0 ; i < leakMarkers.length ; i ++ ) {
+			leakMarkers[i].setMap(null);
+		}
+	}
+		
+	
+	
+	else {
+		hideLeakabnormalDongmarkers();
+		$('#img_leak').css("background-color", "#FFFFFF");
+	}
 
+	if (absence_flag) {
+		showAbsenceabnormalDongmarkers();
+		$('#img_absence').css("background-color", "yellow");
+	} else {
+		hideAbsenceabnormalDongmarkers();
+		$('#img_absence').css("background-color", "#FFFFFF");
+	}
 
+	if (freezed_flag) {
+		showFreezedabnormalDongmarkers();
+		$('#img_freezed').css("background-color", "yellow");
+	} else {
+		hideFreezedabnormalDongmarkers();
+		$('#img_freezed').css("background-color", "#FFFFFF");
+	}
 
-
-
-
+}
 
 
 
