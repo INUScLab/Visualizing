@@ -951,6 +951,8 @@ function showBreakabnormalDongmarkers(){
 }
 // Flag가 True인 아이콘을 출력.
 function showIcon() {
+	//초기에 모두 아이콘 초기화
+	$('.color').css("background-color", "white");
 	
 	if (leak_flag) {
 		showLeakabnormalDongmarkers();
@@ -981,6 +983,7 @@ function showIcon() {
 		$('#img_break').css("background-color", "yellow");
 	} 
 	
+	//모든 아이콘이 꺼져있을때
 	else{
 		showDongMarkers();
 		$('.color').css("background-color", "white");
