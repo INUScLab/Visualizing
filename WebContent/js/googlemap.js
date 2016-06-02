@@ -40,6 +40,7 @@ var click_countbreak=0;
 var click_countreverse=0;
 var click_countabsence=0;
 var icon_on = 0;
+var hidebutton = 0;
 
 
 // 맵 초기화initialize 
@@ -1226,6 +1227,20 @@ function break_clicked(){
 	}
 
 	showIcon();
+}
+
+function hide(){
+	if((hidebutton%2)==0){
+		$('#sidebar').hide();
+		$('#hidebutton').css({left: '14.5em'});
+		hidebutton++;
+	}
+	else{
+		$('#sidebar').show();
+		$('#hidebutton').css({left: '34.5em'});
+		hidebutton++;
+	}
+	
 }
 /*================================================================================
  * @name: bPopup - if you can't get it up, use bPopup
