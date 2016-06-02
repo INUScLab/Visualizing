@@ -802,14 +802,6 @@ function drawDongSummaryReport(addressArray) {
 	}
 	*/
 
-	
-
-
-
-	
-
-
-
 	//일주일치 사용량 합 구하기.
 	sum_weeklyConsumption += sum_day1 + sum_day2 + sum_day3 + sum_day4 + sum_day5 + sum_day6 + sum_day7;
 	
@@ -834,7 +826,6 @@ function showDongMarkers() {
 
 // 전체 동들의 마커를 지도에서 숨김
 function hideDongMarkers() {
-
 	for (var i = 0; i < dongMarkers.length; i++) {
 		dongMarkers[i].setMap(null);
 	}
@@ -909,196 +900,113 @@ function codeAddress() {
 
 }
 
-// 전체 보기 아이콘을 클릭했을때
+function showLeakabnormalDongmarkers(){
+	var i=0;
+	hideDongMarkers();
+	while(i<leakMarkers.length){
+		leakMarkers[i].setMap(globalMap);
+		i++;
+	}
+}
 
-/*
-function icon_clicked(id) {
+function showAbsenceabnormalDongmarkers(){
+	var i=0;
+	hideDongMarkers();
+	while(i<absenceMarkers.length){
+		leakMarkers[i].setMap(globalMap);
+		i++;
+	}
+}
+function showFreezedabnormalDongmarkers(){
+	var i=0;
+	hideDongMarkers();
+	while(i<freezeMarkers.length){
+		freezeMarkers[i].setMap(globalMap);
+		i++;
+	}
+}
+function showFatabnormalDongmarkers(){
+	var i=0;
+	hideDongMarkers();
+	while(i<fatMarkers.length){
+		fatMarkers[i].setMap(globalMap);
+		i++;
+	}
+}
+function showReverseabnormalDongmarkers(){
+	var i=0;
+	hideDongMarkers();
+	while(i<reverseMarkers.length){
+		reverseMarkers[i].setMap(globalMap);
+		i++;
+	}
+}
+function showBreakabnormalDongmarkers(){
+	var i=0;
+	hideDongMarkers();
+	while(i<breakMarkers.length){
+		breakMarkers[i].setMap(globalMap);
+		i++;
+	}
+}
+// Flag가 True인 아이콘을 출력.
+function showIcon() {
+	//초기에 모두 아이콘 초기화
+	$('.color').css("background-color", "white");
+	
+	if (leak_flag) {
+		showLeakabnormalDongmarkers();
+		$('#img_leak').css("background-color", "yellow");
+	} 
+
+	else if (absence_flag) {
+		showAbsenceabnormalDongmarkers();
+		$('#img_absence').css("background-color", "yellow");
+	} 
+	else if (freezed_flag) {
+		showFreezedabnormalDongmarkers();
+		$('#img_freeze').css("background-color", "yellow");
+	} 
+	
+	else if (fat_flag) {
+		showFatabnormalDongmarkers();
+		$('#img_fat').css("background-color", "yellow");
+	} 
+	
+	else if (reverse_flag) {
+		showReverseabnormalDongmarkers();
+		$('#img_reverse').css("background-color", "yellow");
+	} 
+	
+	else if (break_flag) {
+		showBreakabnormalDongmarkers();
+		$('#img_break').css("background-color", "yellow");
+	} 
+	
+	//모든 아이콘이 꺼져있을때
+	else{
+		showDongMarkers();
+		$('.color').css("background-color", "white");
+	}
+
+}
+
+
+function leak_clicked() {
 
 	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
-
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13
 	});
-	
-	console.log(id);
-	
-//	if(id=="img_leak")
-//		click_countleak++;
-	if(id=="img_freeze")
-		click_countfreeze++;
-	if(id=="img_fat")
-		click_countfat++;
-	if(id=="img_break")
-		click_countbreak++;
-	if(id=="img_reverse")
-		click_countreverse++;
-	if(id=="img_absence")
-		click_countabsence++;
-	
-
-	
-	
-	if((click_countleak%2)==0){
-		if(id=="img_leak"){
-			
-				$('#img_leak').css("background-color", "yellow");
-				click_countleak++;
-				
-			
-			
-			else if(icon_on==1){
-				$('#img_leak').css("background-color", "white");
-				
-				icon_on=0;
-			}
-		}
-	}
-	else{
-		$('#img_leak').css("background-color", "white");
-		click_countleak++;
-	}
-
-	if((click_countleak%2)==1){
-		if(id=="img_leak"){
-			$('#img_leak').css("background-color", "white");
-		}
-	}
-
-	
-	
-	if((click_countfreeze%2)==1){
-		if(id=="img_freeze"){
-			$('#img_freeze').css("background-color", "yellow");
-		}
-	}
-	if((click_countfreeze%2)==0){
-		if(id=="img_freeze"){
-			$('#img_freeze').css("background-color", "white");
-		}
-	}
-	
-	if((click_countfat%2)==1){
-		if(id=="img_fat"){
-			$('#img_fat').css("background-color", "yellow");
-		}
-	}
-	if((click_countfat%2)==0){
-		if(id=="img_fat"){
-			$('#img_fat').css("background-color", "white");
-		}
-	}
-	
-	if((click_countbreak%2)==1){
-		if(id=="img_break"){
-			$('#img_break').css("background-color", "yellow");
-		}
-	}
-	if((click_countbreak%2)==0){
-		if(id=="img_break"){
-			$('#img_break').css("background-color", "white");
-		}
-	}
-	
-	if((click_countreverse%2)==1){
-		if(id=="img_reverse"){
-			$('#img_reverse').css("background-color", "yellow");
-		}
-	}
-	if((click_countreverse%2)==0){
-		if(id=="img_reverse"){
-			$('#img_reverse').css("background-color", "white");
-		}
-	}
-	
-	if((click_countabsence%2)==1){
-		if(id=="img_absence"){
-			$('#img_absence').css("background-color", "yellow");
-		}
-	}
-	if((click_countabsence%2)==0){
-		if(id=="img_absence"){
-			$('#img_absence').css("background-color", "white");
-		}
-	}
-	
-	
-	
-	console.log(click_countleak);
-	console.log(click_countleak%2);
-	*/
-
-
-function icon_clicked(id){
-	
-	if (id == 'leak') {
-		leak_flag = true;
-		absence_flag = false;
-		freezed_flag = false;
-		fat_flag = false;
-		break_flag = false;
-		reverse_flag = false;
-	}
-	
-	else if ( id =='absence'){
-		absence_flag = true;
-		leak_flag = false;
-		freezed_flag = false;
-		fat_flag = false;
-		break_flag = false;
-		reverse_flag = false;
-	}
-	
-	else if ( id == 'freeze' ) {
-		freezed_flag = true;
-		leak_flag = false;
-		absence_flag = false;
-		fat_flag = false;
-		break_flag = false;
-		reverse_flag = false;
-	}
-	else if ( id == 'fat' ) {
-		fat_flag = true;
-		leak_flag = false;
-		absence_flag = false;
-		freezed_flag = false;
-		break_flag = false;
-		reverse_flag = false;
-	}
-	
-	else if ( id == 'break') {
-		break_flag = true;
-		leak_flag = false;
-		freezed_flag = false;
-		absence_flag = false;
-		fat_flag = false;
-		reverse_flag = false;
-	}
-	
-	else {
-		reverse_flag = true;
-		leak_flag = false;
-		absence_flag = false;
-		freezed_flag = false;
-		fat_flag = false;
-		break_flag = false;
-	}
-	
-	showIcon();
-	
-}
-	
-
-function showIcon( ) {
-
-	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
-	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
-	globalMap.setOptions({ 'zoom' : 13 });
 
 	if (leak_flag == false) {
 		leak_flag = true;
 		freezed_flag = false;
+		fat_flag = false;
 		absence_flag = false;
+		break_flag = false;
+		reverse_flag = false;
 
 		// $('#img_leak').css("background-color", "yellow");
 
@@ -1111,29 +1019,29 @@ function showIcon( ) {
 	} else {
 		leak_flag = false;
 
-		// $('#img_leak').css("background-color", "#FFFFFF");
-		// $('#img_entire').css("background-color", "#FFFFFF");
+		// $('#img_leak').css("background-color", "white");
+		// $('#img_entire').css("background-color", "white");
 	}
 
 	showIcon();
 }
 
 // 동파 아이콘을 클릭했을때
-function freezed_clicked(id) {
+function freezed_clicked() {
 	
 	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
-	$("#left_section_box_init").show();
-	$("#left_section_box_report").hide();
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13
 	});
 
 	if (freezed_flag == false) {
-		freezed_flag = true;
-		entire_flag = false;
 		leak_flag = false;
+		freezed_flag = true;
+		fat_flag = false;
 		absence_flag = false;
+		break_flag = false;
+		reverse_flag = false;
 
 		// $('#img_freezed').css("background-color", "yellow");
 
@@ -1145,8 +1053,8 @@ function freezed_clicked(id) {
 	} else {
 		freezed_flag = false;
 
-		// $('#img_freezed').css("background-color", "#FFFFFF");
-		// $('#img_entire').css("background-color", "#FFFFFF");
+		// $('#img_freezed').css("background-color", "white");
+		// $('#img_entire').css("background-color", "white");
 
 	}
 
@@ -1154,21 +1062,20 @@ function freezed_clicked(id) {
 }
 
 // 부재중 알림 아이콘을 클릭했을때
-function absence_clicked(id) {
+function absence_clicked() {
 
-	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
-	$("#left_section_box_init").show();
-	$("#left_section_box_report").hide();
 	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
 	globalMap.setOptions({
 		'zoom' : 13
 	});
 
 	if (absence_flag == false) {
-		absence_flag = true;
-		entire_flag = false;
 		leak_flag = false;
 		freezed_flag = false;
+		fat_flag = false;
+		absence_flag = true;
+		break_flag = false;
+		reverse_flag = false;
 
 		// $('#img_absence').css("background-color", "yellow");
 
@@ -1179,58 +1086,115 @@ function absence_clicked(id) {
 	} else {
 		absence_flag = false;
 
-		// $('#img_absence').css("background-color", "#FFFFFF");
-		// $('#img_entire').css("background-color", "#FFFFFF");
+		// $('#img_absence').css("background-color", "white");
+		// $('#img_entire').css("background-color", "white");
 	}
 
 	showIcon();
 }
 
-
-//Flag가 켜진 아이콘의 마커를 출력.
-function showIcon(  ) {
+function reverse_clicked() {
 	
-	//누수 아이콘을 눌렀을때
-	if ( leakFlag == true ) {
+	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
+	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
+	globalMap.setOptions({
+		'zoom' : 13
+	});
+
+	if (reverse_flag == false) {
 		leak_flag = false;
-		$('#img_leak').css("background-color", "yellow");
-		for ( var i = 0 ; i < leakMarkers.length ; i ++ ) {
-			leakMarkers[i].setMap(globalMap);
-		}
-	}
-	else {
-		for ( var i = 0 ; i < leakMarkers.length ; i ++ ) {
-			leakMarkers[i].setMap(null);
-		}
-	}
-		
-	
-	
-	else {
-		hideLeakabnormalDongmarkers();
-		$('#img_leak').css("background-color", "#FFFFFF");
-	}
+		freezed_flag = false;
+		fat_flag = false;
+		absence_flag = false;
+		break_flag = false;
+		reverse_flag = true;
 
-	if (absence_flag) {
-		showAbsenceabnormalDongmarkers();
-		$('#img_absence').css("background-color", "yellow");
+		// $('#img_freezed').css("background-color", "yellow");
+
+		// if (leak_flag == true && absence_flag == true) {
+		// entire_flag = true;
+		//			
+		// $('#img_entire').css("background-color", "yellow");
+		// }
 	} else {
-		hideAbsenceabnormalDongmarkers();
-		$('#img_absence').css("background-color", "#FFFFFF");
+		reverse_flag = false;
+
+		// $('#img_freezed').css("background-color", "white");
+		// $('#img_entire').css("background-color", "white");
+
 	}
 
-	if (freezed_flag) {
-		showFreezedabnormalDongmarkers();
-		$('#img_freezed').css("background-color", "yellow");
-	} else {
-		hideFreezedabnormalDongmarkers();
-		$('#img_freezed').css("background-color", "#FFFFFF");
-	}
-
+	showIcon();
 }
+	
 
 
+function fat_clicked() {
+	
+	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
+	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
+	globalMap.setOptions({
+		'zoom' : 13
+	});
 
+	if (fat_flag == false) {
+		leak_flag = false;
+		freezed_flag = false;
+		fat_flag = true;
+		absence_flag = false;
+		break_flag = false;
+		reverse_flag = false;
+
+		// $('#img_freezed').css("background-color", "yellow");
+
+		// if (leak_flag == true && absence_flag == true) {
+		// entire_flag = true;
+		//			
+		// $('#img_entire').css("background-color", "yellow");
+		// }
+	} else {
+		fat_flag = false;
+
+		// $('#img_freezed').css("background-color", "white");
+		// $('#img_entire').css("background-color", "white");
+
+	}
+
+	showIcon();
+}
+function break_clicked(){
+	
+	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
+	globalMap.setCenter(new google.maps.LatLng(37.4562557, 126.70520620000002));
+	globalMap.setOptions({
+		'zoom' : 13
+	});
+
+	if (break_flag == false) {
+		leak_flag = false;
+		freezed_flag = false;
+		fat_flag = false;
+		absence_flag = false;
+		break_flag = true;
+		reverse_flag = false;
+
+		// $('#img_freezed').css("background-color", "yellow");
+
+		// if (leak_flag == true && absence_flag == true) {
+		// entire_flag = true;
+		//			
+		// $('#img_entire').css("background-color", "yellow");
+		// }
+	} else {
+		break_flag = false;
+
+		// $('#img_freezed').css("background-color", "white");
+		// $('#img_entire').css("background-color", "white");
+
+	}
+
+	showIcon();
+}
 /*================================================================================
  * @name: bPopup - if you can't get it up, use bPopup
  * @author: (c)Bjoern Klinggaard (twitter@bklinggaard)
