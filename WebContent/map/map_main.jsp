@@ -224,7 +224,7 @@ summaryReportList.push( {
 			<section id="content">
 				<section class="hbox stretch">
 					<!-- 주소 검색 -->
-					<aside class="aside-lg bg-white b-r-line">
+					<aside class="aside-lg bg-white b-r-line" id="sidebar">
 						<section class="vbox">
 							<div
 								class="navbar-form1 navbar-left no-padder-mobile bg-dk-mobile"
@@ -304,12 +304,13 @@ summaryReportList.push( {
 
 							</section>
 
-							<a href="#" class="spmh spmh_aside_close nclicks(mtw.lwfold)"
-								title="접기">본문 컨텐츠 접기</a>
+							
 
 						</section>
 						<!--vbox-->
 					</aside>
+					
+					<a href="#" class="spmh spmh_aside_close nclicks(mtw.lwfold) title="접기" onclick="hide()" style="left: 34.5em;" id="hidebutton" >본문 컨텐츠 접기</a>
 
 					<!-- 상단영역 -->
 					<section class="vbox">
