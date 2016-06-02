@@ -16,10 +16,6 @@
 <jsp:useBean id="adctrl" class="visualizing.analysis.AnalysisDataCtrl" />
 
 <%
-	Integer data_start_num = 0;
-	Integer data_end_num = 10; // 데이터 오바되면 접근 되는 문제 수정필요.
-	String page_start_num = request.getParameter("page_start_num");
-
 	String si = request.getParameter("si");
 	String guGun = request.getParameter("guGun");
 	String umDong = request.getParameter("umDong");
@@ -39,9 +35,6 @@
 	if (consumerName != null)if (consumerName.equals(""))	consumerName = null;
 	if (telNumber != null)if (telNumber.equals("")) 		telNumber = null;
 	if (meterNum != null)if (meterNum.equals(""))			meterNum = null;
-	if (page_start_num == null) {
-		page_start_num = "1";
-	}
 
 	System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
 
@@ -51,10 +44,6 @@
 	ArrayList<AnalysisData> array_list = adctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName,
 			telNumber, meterNum, sdates[0] , sdates[1], sdates[2], edates[0], edates[1], edates[2]);
 
-	if (data_end_num > array_list.size()) {
-		data_end_num = array_list.size();
-	}
-	
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 	Date currentDate = new Date ();
@@ -80,6 +69,10 @@
 	
 	int start = (currentPage-1)*numPerPage;
 	int end = currentPage*numPerPage;
+	
+	if (end > array_list.size()){
+		end = array_list.size();
+	}
 	
 	List<AnalysisData> lists = adctrl.getList(start, end, array_list);
 	
