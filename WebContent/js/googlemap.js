@@ -912,7 +912,7 @@ function showLeakabnormalDongmarkers(){
 function showAbsenceabnormalDongmarkers(){
 	var i=0;
 	hideDongMarkers();
-	while(i<leakMarkers.length){
+	while(i<absenceMarkers.length){
 		leakMarkers[i].setMap(globalMap);
 		i++;
 	}
@@ -955,50 +955,35 @@ function showIcon() {
 	if (leak_flag) {
 		showLeakabnormalDongmarkers();
 		$('#img_leak').css("background-color", "yellow");
-	} else {
-		
-		showDongMarkers();
-		$('#img_leak').css("background-color", "white");
-	}
+	} 
 
-	if (absence_flag) {
+	else if (absence_flag) {
 		showAbsenceabnormalDongmarkers();
 		$('#img_absence').css("background-color", "yellow");
-	} else {
-		showDongMarkers();
-		$('#img_absence').css("background-color", "white");
-	}
-
-	if (freezed_flag) {
+	} 
+	else if (freezed_flag) {
 		showFreezedabnormalDongmarkers();
 		$('#img_freeze').css("background-color", "yellow");
-	} else {
-		showDongMarkers();
-		$('#img_freeze').css("background-color", "white");
-	}
+	} 
 	
-	if (fat_flag) {
+	else if (fat_flag) {
 		showFatabnormalDongmarkers();
 		$('#img_fat').css("background-color", "yellow");
-	} else {
-		showDongMarkers();
-		$('#img_fat').css("background-color", "white");
-	}
+	} 
 	
-	if (reverse_flag) {
+	else if (reverse_flag) {
 		showReverseabnormalDongmarkers();
 		$('#img_reverse').css("background-color", "yellow");
-	} else {
-		showDongMarkers();
-		$('#img_reverse').css("background-color", "white");
-	}
+	} 
 	
-	if (break_flag) {
+	else if (break_flag) {
 		showBreakabnormalDongmarkers();
 		$('#img_break').css("background-color", "yellow");
-	} else {
+	} 
+	
+	else{
 		showDongMarkers();
-		$('#img_break').css("background-color", "white");
+		$('.color').css("background-color", "white");
 	}
 
 }
