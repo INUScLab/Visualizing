@@ -264,74 +264,19 @@ summaryReportList.push( {
 										</h5>
 
 										<ul
-											class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+											class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border" id ="ui-list-group" >
 											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block"> 장소</strong> <small>번호<br /></small>
-													<small>번지수</small>
-											</a></li>
-
-
-
-
-
-
-											<!-- 
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block"> </strong> <small> <br /></small>
-													<small> </small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
+													<strong class="block">(사단)김시식유적보존회</strong> 
+													<small>061-793-4959<br /></small>
 													<small>김시식지 1길 57-6</small>
 											</a></li>
 											<li class="list-group-item"><a href="#" class="clear">
 													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
 													<small>김시식지 1길 57-6</small>
 											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											 -->
-
-
-
+											
 
 										</ul>
-
-
 
 
 										<!-- 

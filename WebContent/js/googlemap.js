@@ -744,15 +744,8 @@ function drawDongSummaryReport(addressArray) {
 		}
 	}
 
-	
-	
-	
-	
-	
 	//1.주소칸
 	document.getElementById('modal-title').innerHTML = incheon+ ' ' + gu + ' ' + dong ; // 주소 출력
-
-
 
 	//2.부가서비스별 발생 횟수.
 	document.getElementById('blockLeak').innerHTML = count_leak + "건";
@@ -883,25 +876,55 @@ function codeAddress() {
          //var dongList = normalUsedDongList.concat(overUsedDongList);
          
          var j = 0;
-         
+         var dong = '';
          while(j < dongMarkers.length){
             var add = dongMarkers[j].title.split(" ");
             
             
             if(addressArray[3] == add[2] || addressArray[0] == add[2]){
-                
-            
+                dong = add[2];
+            	//검색어가 DB에 저장된 동과 일치하면 요약리포트를 띄운다.
                $('#element_to_pop_up').bPopup();
-               drawDongSummaryReport(dongMarkers[j].title.split(" "));
+               drawDongSummaryReport(dongMarkers[j].title.split(' '));
                createConsumerMarkers(dongMarkers[j].title.split(' '));
-               
             }
             j++;
          }
+         
          hideDongMarkers();
          
-         
-   
+         //해당 동의 수용가를 목록으로 출력한다.
+         var i = 0
+         while (dong != '' && i < summaryReportList.length ) {
+        	 if ( dong == summaryReportList[i].dong ) {
+
+        		 var guDong = summaryReportList[i].gu + ' ' + summaryReportList[i].dong;
+        		 var detail = summaryReportList[i].detail;
+
+        		 var li = document.createElement('li');
+        		 li.className = "list-group-item";
+        		 
+        		 var a = document.createElement('a');
+        		 a.href = '#'
+        		 a.className = 'clear';
+
+        		 var strong_guDong = document.createElement('strong');
+        		 strong_guDong.innerHTML = guDong;
+        		 
+        		 var br = document.createElement('br');
+        		 
+        		 var small_detail = document.createElement('small');
+        		 small_detail.innerHTML = detail;
+        		 
+        		 a.appendChild(strong_guDong);
+        		 a.appendChild(br);
+        		 a.appendChild(small_detail);
+        		 li.appendChild(a);
+        		 
+        		 $("#ui-list-group").append(li);
+        	 }
+        	 i++;
+         }
       } else {
          alert('Geocode was not successful for the following reason: '
                + status);
