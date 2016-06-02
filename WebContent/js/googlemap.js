@@ -95,9 +95,9 @@ function initialize( ) {
 		if (globalMap.getZoom() <= 13) {
 
 			//동 마커 출력하고 , 수용가 마커 감추기.
-			showDongMarkers();
+//			showDongMarkers();
 			hideConsumerMarkersMarkers();
-
+			showIcon();
 			//infoWindow 닫기
 //			infoWindow.close();
 
@@ -851,55 +851,64 @@ function hideConsumerMarkersMarkers() {
 // 지도 검색 - 자동완성 기능을 사용했을때와 그냥 동 이름을 검색했을때를 다시 생각할것.
 function codeAddress() {
 
-	// Get Address from HTML
-	var address = document.getElementById("searchbox").value;
-	var color = "0000FF";
+   // Get Address from HTML
+   var address = document.getElementById("searchbox").value;
+   var color = "0000FF";
 
-	var pinImage = new google.maps.MarkerImage(
-			"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|"
-					+ color, new google.maps.Size(21, 34),
-			new google.maps.Point(0, 0), new google.maps.Point(10, 34));
-	var pinShadow = new google.maps.MarkerImage(
-			"http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
-			new google.maps.Size(40, 37), new google.maps.Point(0, 0),
-			new google.maps.Point(12, 35));
+   var pinImage = new google.maps.MarkerImage(
+         "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|"
+               + color, new google.maps.Size(21, 34),
+         new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+   var pinShadow = new google.maps.MarkerImage(
+         "http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+         new google.maps.Size(40, 37), new google.maps.Point(0, 0),
+         new google.maps.Point(12, 35));
 
-	
-	
-	globalGeocoder.geocode({
-		'address' : address
-	}, function(results, status) {
-		if (status === google.maps.GeocoderStatus.OK) {
+   
+   
+   globalGeocoder.geocode({
+      'address' : address
+   }, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
 
-			searchMarker.setMap(null);
-			
-			var addressArray = address.split(" ");
-			var dongMarkerstTitle = dongMarkers
-		
-			// Locate to map
-			globalMap.setCenter(results[0].geometry.location);
+         searchMarker.setMap(null);
+         
+         var addressArray = address.split(" ");
+         var dongMarkerstTitle = dongMarkers
+         
+      
+         // Locate to map
+         globalMap.setCenter(results[0].geometry.location);
 
-			//var dongList = normalUsedDongList.concat(overUsedDongList);
-			
-			var j = 0;
-			while(j < dongMarkers.length){
-				var dong = dongMarkers[j].title.split(" ");
-				if(addressArray[3] == dong[2] || addressArray[0] == dong[2]){
-					createInfoWindow(dongMarkers[j], contentString)
-					
-				}
-				j++;
-			}
-			
-	
-		} else {
-			alert('Geocode was not successful for the following reason: '
-					+ status);
-		}
-	});
+         //var dongList = normalUsedDongList.concat(overUsedDongList);
+         
+         var j = 0;
+         
+         while(j < dongMarkers.length){
+            var add = dongMarkers[j].title.split(" ");
+            
+            
+            if(addressArray[3] == add[2] || addressArray[0] == add[2]){
+                
+            
+               $('#element_to_pop_up').bPopup();
+               drawDongSummaryReport(dongMarkers[j].title.split(" "));
+               createConsumerMarkers(dongMarkers[j].title.split(' '));
+               
+            }
+            j++;
+         }
+         hideDongMarkers();
+         
+         
+   
+      } else {
+         alert('Geocode was not successful for the following reason: '
+               + status);
+      }
+   });
 
 }
-
 function showLeakabnormalDongmarkers(){
 	var i=0;
 	hideDongMarkers();
