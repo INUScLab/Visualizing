@@ -458,7 +458,7 @@ summaryReportList.push( {
 														</div>
 													</section>
 												</div>
-
+<!-- 
 												<div class="col-lg-4">
 													<section class="panel">
 														<header class="panel-heading">지난달 부가서비스 발생횟수</header>
@@ -466,7 +466,9 @@ summaryReportList.push( {
 														</div>
 													</section>
 												</div>
+												 -->
 											</div>
+											
 										</div>
 									</div>
 								</div>

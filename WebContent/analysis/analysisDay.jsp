@@ -246,41 +246,42 @@
 								<!--  start -->
 								<ul class="nav top-menu">
 									<!-- 누수 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/water.png" data-toggle="tooltip"
 											data-placement="bottom" title="누수"><span
-											class="badge bg-danger">6</span>
+											class="badge bg-danger">1</span>
 									</a></li>
 									<!-- 누수 end -->
 									<!-- 동파 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/winter.png" data-toggle="tooltip"
 											data-placement="bottom" title="동파">
 									</a></li>
 									<!-- 동파 end -->
 									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/obesity.png" data-toggle="tooltip"
 											data-placement="bottom" title="비만"><span
-											class="badge bg-warning">7</span>
+											class="badge bg-danger">1</span>
 									</a></li>
 									<!-- 비만 end -->
 									<!-- 파손 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/damage.png" data-toggle="tooltip"
 											data-placement="bottom" title="파손">
 									</a></li>
 									<!-- 파손 end -->
 									<!-- 역류 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/backwash.png" data-toggle="tooltip"
-											data-placement="bottom" title="역류">
+											data-placement="bottom" title="역류"><span
+											class="badge bg-danger">3</span>
 									</a></li>
 									<!-- 역류 end -->
 									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/absence.png" data-toggle="tooltip"
-											data-placement="bottom" title="부재중">
+											data-placement="bottom" title="부재중" >
 									</a></li>
 									<!-- 비만 end -->
 								</ul>
