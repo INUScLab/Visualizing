@@ -66,13 +66,13 @@ public class ReadMonthCtrl {
 			this.number = "true";
 		}
 		else{
-			this.number = "u.number=" + number;
+			this.number = "u.number like '%" + number + "%'";
 		}
 		if(meter_num == null){
 			this.meter_num = "true";
 		}
 		else{
-			this.meter_num = "meter_num='" + meter_num + "'";
+			this.meter_num = "u.meter_num like '%" + meter_num + "%'";
 		}
 		
 		char pre = (char)((int)(month.charAt(1))-1);
