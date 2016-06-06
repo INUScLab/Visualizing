@@ -298,7 +298,7 @@ summaryReportList.push( {
 						<!--vbox-->
 					</aside>
 					
-					<a href="#" class="spmh spmh_aside_close nclicks(mtw.lwfold) title="접기" onclick="hide()" style="left: 34.5em;" id="hidebutton" >본문 컨텐츠 접기</a>
+					<a href="#" class="spmh spmh_aside_close nclicks(mtw.lwfold) title="fold" onclick="hide()" style="left: 34.5em;" id="hidebutton" >본문 컨텐츠 접기</a>
 
 					<!-- 상단영역 -->
 					<section class="vbox">
@@ -313,42 +313,42 @@ summaryReportList.push( {
 									<li class="dropdown" onclick="leak_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/water.png" data-toggle="tooltip"
 											data-placement="bottom" title="누수" id="img_leak" class="color"> <span
-											class="badge bg-danger" id="overusedimage"><div id="overusedIcon"></div></span>
+											class="badge bg-danger" id="overusedimage"></span>
 									</a></li>
 									<!-- 누수 end -->
 									<!-- 동파 start-->
 									<li class="dropdown" onclick="freezed_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/winter.png" data-toggle="tooltip"
 											data-placement="bottom" title="동파" id="img_freeze" class="color"> <span
-											class="badge bg-danger" id="freezeimage"><div id="freezeIcon"></div></span>
+											class="badge bg-danger" id="freezeimage"></span>
 									</a></li>
 									<!-- 동파 end -->
 									<!-- 비만 start-->
 									<li class="dropdown" onclick="fat_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/obesity.png" data-toggle="tooltip"
 											data-placement="bottom" title="비만" id="img_fat" class="color"> <span
-											class="badge bg-danger" id="fatimage"><div id="fatIcon"></div></span>
+											class="badge bg-danger" id="fatimage"></span>
 									</a></li>
 									<!-- 비만 end -->
 									<!-- 파손 start-->
 									<li class="dropdown" onclick="break_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/damage.png" data-toggle="tooltip"
 											data-placement="bottom" title="파손" id="img_break" class="color"> <span
-											class="badge bg-danger" id="breakimage"><div id="breakIcon"></div></span>
+											class="badge bg-danger" id="breakimage"></span>
 									</a></li>
 									<!-- 파손 end -->
 									<!-- 역류 start-->
 									<li class="dropdown" onclick="reverse_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/backwash.png" data-toggle="tooltip"
 											data-placement="bottom" title="역류" id="img_reverse" class="color"> <span
-											class="badge bg-danger" id="reverseimage"><div id="reverseIcon"></div></span>
+											class="badge bg-danger" id="reverseimage"></span>
 									</a></li>
 									<!-- 역류 end -->
 									<!-- 부재중 start-->
 									<li class="dropdown" onclick="absence_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/absence.png" data-toggle="tooltip"
 											data-placement="bottom" title="부재중" id="img_absence" class="color"> <span
-											class="badge bg-danger" id="absenceimage"><div id="absenceIcon"></div></span>
+											class="badge bg-danger" id="absenceimage"></span>
 									</a></li>
 									<!-- 부재중 end -->
 								</ul>
@@ -387,7 +387,7 @@ summaryReportList.push( {
 						 -->
 						<!-- //지도영역-->
 						<div id="element_to_pop_up">
-							<a class="b-close">x<a/>
+							<a class="b-close">x</a>
 								<div class="modal-dialog" id="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -400,32 +400,32 @@ summaryReportList.push( {
 												<div class="row">
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockLeak"></small></span> <small class="text-muted h5">누수</small>
+															id="blockLeak"></span> <small class="text-muted h5">누수</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockFreezed"></small></span> <small class="text-muted h5">동파</small>
+															id="blockFreezed"></span> <small class="text-muted h5">동파</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockFat"></small></span> <small class="text-muted h5">비만</small>
+															id="blockFat"></span> <small class="text-muted h5">비만</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockBreakage"></small></span> <small class="text-muted h5">파손</small>
+															id="blockBreakage"></span> <small class="text-muted h5">파손</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockReverse"></small></span> <small class="text-muted h5">역류</small>
+															id="blockReverse"></span> <small class="text-muted h5">역류</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockAbsence"></small></span> <small class="text-muted h5">부재중</small>
+															id="blockAbsence"></span> <small class="text-muted h5">부재중</small>
 														</a>
 													</div>
 												</div>
@@ -484,6 +484,7 @@ summaryReportList.push( {
 
 				</section>
 
+			</section>
 			</section>
 
 

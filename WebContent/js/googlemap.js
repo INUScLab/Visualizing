@@ -133,13 +133,7 @@ function initialize( ) {
 	google.maps.event.addDomListener(window, 'load', initialize);
 	
 	//아이콘 삭제
-	document.getElementById('overusedimage');
-	document.getElementById('freezeimage');
-	document.getElementById('fatimage');
-	document.getElementById('breakimage');
-	document.getElementById('reverseimage');
-	document.getElementById('absenceimage');
-	
+
 	if(leakcount==0)
 		$("#overusedimage").hide();
 	if(freezecount==0)
@@ -154,21 +148,19 @@ function initialize( ) {
 		$("#absenceimage").hide();
 	
 	
-	
-	
 	//아이콘 숫자 생성
 	if(leakcount!=0)
-		document.getElementById('overusedIcon').innerHTML = leakcount;
+		document.getElementById('overusedimage').innerHTML = leakcount;
 	if(freezecount!=0)
-		document.getElementById('freezeIcon').innerHTML = freezecount;
+		document.getElementById('freezeimage').innerHTML = freezecount;
 	if(fatcount!=0)
-		document.getElementById('fatIcon').innerHTML = fatcount;
+		document.getElementById('fatimage').innerHTML = fatcount;
 	if(breakcount!=0)
-		document.getElementById('breakIcon').innerHTML = breakcount;
+		document.getElementById('breakimage').innerHTML = breakcount;
 	if(reversecount!=0)
-		document.getElementById('reverseIcon').innerHTML = reversecount;
+		document.getElementById('reverseimage').innerHTML = reversecount;
 	if(absencecount!=0)
-		document.getElementById('absenceIcon').innerHTML = absencecount;
+		document.getElementById('absenceimage').innerHTML = absencecount;
 
 
 }
@@ -897,6 +889,7 @@ function codeAddress() {
             j++;
          }
          
+         console.log(addressArray);
          console.log(dong)
          
          //해당 동의 수용가를 목록으로 출력한다.
@@ -932,6 +925,7 @@ function codeAddress() {
         	 }
         	 i++;
          }
+         
       } else {
          alert('Geocode was not successful for the following reason: '
                + status);
