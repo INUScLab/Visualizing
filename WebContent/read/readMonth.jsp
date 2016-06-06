@@ -1,8 +1,6 @@
 <%@ page import="visualizing.read.ReadMonthCtrl"%>
 <%@ page import="visualizing.read.ReadMonth"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.util.Locale"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -28,11 +26,21 @@
 	String dateYear = request.getParameter("dateYear");
 	String dateMonth = request.getParameter("dateMonth");
 
-	if (dateYear == null || dateYear.equals(""))
-		dateYear = "2015";
-	if (dateMonth == null || dateMonth.equals(""))
-		dateMonth = "03";
-
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	Date currentDate = new Date ();
+	String date = mSimpleDateFormat.format ( currentDate );
+	
+	SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+	SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.KOREA);
+	Calendar cal = Calendar.getInstance();
+	
+	if (dateYear == null || dateYear.equals("")){
+		dateYear = yearFormat.format(currentDate); 
+	}
+	if (dateMonth == null || dateMonth.equals("")){
+		dateMonth = monthFormat.format(currentDate); 
+	}
 	if (si == null || si.equals(""))
 		si = "인천광역시";
 	if (guGun == null || guGun.equals(""))
@@ -64,11 +72,7 @@
 	if (data_end_num > array_list.size()){
 		data_end_num = array_list.size();
 	}
-	
-	// 오늘 날짜 구하기
-	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-	Date currentDate = new Date ();
-	String date = mSimpleDateFormat.format ( currentDate );
+
 %>
 
 <!DOCTYPE html>
@@ -110,14 +114,14 @@
 		
 		<% 
 		String dateyear;
-		if(request.getParameter("dateYear") == null) dateyear = "2015";
+		if(request.getParameter("dateYear") == null) dateyear = yearFormat.format(currentDate); 
 		else dateyear = request.getParameter("dateYear");
 		%>
 		search_form.dateYear.value = "<%=dateyear%>";
 		
 		<% 
 		String datemonth;
-		if(request.getParameter("dateMonth") == null) datemonth = "02";
+		if(request.getParameter("dateMonth") == null) datemonth = monthFormat.format(currentDate); 
 		else datemonth = request.getParameter("dateMonth");
 		%>
 		search_form.dateMonth.value = "<%=datemonth%>";

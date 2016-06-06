@@ -1,8 +1,6 @@
 <%@ page import="visualizing.analysis.AnalysisDataCtrl"%>
 <%@ page import="visualizing.analysis.AnalysisData"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.util.Locale"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -28,10 +26,23 @@
 	String sdate = request.getParameter("sdate");
 	String edate = request.getParameter("edate");
 
-	if (sdate == null || sdate.equals(""))
-		sdate = "2015";
-	if (edate == null || edate.equals(""))
-		edate = "2015";
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	Date currentDate = new Date ();
+	String date = mSimpleDateFormat.format ( currentDate );
+	
+	SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+	Calendar cal = Calendar.getInstance();
+	
+	if (sdate == null || sdate.equals("")){
+		cal.setTime(currentDate);
+	 	cal.add(Calendar.YEAR, -1);
+		sdate = DateFormat.format(cal.getTime()); 
+	}
+	if (edate == null || edate.equals("")){
+		cal.setTime(currentDate);
+	    edate = DateFormat.format(cal.getTime()); 
+	}
 	if (si == null || si.equals(""))
 		si = "인천광역시";
 	if (guGun == null || guGun.equals(""))
@@ -63,11 +74,6 @@
 	if (data_end_num > array_list.size()) {
 		data_end_num = array_list.size();
 	}
-	
-	// 오늘 날짜 구하기
-	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-	Date currentDate = new Date ();
-	String date = mSimpleDateFormat.format ( currentDate );
 %>
 
 <!DOCTYPE html>
@@ -108,15 +114,20 @@
 		search_form.guGun.value = "<%=gugun%>";
 		
 		<%String s;
-			if (request.getParameter("sdate") == null)
-				s = "2015";
+			if (request.getParameter("sdate") == null){
+				cal.setTime(currentDate);
+			 	cal.add(Calendar.YEAR, -1);
+				s = DateFormat.format(cal.getTime()); 
+			}
 			else
 				s = request.getParameter("sdate");%>
 		search_form.sdate.value = "<%=s%>";
 		
 		<%String e;
-			if (request.getParameter("edate") == null)
-				e = "2015";
+			if (request.getParameter("edate") == null){
+				cal.setTime(currentDate);
+			    e = DateFormat.format(cal.getTime()); 
+			}
 			else
 				e = request.getParameter("edate");%>
 		search_form.edate.value = "<%=e%>";
@@ -327,10 +338,10 @@
 																<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="sdate" value="${param['sdate']}"
-																	data-date-format="dd-mm">~<input
+																	data-date-format="yyyy">~<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="edate" value="${param['edate']}"
-																	data-date-format="dd-mm">
+																	data-date-format="yyyy">
 															</div>
 														</div>
 													</div>

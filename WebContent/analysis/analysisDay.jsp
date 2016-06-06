@@ -2,9 +2,7 @@
 <%@page import="visualizing.util.MyUtil"%>
 <%@ page import="visualizing.analysis.AnalysisDataCtrl"%>
 <%@ page import="visualizing.analysis.AnalysisData"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.util.Locale"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -26,8 +24,22 @@
 	String sdate = request.getParameter("sdate");
 	String edate = request.getParameter("edate");
 
-	if (sdate == null || sdate.equals(""))		sdate = "2015-01-31";
-	if (edate == null || edate.equals(""))		edate = "2015-02-28";
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	Date currentDate = new Date ();
+	String date = mSimpleDateFormat.format ( currentDate );
+	
+	Calendar cal = Calendar.getInstance();
+	
+	if (sdate == null || sdate.equals("")){
+		cal.setTime(currentDate);
+	 	cal.add(Calendar.DATE, -1);
+		sdate = mSimpleDateFormat.format(cal.getTime()); 
+	}
+	if (edate == null || edate.equals("")){
+		cal.setTime(currentDate);
+	    edate = mSimpleDateFormat.format(cal.getTime()); 
+	}
 	if (si == null || si.equals(""))			si = "인천광역시";
 	if (guGun == null || guGun.equals(""))		guGun = "전체";
 	if (umDong == null || umDong.equals(""))	umDong = "전체";
@@ -36,7 +48,7 @@
 	if (telNumber != null)if (telNumber.equals("")) 		telNumber = null;
 	if (meterNum != null)if (meterNum.equals(""))			meterNum = null;
 
-	System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
+	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
 
 	String[] sdates = new String(sdate).split("-");
 	String[] edates = new String(edate).split("-");
@@ -44,10 +56,6 @@
 	ArrayList<AnalysisData> array_list = adctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName,
 			telNumber, meterNum, sdates[0] , sdates[1], sdates[2], edates[0], edates[1], edates[2]);
 
-	// 오늘 날짜 구하기
-	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-	Date currentDate = new Date ();
-	String date = mSimpleDateFormat.format ( currentDate );
 %>
 
 <%
@@ -118,15 +126,20 @@
 		search_form.guGun.value = "<%=gugun%>";
 		
 		<%String s;
-			if (request.getParameter("sdate") == null)
-				s = "2015-01-31";
+			if (request.getParameter("sdate") == null){
+				cal.setTime(currentDate);
+			 	cal.add(Calendar.DATE, -1);
+				s = mSimpleDateFormat.format(cal.getTime()); 
+			}
 			else
 				s = request.getParameter("sdate");%>
 		search_form.sdate.value = "<%=s%>";
 		
 		<%String e;
-			if (request.getParameter("edate") == null)
-				e = "2015-02-28";
+			if (request.getParameter("edate") == null){
+				cal.setTime(currentDate);
+			    e = mSimpleDateFormat.format(cal.getTime()); 
+			}
 			else
 				e = request.getParameter("edate");%>
 		search_form.edate.value = "<%=e%>";
@@ -345,10 +358,10 @@
 																<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="sdate" value="${param['sdate']}"
-																	data-date-format="dd-mm-yyyy">~<input
+																	data-date-format="yyyy-mm-dd">~<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="edate" value="${param['edate']}"
-																	data-date-format="dd-mm-yyyy">
+																	data-date-format="yyyy-mm-dd">
 															</div>
 														</div>
 													</div>

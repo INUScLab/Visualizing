@@ -17,19 +17,25 @@
 <%
 	String si = request.getParameter("si");
 	String guGun = request.getParameter("guGun");
-	String textDate;
 	
 	if (si == null || si.equals(""))
 		si = "인천광역시";
 	if (guGun == null || guGun.equals(""))
 		guGun = "강화군";
 
-	RankData rd_data = rdctrl.returnDatas(si, guGun);
-	
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
 	Date currentDate = new Date();
 	String date = mSimpleDateFormat.format(currentDate);
+	SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
+	String textDate = DateFormat.format(currentDate);
+	
+	Calendar cal = Calendar.getInstance();
+ 	cal.setTime(currentDate);
+ 	cal.add(Calendar.DATE, 6);
+    String edate = mSimpleDateFormat.format(cal.getTime()); 
+	
+	RankData rd_data = rdctrl.returnDatas(si, guGun, date, edate);
 	
 %>
 
@@ -235,8 +241,6 @@
 	}
 	// 누수 상위 데이터 그래프
 	function drawUpperLeakRankChart() {
-
-		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -244,8 +248,6 @@
          <% for(int i=0; i<rd_data.getUpper_leak_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_leak_data().get(0).get(i)%>, <%=rd_data.getUpper_leak_data().get(1).get(i)%>, <%=rd_data.getUpper_leak_data().get(2).get(i)%>, <%=rd_data.getUpper_leak_data().get(3).get(i)%>],
          <%// 시간 더하기
-	   	  Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -267,8 +269,6 @@
 	
 	// 동파 상위 데이터 그래프
 	function drawUpperFreezedRankChart() {
-
-		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -276,8 +276,6 @@
          <% for(int i=0; i<rd_data.getUpper_freezed_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_freezed_data().get(0).get(i)%>, <%=rd_data.getUpper_freezed_data().get(1).get(i)%>, <%=rd_data.getUpper_freezed_data().get(2).get(i)%>, <%=rd_data.getUpper_freezed_data().get(3).get(i)%>],
          <%// 시간 더하기
-          Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -299,8 +297,6 @@
 	
 	// 비만관 상위 데이터 그래프
 	function drawUpperFatRankChart() {
-
-		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -308,8 +304,6 @@
          <% for(int i=0; i<rd_data.getUpper_fat_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_fat_data().get(0).get(i)%>, <%=rd_data.getUpper_fat_data().get(1).get(i)%>, <%=rd_data.getUpper_fat_data().get(2).get(i)%>, <%=rd_data.getUpper_fat_data().get(3).get(i)%>],
          <%// 시간 더하기
-          Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -331,9 +325,6 @@
 	
 	// 파손 상위 데이터 그래프
 	function drawUpperBreakageRankChart() {
-
-
-		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -341,8 +332,6 @@
          <% for(int i=0; i<rd_data.getUpper_breakage_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_breakage_data().get(0).get(i)%>, <%=rd_data.getUpper_breakage_data().get(1).get(i)%>, <%=rd_data.getUpper_breakage_data().get(2).get(i)%>, <%=rd_data.getUpper_breakage_data().get(3).get(i)%>],
          <%// 시간 더하기
-          Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -365,17 +354,12 @@
 	// 역류 상위 데이터 그래프
 	function drawUpperReverseRankChart() {
 
-
-		<%textDate = "2.1";%>
-		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Date', '<%=rd_data.getReverse_rank().get(0).get(0)%>','<%=rd_data.getReverse_rank().get(1).get(0)%>','<%=rd_data.getReverse_rank().get(2).get(0)%>','<%=rd_data.getReverse_rank().get(3).get(0)%>'],
          <% for(int i=0; i<rd_data.getUpper_reverse_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_reverse_data().get(0).get(i)%>, <%=rd_data.getUpper_reverse_data().get(1).get(i)%>, <%=rd_data.getUpper_reverse_data().get(2).get(i)%>, <%=rd_data.getUpper_reverse_data().get(3).get(i)%>],
          <%// 시간 더하기
-          Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -397,9 +381,6 @@
 	
 	// 부재중 상위 데이터 그래프
 	function drawUpperAbsenceRankChart() {
-
-
-		<%textDate = "2.1";%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -407,8 +388,6 @@
          <% for(int i=0; i<rd_data.getUpper_absence_data().get(0).size(); i++){ %>
          [ '<%=textDate%>' ,<%=rd_data.getUpper_absence_data().get(0).get(i)%>, <%=rd_data.getUpper_absence_data().get(1).get(i)%>, <%=rd_data.getUpper_absence_data().get(2).get(i)%>, <%=rd_data.getUpper_absence_data().get(3).get(i)%>],
          <%// 시간 더하기
-          Calendar cal = Calendar.getInstance();
-          SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
           Date sdate = DateFormat.parse(textDate);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -590,7 +569,13 @@
 										class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
 										<div class="col-sm-4">
 											<h3 class="m-t m-b-none text-primary font-semibold">지역별
-												통계 순위</h3>
+												통계 순위 ( <%// 시간 더하기
+										          textDate = DateFormat.format(currentDate); %>
+										          <%=textDate%>
+											   	  <%cal.setTime(currentDate);
+											   	  cal.add(Calendar.DATE, 6);
+											      textDate = DateFormat.format(cal.getTime()); 
+											      %> ~ <%=textDate%> )</h3>
 											<p class="block text-muted">Water Meter Data Management
 												System</p>
 										</div>

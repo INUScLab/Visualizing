@@ -29,11 +29,11 @@ public class RankDataCtrl {
 		dbconnector.disconnect();
 	}
 	
-	void setParameters(String sido, String sigoon){
+	void setParameters(String sido, String sigoon, String sdate, String edate){
 		this.sido = sido;
 		this.sigoon = sigoon;
-		this.startday = "20150201";
-		this.endday = "20150215";
+		this.startday = sdate;
+		this.endday = edate;
 	}
 	
 	ArrayList<ArrayList<String>> getRanks(String column) {
@@ -100,11 +100,11 @@ public class RankDataCtrl {
 		return datas;
 	}
 	
-	public RankData returnDatas(String sido, String sigoon){
+	public RankData returnDatas(String sido, String sigoon, String sdate, String edate){
 		
 		RankData return_data = new RankData();
 		
-		setParameters(sido, sigoon);
+		setParameters(sido, sigoon, sdate, edate);
 		
 		// 랭킹 정보
 		return_data.setLeak_rank(getRanks("sum(leak)"));

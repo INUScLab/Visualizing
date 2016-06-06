@@ -1,8 +1,6 @@
 <%@ page import="visualizing.read.ReadDataCtrl"%>
 <%@ page import="visualizing.read.ReadData"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.util.Locale"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -32,12 +30,25 @@
 	
 	String[] str = request.getParameterValues("status");
 
-	if (dateYear == null || dateYear.equals(""))
-		dateYear = "2015";
-	if (dateMonth == null || dateMonth.equals(""))
-		dateMonth = "02";
-	if (dateDay == null || dateDay.equals(""))
-		dateDay = "01";
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	Date currentDate = new Date ();
+	String date = mSimpleDateFormat.format ( currentDate );
+	
+	SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+	SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.KOREA);
+	SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.KOREA);
+	Calendar cal = Calendar.getInstance();
+	
+	if (dateYear == null || dateYear.equals("")){
+		dateYear = yearFormat.format(currentDate); 
+	}
+	if (dateMonth == null || dateMonth.equals("")){
+		dateMonth = monthFormat.format(currentDate); 
+	}
+	if (dateDay == null || dateDay.equals("")){
+		dateDay = dayFormat.format(currentDate); 
+	}
 
 	searchDate = dateYear + "-" + dateMonth + "-" + dateDay;
 	
@@ -72,11 +83,7 @@
 	if (data_end_num > array_list.size()){
 		data_end_num = array_list.size();
 	}
-	
-	// 오늘 날짜 구하기
-	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-	Date currentDate = new Date ();
-	String date = mSimpleDateFormat.format ( currentDate );
+
 %>
 
 <!DOCTYPE html>
@@ -118,21 +125,21 @@
 		
 		<% 
 		String dateyear;
-		if(request.getParameter("dateYear") == null) dateyear = "2015";
+		if(request.getParameter("dateYear") == null) dateyear = yearFormat.format(currentDate); 
 		else dateyear = request.getParameter("dateYear");
 		%>
 		search_form.dateYear.value = "<%=dateyear%>";
 		
 		<% 
 		String datemonth;
-		if(request.getParameter("dateMonth") == null) datemonth = "02";
+		if(request.getParameter("dateMonth") == null) datemonth = monthFormat.format(currentDate); 
 		else datemonth = request.getParameter("dateMonth");
 		%>
 		search_form.dateMonth.value = "<%=datemonth%>";
 		
 		<% 
 		String dateday;
-		if(request.getParameter("dateDay") == null) dateday = "01";
+		if(request.getParameter("dateDay") == null) dateday = dayFormat.format(currentDate); 
 		else dateday = request.getParameter("dateDay");
 		%>
 		search_form.dateDay.value = "<%=dateday%>";
