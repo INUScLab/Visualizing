@@ -3,10 +3,6 @@
 <%@ page language="java" import="visualizing.Mapreport.*, java.util.*"
 	contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-	String cp = request.getContextPath();
-%>
 
 <!DOCTYPE html>
 <html>
@@ -53,14 +49,6 @@
 </head>
 <body onload="initialize()">
 
-	<c:if test="${empty sessionScope.id }">
-		<script type="text/javascript">
-	alert("로그인 하세요!");
-	location.href="/Visualizing/mg/LoginForm.do";
-</script>
-	</c:if>
-
-	<c:if test="${!empty sessionScope.id }">
 
 
 		<jsp:useBean id="DongInfo" class="visualizing.Mapreport.DongInfo" />
@@ -497,7 +485,7 @@ summaryReportList.push( {
 				</section>
 
 			</section>
-	</c:if>
+
 
 
 

@@ -328,15 +328,18 @@ function createDongMarkers( ) {
 
 			
 			marker.addListener('click', function() {
-				$('#element_to_pop_up').bPopup();
-				drawDongSummaryReport(this.title.split(' '));
-				
-				//change zoom level and position
+				console.log("123");
 				globalMap.setCenter(this.position);
 				globalMap.setOptions({ 'zoom' : 15 });
 				
 				hideDongMarkers();
 				createConsumerMarkers(this.title.split(' '));
+				console.log("1234");
+				$('#element_to_pop_up').bPopup();
+				drawDongSummaryReport(this.title.split(' '));
+				
+				//change zoom level and position
+				
 					
 			});
 		}
@@ -394,6 +397,7 @@ function createConsumerMarkers ( addressArray ) {
 
 				globalMap.setCenter(this.position);
 				$('#element_to_pop_up').bPopup();
+				
 				drawConsumerReport(this.title.split(' '));
 
 			});
@@ -885,14 +889,18 @@ function codeAddress() {
             if(addressArray[3] == add[2] || addressArray[0] == add[2]){
                 dong = add[2];
             	//검색어가 DB에 저장된 동과 일치하면 요약리포트를 띄운다.
-               $('#element_to_pop_up').bPopup();
-               drawDongSummaryReport(dongMarkers[j].title.split(' '));
-               createConsumerMarkers(dongMarkers[j].title.split(' '));
+                globalMap.setOptions({ 'zoom' : 15 });
+                $('#element_to_pop_up').bPopup();
+                createConsumerMarkers(dongMarkers[j].title.split(' '));
+                hideDongMarkers();
+                drawDongSummaryReport(dongMarkers[j].title.split(' '));
+               
+               
             }
             j++;
          }
          
-         hideDongMarkers();
+         
          
          //해당 동의 수용가를 목록으로 출력한다.
          var i = 0
