@@ -248,21 +248,11 @@ summaryReportList.push( {
 									<!-- 도로명 주소-->
 									<div class="tab-pane active" id="road">
 										<h5 class="bg-gradient-tit">
-											검색결과 <span class="text-black font-semibold">(000 건)</span>
+											검색결과 <span class="text-black font-semibold" id='searchResultCount'></span>
 										</h5>
 
 										<ul
 											class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border" id ="ui-list-group" >
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> 
-													<small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											
 
 										</ul>
 
@@ -273,11 +263,6 @@ summaryReportList.push( {
 											검색결과 <span class="text-black font-semibold">(000 건)</span>
 										</h5>
 										 -->
-
-
-
-
-
 									</div>
 									<!-- //도로명 주소 -->
 									<!-- 지번주소 -->

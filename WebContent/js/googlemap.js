@@ -42,6 +42,7 @@ var click_countabsence=0;
 var icon_on = 0;
 var hidebutton = 0;
 
+var searchResultText= document.getElementById('searchResultCount');
 
 // 맵 초기화initialize 
 function initialize( ) {
@@ -91,35 +92,14 @@ function initialize( ) {
 
 	// Zoom Changed Event
 	globalMap.addListener('zoom_changed', function() {
-//		console.log(globalMap.getZoom());
 		//초기 상태로 되돌아옴.
 		if (globalMap.getZoom() <= 13) {
 
 			//동 마커 출력하고 , 수용가 마커 감추기.
-//			showDongMarkers();
 			hideConsumerMarkersMarkers();
 			showIcon();
-			//infoWindow 닫기
-//			infoWindow.close();
-
-			//현재 켜진 아이콘의 동 마커들을 출력.
-//			showIcon();
-
-			// 첫 로딩 & 모든 아이콘이 꺼졌을때
-			// if(absence_flag == false && leak_flag == false && freezed_flag ==
-			// false && entire_flag == false ) {
-			// showEntireDongMarkers();
-			// for (var i = 0; i <entireDongMarkers.length; i++) {
-			// entireDongMarkers[i].addListener('click', function() {
-			//
-			// //상세 주소만 띄우고 동 마커들은 숨김.
-			// globalMap.setCenter(this.position);
-			// var address = this.title;
-			// var addressArray = address.split(' ');
-			// dongSummary(addressArray) // 요약 리포트
-			// });
-			// }
-			// }
+			$("#ui-list-group").empty(); //리스트 초기화
+			searchResultText.innerHTML = ''; //검색결과 수 초기화
 
 		}
 		// 줌을 확대했을때 map center와 일정한 거리 안에 들어오는 동은 전부 상세 주소 출력.
@@ -162,6 +142,9 @@ function initialize( ) {
 	if(absencecount!=0)
 		document.getElementById('absenceimage').innerHTML = absencecount;
 
+	
+	
+	
 
 }
 
@@ -261,30 +244,6 @@ function search_info() {
 }
 
 
-
-function createInfoWindow(markerinfo, contentString){
-
-		globalMap.setCenter(markerinfo.position);
-		globalMap.setOptions({ 'zoom' : 15 });
-
-		infoWindow = new google.maps.InfoWindow({
-        		content: contentString,
-        		//maxWidth : 850,
-        		position : markerinfo.postion
-        });
-		
-//		infoWindow.close();
-		infoWindow.open(globalMap, markerinfo);
-		
-		
-//                hideDongMarkers();
-        var address = markerinfo.title;
-        var addressArray = address.split(' ');
-        
-        drawDongSummaryReport(addressArray) // 요약 리포트
-}
-
-
 // 전체 사용자들 가운데 누수/동파/부재중/역류/비만관/파손 에 해당하는 사용자들을 포함하는 동을 빨간색, 나머지는 초록색으로 표시
 function createDongMarkers( ) {
 
@@ -320,23 +279,19 @@ function createDongMarkers( ) {
 
 			
 			marker.addListener('click', function() {
-				console.log("123");
+				//change zoom level and position
 				globalMap.setCenter(this.position);
 				globalMap.setOptions({ 'zoom' : 15 });
+				$("#ui-list-group").empty(); //검색결과 리스트 초기화
 				
 				hideDongMarkers();
 				createConsumerMarkers(this.title.split(' '));
-				console.log("1234");
 				$('#element_to_pop_up').bPopup();
 				drawDongSummaryReport(this.title.split(' '));
-				
-				//change zoom level and position
-				
 					
 			});
 		}
 	}
-//	showDongMarkers();
 
 }
 
@@ -423,45 +378,6 @@ function drawConsumerReport( addressArray ){
 			console.log(incheon+ ' ' + gu + ' ' + dong + ' ' + detail);
 			info_date.style.fontSize = "90%"; // 주소 출력 폰트 사이즈
 
-//			$(".checkBox").prop('checked', false) ;
-//
-//			//2.부가서비스별 발생 횟수.
-//			document.getElementById('check_leak').innerHTML = "누수" ;
-//			check_leak.style.fontSize = "80%";
-//			if (summaryReportList[i].leak != 0 ) {
-//				document.getElementById("checkBox_leak").checked = true;
-//			}
-//
-//			document.getElementById('check_absence').innerHTML = "부재중";
-//			check_absence.style.fontSize = "80%";
-//			if (summaryReportList[i].absence != 0 ) {
-//				document.getElementById("checkBox_absence").checked = true;
-//			}
-//
-//			document.getElementById('check_freezed').innerHTML = "동파";
-//			check_freezed.style.fontSize = "80%";
-//			if (summaryReportList[i].freezed != 0 ) {
-//				document.getElementById("checkBox_freezed").checked = true;
-//			}
-//
-//			document.getElementById('check_reverse').innerHTML = "역류";
-//			check_reverse.style.fontSize = "80%";
-//			if (summaryReportList[i].reverse != 0 ) {
-//				document.getElementById("checkBox_reverse").checked = true;
-//			}
-//
-//			document.getElementById('check_fat').innerHTML = "비만";
-//			check_fat.style.fontSize = "80%";
-//			if (summaryReportList[i].fat != 0 ) {
-//				document.getElementById("checkBox_fat").checked = true;
-//			}
-//
-//			document.getElementById('check_breakage').innerHTML = "파손";
-//			check_breakage.style.fontSize = "80%";
-//			if (summaryReportList[i].breakage != 0 ) {
-//				document.getElementById("checkBox_breakage").checked = true;
-//			}
-
 			//일주일치 사용량 합 구하기.
 			sum_weeklyConsumption = Number(summaryReportList[i].day1) + Number ( summaryReportList[i].day2 ) + Number ( summaryReportList[i].day3 ) +
 			Number ( summaryReportList[i].day4) + Number ( summaryReportList[i].day5 ) + Number ( summaryReportList[i].day6 ) + Number (summaryReportList[i].day7);
@@ -477,8 +393,6 @@ function drawConsumerReport( addressArray ){
 			drawHistory ( Number(summaryReportList[i].day7) , Number ( summaryReportList[i].day6 ) , Number ( summaryReportList[i].day5 ) ,
 			Number ( summaryReportList[i].day4), Number ( summaryReportList[i].day3 ) , Number ( summaryReportList[i].day2 ) ,
 			Number (summaryReportList[i].day1));
-			console.log(summaryReportList[i].day1 , summaryReportList[i].day2 , summaryReportList[i].day3 , summaryReportList[i].day4 , summaryReportList[i].day5
-					, summaryReportList[i].day6 , summaryReportList[i].day7 , sum_weeklyConsumption/7)
 		}
 	}
 }
@@ -511,7 +425,7 @@ function drawColumn(cons, pred, week, region) {
 		role : "style"
 	} ], [ '사용량', cons, '#b87333' ], // RGB value
 	[ '예측량', pred, 'silver' ], // English color name
-	[ '일주일 평균', week, '#b87333' ], [ '지역 평균', region, '#b87333' ] ]);
+	[ '일주일평균', week, '#b87333' ], [ '지역평균', region, '#b87333' ] ]);
 
 	var view = new google.visualization.DataView(data);
 	view.setColumns([ 0, 1, {
@@ -648,8 +562,6 @@ function drawDongSummaryReport(addressArray) {
 	var sum_day7 = 0;
 	var sum_weeklyConsumption = 0;
 	
-	
-
 	var userCount = 0;
 	var dongCount = 0;
 
@@ -747,51 +659,19 @@ function drawDongSummaryReport(addressArray) {
 	//2.부가서비스별 발생 횟수.
 	document.getElementById('blockLeak').innerHTML = count_leak + "건";
 	blockLeak.style.fontSize = "130%";
-	/*
-	 if (count_leak != 0 ) {
-		document.getElementById("checkBox_leak").checked = true;
-	}
-	*/
 	
 	document.getElementById('blockFreezed').innerHTML = count_freezed + "건";
 	blockFreezed.style.fontSize = "130%";
-	/*
-	if (count_freezed != 0 ) {
-		document.getElementById("checkBox_freezed").checked = true;
-	}
-	*/
+
 	document.getElementById('blockFat').innerHTML = count_fat + "건";
 	blockFat.style.fontSize = "130%";
-	/*
-	if (count_fat != 0 ) {
-		document.getElementById("checkBox_fat").checked = true;
-	}
-	*/
+
 	document.getElementById('blockBreakage').innerHTML = count_breakage + "건";
 	blockBreakage.style.fontSize = "130%";
-	/*
-	if (count_breakage != 0 ) {
-		document.getElementById("checkBox_breakage").checked = true;
-	}
-	*/
 	
 	document.getElementById('blockReverse').innerHTML = count_reverse + "건";
 	blockReverse.style.fontSize = "130%";
 	
-	/*
-	if (count_reverse != 0 ) {
-		document.getElementById("checkBox_reverse").checked = true;
-	}
-	*/
-
-	document.getElementById('blockAbsence').innerHTML = count_absence + "건";
-	blockAbsence.style.fontSize = "130%";
-	/*
-	if (count_absence != 0 ) {
-		document.getElementById("checkBox_absence").checked = true;
-	}
-	*/
-
 	//일주일치 사용량 합 구하기.
 	sum_weeklyConsumption += sum_day1 + sum_day2 + sum_day3 + sum_day4 + sum_day5 + sum_day6 + sum_day7;
 	
@@ -802,7 +682,6 @@ function drawDongSummaryReport(addressArray) {
 	drawHistory(sum_day7 , sum_day6 , sum_day5 , sum_day4 , sum_day3 , sum_day2 , sum_day1 , sum_weeklyConsumption/7 );
 	
 	drawServiceFrequency(leakFrequency, absenceFrequency, freezedFrequency, reverseFrequency, fatFrequency, breakageFrequency);
-
 
 }
 
@@ -866,13 +745,74 @@ function codeAddress() {
          var addressArray = address.split(" ");
          var dongMarkerstTitle = dongMarkers
          
-         // Locate to map
+         //초기화
          globalMap.setCenter(results[0].geometry.location);
-
-         //var dongList = normalUsedDongList.concat(overUsedDongList);
+         $("#ui-list-group").empty(); //검색 결과 리스트 초기화 
+         
          var temp;
          var j = 0;
          var dong = '';
+         var searchResultCount = 0;
+         
+         //해당 동의 수용가를 목록으로 출력한다.
+         var i = 0
+         while(j < dongMarkers.length){
+             temp = dongMarkers[j].title.split(" ");
+             
+             if(addressArray[3] == temp[2] || addressArray[0] == temp[2]){
+                 dong = temp[2];
+             }
+             j++;
+          }
+         
+         while (dong != '' && i < summaryReportList.length ) {
+        	 if ( dong == summaryReportList[i].dong ) {
+        		 searchResultCount ++;
+        		 
+        		 var guDong = summaryReportList[i].gu + ' ' + summaryReportList[i].dong;
+        		 var detail = summaryReportList[i].detail;
+        		 
+        		 var li = document.createElement('li');
+        		 li.className = "list-group-item";
+        		 li.style="cursor:pointer"
+//        		 li.onclick = function ( value  ) { 
+//        			 console.log(value.target)
+//        		 };
+//        		 var a = document.createElement('a');
+//        		 a.href = '#'
+//    			 a.className = 'clear';
+
+        		 var strong_guDong = document.createElement('strong');
+        		 strong_guDong.innerHTML = guDong ;
+        		 
+        		 var br = document.createElement('br');
+        		 
+        		 var small_detail = document.createElement('small');
+        		 small_detail.innerHTML = detail;
+        		 
+//        		 a.appendChild(strong_guDong);
+//        		 a.appendChild(br);
+//        		 a.appendChild(small_detail);
+//        		 li.appendChild(a);
+        		 
+        		 li.appendChild(strong_guDong);
+        		 li.appendChild(br);
+        		 li.appendChild(small_detail);
+        		 
+        		 $("#ui-list-group").append(li);
+        		 
+        	 }
+        	 
+        	 i++;
+         }
+      
+         if(searchResultCount != 0) {
+        	 searchResultText.innerHTML = '(' + searchResultCount + '건' + ')';
+        	 
+         }
+         
+         
+         j = 0;
          while(j < dongMarkers.length){
             temp = dongMarkers[j].title.split(" ");
             
@@ -881,58 +821,33 @@ function codeAddress() {
             	//검색어가 DB에 저장된 동과 일치하면 요약리포트를 띄운다.
                 globalMap.setOptions({ 'zoom' : 15 });
                 $('#element_to_pop_up').bPopup();
-                createConsumerMarkers(dongMarkers[j].title.split(' '));
                 hideDongMarkers();
+                hideConsumerMarkersMarkers();
+                createConsumerMarkers(dongMarkers[j].title.split(' '));
                 drawDongSummaryReport(dongMarkers[j].title.split(' '));
                
             }
             j++;
          }
          
-         console.log(addressArray);
-         console.log(dong)
-         
-         //해당 동의 수용가를 목록으로 출력한다.
-         var i = 0
-         while (dong != '' && i < summaryReportList.length ) {
-        	 if ( dong == summaryReportList[i].dong ) {
-
-        		 console.log('test')
-        		 var guDong = summaryReportList[i].gu + ' ' + summaryReportList[i].dong;
-        		 var detail = summaryReportList[i].detail;
-
-        		 var li = document.createElement('li');
-        		 li.className = "list-group-item";
-        		 
-        		 var a = document.createElement('a');
-        		 a.href = '#'
-        		 a.className = 'clear';
-
-        		 var strong_guDong = document.createElement('strong');
-        		 strong_guDong.innerHTML = guDong;
-        		 
-        		 var br = document.createElement('br');
-        		 
-        		 var small_detail = document.createElement('small');
-        		 small_detail.innerHTML = detail;
-        		 
-        		 a.appendChild(strong_guDong);
-        		 a.appendChild(br);
-        		 a.appendChild(small_detail);
-        		 li.appendChild(a);
-        		 
-        		 $("#ui-list-group").append(li);
-        	 }
-        	 i++;
-         }
          
       } else {
          alert('Geocode was not successful for the following reason: '
                + status);
       }
    });
+   
 
 }
+
+//검색 결과 클릭 이벤트
+$(document).on("click", "li.list-group-item", function() {
+    var searchListArray =  ( incheon + ' ' + $(this).find("strong").text() + ' ' + $(this).find("small").text() ).split(' ');
+    globalMap.setOptions({ 'zoom' : 15 });
+    $('#element_to_pop_up').bPopup();
+    drawConsumerReport(searchListArray);
+});
+
 function showLeakabnormalDongmarkers(){
 	var i=0;
 	hideDongMarkers();
@@ -986,6 +901,9 @@ function showBreakabnormalDongmarkers(){
 function showIcon() {
 	//초기에 모두 아이콘 초기화
 	$('.color').css("background-color", "white");
+	searchResultText.innerHTML= '';
+	$("#ui-list-group").empty();
+	
 	
 	if (leak_flag) {
 		showLeakabnormalDongmarkers();
@@ -1024,7 +942,6 @@ function showIcon() {
 
 }
 
-
 function leak_clicked() {
 
 	// 초기 리포트 페이지를 띄우고 초기 상태로 돌아감.
@@ -1041,19 +958,10 @@ function leak_clicked() {
 		break_flag = false;
 		reverse_flag = false;
 
-		// $('#img_leak').css("background-color", "yellow");
-
-		// if (freezed_flag == true && absence_flag == true) {
-		// entire_flag = true;
-		//			
-		// $('#img_entire').css("background-color", "yellow");
-		// }
 
 	} else {
 		leak_flag = false;
 
-		// $('#img_leak').css("background-color", "white");
-		// $('#img_entire').css("background-color", "white");
 	}
 
 	showIcon();
@@ -1076,18 +984,8 @@ function freezed_clicked() {
 		break_flag = false;
 		reverse_flag = false;
 
-		// $('#img_freezed').css("background-color", "yellow");
-
-		// if (leak_flag == true && absence_flag == true) {
-		// entire_flag = true;
-		//			
-		// $('#img_entire').css("background-color", "yellow");
-		// }
 	} else {
 		freezed_flag = false;
-
-		// $('#img_freezed').css("background-color", "white");
-		// $('#img_entire').css("background-color", "white");
 
 	}
 
@@ -1109,18 +1007,9 @@ function absence_clicked() {
 		absence_flag = true;
 		break_flag = false;
 		reverse_flag = false;
-
-		// $('#img_absence').css("background-color", "yellow");
-
-		// if( leak_flag == true && freezed_flag == true ) {
-		// entire_flag = true;
-		// $('#img_entire').css("background-color", "yellow");
-		// }
 	} else {
 		absence_flag = false;
 
-		// $('#img_absence').css("background-color", "white");
-		// $('#img_entire').css("background-color", "white");
 	}
 
 	showIcon();
@@ -1142,19 +1031,8 @@ function reverse_clicked() {
 		break_flag = false;
 		reverse_flag = true;
 
-		// $('#img_freezed').css("background-color", "yellow");
-
-		// if (leak_flag == true && absence_flag == true) {
-		// entire_flag = true;
-		//			
-		// $('#img_entire').css("background-color", "yellow");
-		// }
 	} else {
 		reverse_flag = false;
-
-		// $('#img_freezed').css("background-color", "white");
-		// $('#img_entire').css("background-color", "white");
-
 	}
 
 	showIcon();
@@ -1178,19 +1056,8 @@ function fat_clicked() {
 		break_flag = false;
 		reverse_flag = false;
 
-		// $('#img_freezed').css("background-color", "yellow");
-
-		// if (leak_flag == true && absence_flag == true) {
-		// entire_flag = true;
-		//			
-		// $('#img_entire').css("background-color", "yellow");
-		// }
 	} else {
 		fat_flag = false;
-
-		// $('#img_freezed').css("background-color", "white");
-		// $('#img_entire').css("background-color", "white");
-
 	}
 
 	showIcon();
@@ -1211,18 +1078,9 @@ function break_clicked(){
 		break_flag = true;
 		reverse_flag = false;
 
-		// $('#img_freezed').css("background-color", "yellow");
-
-		// if (leak_flag == true && absence_flag == true) {
-		// entire_flag = true;
-		//			
-		// $('#img_entire').css("background-color", "yellow");
-		// }
 	} else {
 		break_flag = false;
 
-		// $('#img_freezed').css("background-color", "white");
-		// $('#img_entire').css("background-color", "white");
 
 	}
 
