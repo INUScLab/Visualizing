@@ -2,9 +2,7 @@
 <%@page import="visualizing.util.MyUtil"%>
 <%@ page import="visualizing.analysis.AnalysisDataCtrl"%>
 <%@ page import="visualizing.analysis.AnalysisData"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.util.Locale"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -26,8 +24,22 @@
 	String sdate = request.getParameter("sdate");
 	String edate = request.getParameter("edate");
 
-	if (sdate == null || sdate.equals(""))		sdate = "2015-01-31";
-	if (edate == null || edate.equals(""))		edate = "2015-02-28";
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	Date currentDate = new Date ();
+	String date = mSimpleDateFormat.format ( currentDate );
+	
+	Calendar cal = Calendar.getInstance();
+	
+	if (sdate == null || sdate.equals("")){
+		cal.setTime(currentDate);
+	 	cal.add(Calendar.DATE, -1);
+		sdate = mSimpleDateFormat.format(cal.getTime()); 
+	}
+	if (edate == null || edate.equals("")){
+		cal.setTime(currentDate);
+	    edate = mSimpleDateFormat.format(cal.getTime()); 
+	}
 	if (si == null || si.equals(""))			si = "인천광역시";
 	if (guGun == null || guGun.equals(""))		guGun = "전체";
 	if (umDong == null || umDong.equals(""))	umDong = "전체";
@@ -36,7 +48,7 @@
 	if (telNumber != null)if (telNumber.equals("")) 		telNumber = null;
 	if (meterNum != null)if (meterNum.equals(""))			meterNum = null;
 
-	System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
+	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
 
 	String[] sdates = new String(sdate).split("-");
 	String[] edates = new String(edate).split("-");
@@ -44,10 +56,6 @@
 	ArrayList<AnalysisData> array_list = adctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName,
 			telNumber, meterNum, sdates[0] , sdates[1], sdates[2], edates[0], edates[1], edates[2]);
 
-	// 오늘 날짜 구하기
-	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-	Date currentDate = new Date ();
-	String date = mSimpleDateFormat.format ( currentDate );
 %>
 
 <%	//페이징 처리 관련
@@ -113,15 +121,20 @@
 	window.onload = function() {
 		<%-- 
 		<%String s;
-			if (request.getParameter("sdate") == null)
-				s = "2015-01-31";
+			if (request.getParameter("sdate") == null){
+				cal.setTime(currentDate);
+			 	cal.add(Calendar.DATE, -1);
+				s = mSimpleDateFormat.format(cal.getTime()); 
+			}
 			else
 				s = request.getParameter("sdate");%>
 		search_form.sdate.value = "<%=s%>";
 		
 		<%String e;
-			if (request.getParameter("edate") == null)
-				e = "2015-02-28";
+			if (request.getParameter("edate") == null){
+				cal.setTime(currentDate);
+			    e = mSimpleDateFormat.format(cal.getTime()); 
+			}
 			else
 				e = request.getParameter("edate");%>
 		search_form.edate.value = "<%=e%>"; --%>
@@ -256,41 +269,42 @@
 								<!--  start -->
 								<ul class="nav top-menu">
 									<!-- 누수 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/water.png" data-toggle="tooltip"
 											data-placement="bottom" title="누수"><span
-											class="badge bg-danger">6</span>
+											class="badge bg-danger">1</span>
 									</a></li>
 									<!-- 누수 end -->
 									<!-- 동파 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/winter.png" data-toggle="tooltip"
 											data-placement="bottom" title="동파">
 									</a></li>
 									<!-- 동파 end -->
 									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/obesity.png" data-toggle="tooltip"
 											data-placement="bottom" title="비만"><span
-											class="badge bg-warning">7</span>
+											class="badge bg-danger">1</span>
 									</a></li>
 									<!-- 비만 end -->
 									<!-- 파손 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/damage.png" data-toggle="tooltip"
 											data-placement="bottom" title="파손">
 									</a></li>
 									<!-- 파손 end -->
 									<!-- 역류 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/backwash.png" data-toggle="tooltip"
-											data-placement="bottom" title="역류">
+											data-placement="bottom" title="역류"><span
+											class="badge bg-danger">3</span>
 									</a></li>
 									<!-- 역류 end -->
 									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/absence.png" data-toggle="tooltip"
-											data-placement="bottom" title="부재중">
+											data-placement="bottom" title="부재중" >
 									</a></li>
 									<!-- 비만 end -->
 								</ul>
@@ -354,10 +368,10 @@
 																<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="sdate" value="${param['sdate']}"
-																	data-date-format="dd-mm-yyyy">~<input
+																	data-date-format="yyyy-mm-dd">~<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="edate" value="${param['edate']}"
-																	data-date-format="dd-mm-yyyy">
+																	data-date-format="yyyy-mm-dd">
 															</div>
 														</div>
 													</div>

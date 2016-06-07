@@ -3,10 +3,6 @@
 <%@ page language="java" import="visualizing.Mapreport.*, java.util.*"
 	contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-	String cp = request.getContextPath();
-%>
 
 <!DOCTYPE html>
 <html>
@@ -53,14 +49,6 @@
 </head>
 <body onload="initialize()">
 
-	<c:if test="${empty sessionScope.id }">
-		<script type="text/javascript">
-	alert("로그인 하세요!");
-	location.href="/Visualizing/mg/LoginForm.do";
-</script>
-	</c:if>
-
-	<c:if test="${!empty sessionScope.id }">
 
 
 		<jsp:useBean id="DongInfo" class="visualizing.Mapreport.DongInfo" />
@@ -247,10 +235,9 @@ summaryReportList.push( {
 							<!-- 도로명 주소,지번주소 tab 영역-->
 							<header class="header bg-gradient-1 shift">
 								<ul class="nav nav-tabs">
-									<li class="active" style="width: 50%;"><a href="#road"
-										data-toggle="tab">도로명 주소</a></li>
-									<li class="" style="width: 50%;"><a href="#number"
-										data-toggle="tab">지번주소</a></li>
+									<li class="active" style="width: 100%;"><a href="#road"
+										data-toggle="tab">수용가 주소</a></li>
+
 								</ul>
 							</header>
 							<!-- //도로명 주소,지번주소 tab 영역.. 검색결과 갯수를 for로 늘림?    -->
@@ -260,21 +247,11 @@ summaryReportList.push( {
 									<!-- 도로명 주소-->
 									<div class="tab-pane active" id="road">
 										<h5 class="bg-gradient-tit">
-											검색결과 <span class="text-black font-semibold">(000 건)</span>
+											검색결과 <span class="text-black font-semibold" id='searchResultCount'></span>
 										</h5>
 
 										<ul
 											class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border" id ="ui-list-group" >
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> 
-													<small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											<li class="list-group-item"><a href="#" class="clear">
-													<strong class="block">(사단)김시식유적보존회</strong> <small>061-793-4959<br /></small>
-													<small>김시식지 1길 57-6</small>
-											</a></li>
-											
 
 										</ul>
 
@@ -285,11 +262,6 @@ summaryReportList.push( {
 											검색결과 <span class="text-black font-semibold">(000 건)</span>
 										</h5>
 										 -->
-
-
-
-
-
 									</div>
 									<!-- //도로명 주소 -->
 									<!-- 지번주소 -->
@@ -310,7 +282,7 @@ summaryReportList.push( {
 						<!--vbox-->
 					</aside>
 					
-					<a href="#" class="spmh spmh_aside_close nclicks(mtw.lwfold) title="접기" onclick="hide()" style="left: 34.5em;" id="hidebutton" >본문 컨텐츠 접기</a>
+					<a href="#" class="spmh spmh_aside_close nclicks(mtw.lwfold) title="fold" onclick="hide()" style="left: 34.5em;" id="hidebutton" >본문 컨텐츠 접기</a>
 
 					<!-- 상단영역 -->
 					<section class="vbox">
@@ -325,42 +297,42 @@ summaryReportList.push( {
 									<li class="dropdown" onclick="leak_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/water.png" data-toggle="tooltip"
 											data-placement="bottom" title="누수" id="img_leak" class="color"> <span
-											class="badge bg-danger" id="overusedimage"><div id="overusedIcon"></div></span>
+											class="badge bg-danger" id="overusedimage"></span>
 									</a></li>
 									<!-- 누수 end -->
 									<!-- 동파 start-->
 									<li class="dropdown" onclick="freezed_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/winter.png" data-toggle="tooltip"
 											data-placement="bottom" title="동파" id="img_freeze" class="color"> <span
-											class="badge bg-danger" id="freezeimage"><div id="freezeIcon"></div></span>
+											class="badge bg-danger" id="freezeimage"></span>
 									</a></li>
 									<!-- 동파 end -->
 									<!-- 비만 start-->
 									<li class="dropdown" onclick="fat_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/obesity.png" data-toggle="tooltip"
 											data-placement="bottom" title="비만" id="img_fat" class="color"> <span
-											class="badge bg-danger" id="fatimage"><div id="fatIcon"></div></span>
+											class="badge bg-danger" id="fatimage"></span>
 									</a></li>
 									<!-- 비만 end -->
 									<!-- 파손 start-->
 									<li class="dropdown" onclick="break_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/damage.png" data-toggle="tooltip"
 											data-placement="bottom" title="파손" id="img_break" class="color"> <span
-											class="badge bg-danger" id="breakimage"><div id="breakIcon"></div></span>
+											class="badge bg-danger" id="breakimage"></span>
 									</a></li>
 									<!-- 파손 end -->
 									<!-- 역류 start-->
 									<li class="dropdown" onclick="reverse_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/backwash.png" data-toggle="tooltip"
 											data-placement="bottom" title="역류" id="img_reverse" class="color"> <span
-											class="badge bg-danger" id="reverseimage"><div id="reverseIcon"></div></span>
+											class="badge bg-danger" id="reverseimage"></span>
 									</a></li>
 									<!-- 역류 end -->
 									<!-- 부재중 start-->
 									<li class="dropdown" onclick="absence_clicked()"><a class="dropdown-toggle" href="#">
 											<img src="../images/absence.png" data-toggle="tooltip"
 											data-placement="bottom" title="부재중" id="img_absence" class="color"> <span
-											class="badge bg-danger" id="absenceimage"><div id="absenceIcon"></div></span>
+											class="badge bg-danger" id="absenceimage"></span>
 									</a></li>
 									<!-- 부재중 end -->
 								</ul>
@@ -399,7 +371,7 @@ summaryReportList.push( {
 						 -->
 						<!-- //지도영역-->
 						<div id="element_to_pop_up">
-							<a class="b-close">x<a/>
+							<a class="b-close">x</a>
 								<div class="modal-dialog" id="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -412,32 +384,32 @@ summaryReportList.push( {
 												<div class="row">
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockLeak"></small></span> <small class="text-muted h5">누수</small>
+															id="blockLeak"></span> <small class="text-muted h5">누수</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockFreezed"></small></span> <small class="text-muted h5">동파</small>
+															id="blockFreezed"></span> <small class="text-muted h5">동파</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockFat"></small></span> <small class="text-muted h5">비만</small>
+															id="blockFat"></span> <small class="text-muted h5">비만</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockBreakage"></small></span> <small class="text-muted h5">파손</small>
+															id="blockBreakage"></span> <small class="text-muted h5">파손</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockReverse"></small></span> <small class="text-muted h5">역류</small>
+															id="blockReverse"></span> <small class="text-muted h5">역류</small>
 														</a>
 													</div>
 													<div class="col-xs-2 text-center">
 														<a href="#"> <span class="m-b-xs h4 block"
-															id="blockAbsence"></small></span> <small class="text-muted h5">부재중</small>
+															id="blockAbsence"></span> <small class="text-muted h5">부재중</small>
 														</a>
 													</div>
 												</div>
@@ -458,7 +430,7 @@ summaryReportList.push( {
 														</div>
 													</section>
 												</div>
-
+<!-- 
 												<div class="col-lg-4">
 													<section class="panel">
 														<header class="panel-heading">지난달 부가서비스 발생횟수</header>
@@ -466,7 +438,9 @@ summaryReportList.push( {
 														</div>
 													</section>
 												</div>
+												 -->
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -495,7 +469,8 @@ summaryReportList.push( {
 				</section>
 
 			</section>
-	</c:if>
+			</section>
+
 
 
 

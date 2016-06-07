@@ -1,8 +1,6 @@
 <%@ page import="visualizing.report.DetailDataCtrl"%>
 <%@ page import="visualizing.report.DetailData"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.util.Locale"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -28,10 +26,21 @@
 	String dateYear = request.getParameter("dateYear");
 	String dateMonth = request.getParameter("dateMonth");
 
-	if (dateYear == null || dateYear.equals(""))
-		dateYear = "2015";
-	if (dateMonth == null || dateMonth.equals(""))
-		dateMonth = "02";
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	Date currentDate = new Date ();
+	String date = mSimpleDateFormat.format ( currentDate );
+	
+	SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+	SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.KOREA);
+	Calendar cal = Calendar.getInstance();
+	
+	if (dateYear == null || dateYear.equals("")){
+		dateYear = yearFormat.format(currentDate); 
+	}
+	if (dateMonth == null || dateMonth.equals("")){
+		dateMonth = monthFormat.format(currentDate); 
+	}
 	if (si == null || si.equals(""))
 		si = "인천광역시";
 	if (guGun == null || guGun.equals(""))
@@ -62,11 +71,6 @@
 	if (data_end_num > array_list.size()){
 		data_end_num = array_list.size();
 	}
-	
-	// 오늘 날짜 구하기
-	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-	Date currentDate = new Date ();
-	String date = mSimpleDateFormat.format ( currentDate );
 %>
 
 <!DOCTYPE html>
@@ -108,14 +112,14 @@
 		
 		<% 
 		String dateyear;
-		if(request.getParameter("dateYear") == null) dateyear = "2015";
+		if(request.getParameter("dateYear") == null) dateyear = yearFormat.format(currentDate); 
 		else dateyear = request.getParameter("dateYear");
 		%>
 		search_form.dateYear.value = "<%=dateyear%>";
 		
 		<% 
 		String datemonth;
-		if(request.getParameter("dateMonth") == null) datemonth = "02";
+		if(request.getParameter("dateMonth") == null) datemonth = monthFormat.format(currentDate);
 		else datemonth = request.getParameter("dateMonth");
 		%>
 		search_form.dateMonth.value = "<%=datemonth%>";
@@ -224,41 +228,42 @@
 								<!--  start -->
 								<ul class="nav top-menu">
 									<!-- 누수 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/water.png" data-toggle="tooltip"
 											data-placement="bottom" title="누수"><span
-											class="badge bg-danger">6</span>
+											class="badge bg-danger">1</span>
 									</a></li>
 									<!-- 누수 end -->
 									<!-- 동파 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/winter.png" data-toggle="tooltip"
 											data-placement="bottom" title="동파">
 									</a></li>
 									<!-- 동파 end -->
 									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/obesity.png" data-toggle="tooltip"
 											data-placement="bottom" title="비만"><span
-											class="badge bg-warning">7</span>
+											class="badge bg-danger">1</span>
 									</a></li>
 									<!-- 비만 end -->
 									<!-- 파손 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/damage.png" data-toggle="tooltip"
 											data-placement="bottom" title="파손">
 									</a></li>
 									<!-- 파손 end -->
 									<!-- 역류 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/backwash.png" data-toggle="tooltip"
-											data-placement="bottom" title="역류">
+											data-placement="bottom" title="역류"><span
+											class="badge bg-danger">3</span>
 									</a></li>
 									<!-- 역류 end -->
 									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle" href="#">
+									<li class="dropdown"><a class="dropdown-toggle">
 											<img src="../images/absence.png" data-toggle="tooltip"
-											data-placement="bottom" title="부재중">
+											data-placement="bottom" title="부재중" >
 									</a></li>
 									<!-- 비만 end -->
 								</ul>

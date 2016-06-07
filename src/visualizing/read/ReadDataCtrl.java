@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import sclab.db.DbConnector;
-import visualizing.report.DetailData;
 
 public class ReadDataCtrl {
 
@@ -66,13 +65,13 @@ public class ReadDataCtrl {
 			this.number = "true";
 		}
 		else{
-			this.number = "u.number=" + number;
+			this.number = "u.number like '%" + number + "%'";
 		}
 		if(meter_num == null){
 			this.meter_num = "true";
 		}
 		else{
-			this.meter_num = "meter_num='" + meter_num + "'";
+			this.meter_num = "u.meter_num like '%" + meter_num + "%'";
 		}
 		
 		if(str == null){
@@ -88,7 +87,7 @@ public class ReadDataCtrl {
 	}
 	
 	// 일간 검침
-	ArrayList<ReadData> getInfo() {
+	ArrayList<ReadData> getInfo(String[] list) {
 
 		ArrayList<ReadData> datas = new ArrayList<ReadData>();
 		String sql = null;
@@ -102,45 +101,75 @@ public class ReadDataCtrl {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				ReadData temp = new ReadData();
-				temp.setCode(rs.getString("u.code"));
-				temp.setDetail(rs.getString("u.detail"));
-				temp.setNumber(rs.getString("u.number"));
-				temp.setMeter_num(rs.getString("u.meter_num"));
-				temp.setMeter_type(rs.getString("u.meter_type"));
-				
-				String[] str = new String(status_sql).split(",");
-				String meter_status = "";
-				int check = 0;
-				
-				for(int i=0;i<str.length;i++){
-					if( Integer.parseInt(rs.getString(str[i]))>0){
-						switch(str[i]){
-							case "leak" : meter_status += "누수 "; break;
-							case "freezed" : meter_status += "동파 "; break;
-							case "fat" : meter_status += "비만관 "; break;
-							case "breakage" : meter_status += "파손 "; break;
-							case "reverse" : meter_status += "역류 "; break;
-							case "absence" : meter_status += "부재중 "; break;
+				if( list == null){
+					ReadData temp = new ReadData();
+					temp.setCode(rs.getString("u.code"));
+					temp.setDetail(rs.getString("u.detail"));
+					temp.setNumber(rs.getString("u.number"));
+					temp.setMeter_num(rs.getString("u.meter_num"));
+					temp.setMeter_type(rs.getString("u.meter_type"));
+					
+					String[] str = new String(status_sql).split(",");
+					String meter_status = "";
+					int check = 0;
+					
+					for(int i=0;i<str.length;i++){
+						if( Integer.parseInt(rs.getString(str[i]))>0){
+							switch(str[i]){
+								case "leak" : meter_status += "누수 "; break;
+								case "freezed" : meter_status += "동파 "; break;
+								case "fat" : meter_status += "비만관 "; break;
+								case "breakage" : meter_status += "파손 "; break;
+								case "reverse" : meter_status += "역류 "; break;
+								case "absence" : meter_status += "부재중 "; break;
+							}
+						}
+						else{
+							check++;
 						}
 					}
-					else{
-						check++;
+					
+					if(check == str.length){
+						meter_status = "정상";
 					}
-				}
-				
-				if(check == str.length){
-					meter_status = "정상";
+					else{
+						
+					}
+					
+					temp.setMeter_status(meter_status);
+					temp.setDate(date);
+					temp.setConsumed(rs.getString("consumed"));
+					
+					datas.add(temp);
 				}
 				else{
+					String[] str = new String(status_sql).split(",");
+					String meter_status = "";
 					
+					for(int i=0;i<str.length;i++){
+						if( Integer.parseInt(rs.getString(str[i]))>0){
+							switch(str[i]){
+								case "leak" : meter_status += "누수 "; break;
+								case "freezed" : meter_status += "동파 "; break;
+								case "fat" : meter_status += "비만 "; break;
+								case "breakage" : meter_status += "파손 "; break;
+								case "reverse" : meter_status += "역류 "; break;
+								case "absence" : meter_status += "부재중 "; break;
+							}
+							ReadData temp = new ReadData();
+							temp.setCode(rs.getString("u.code"));
+							temp.setDetail(rs.getString("u.detail"));
+							temp.setNumber(rs.getString("u.number"));
+							temp.setMeter_num(rs.getString("u.meter_num"));
+							temp.setMeter_type(rs.getString("u.meter_type"));
+							temp.setMeter_status(meter_status);
+							temp.setDate(date);
+							temp.setConsumed(rs.getString("consumed"));
+							
+							datas.add(temp);
+						}
+					}
 				}
-				
-				temp.setMeter_status(meter_status);
-				temp.setDate(date);
-				temp.setConsumed(rs.getString("consumed"));
-				
-				datas.add(temp);
 			}
 			
 			rs.close();
@@ -156,7 +185,7 @@ public class ReadDataCtrl {
 		setParameters(sido, sigoon, umdong, code, detail, number, meter_num, str, date);
 		
 		// 기본 정보
-		ArrayList<ReadData> info_array = getInfo();
+		ArrayList<ReadData> info_array = getInfo(str);
 
 		// DB연결 해제
 		disconnect();
