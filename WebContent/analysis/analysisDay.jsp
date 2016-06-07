@@ -354,10 +354,10 @@
 																<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="sdate" value="${param['sdate']}"
-																	data-date-format="dd-mm-yyyy" id="sdate">~<input
+																	data-date-format="dd-mm-yyyy">~<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="edate" value="${param['edate']}"
-																	data-date-format="dd-mm-yyyy" id="edate">
+																	data-date-format="dd-mm-yyyy">
 															</div>
 														</div>
 													</div>
