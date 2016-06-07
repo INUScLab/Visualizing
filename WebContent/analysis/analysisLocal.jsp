@@ -32,10 +32,10 @@
 	
 	Calendar cal = Calendar.getInstance();
  	cal.setTime(currentDate);
- 	cal.add(Calendar.DATE, 6);
+ 	cal.add(Calendar.DATE, -6);
     String edate = mSimpleDateFormat.format(cal.getTime()); 
 	
-	RankData rd_data = rdctrl.returnDatas(si, guGun, date, edate);
+	RankData rd_data = rdctrl.returnDatas(si, guGun, edate, date);
 	
 %>
 
@@ -570,11 +570,11 @@
 										<div class="col-sm-4">
 											<h3 class="m-t m-b-none text-primary font-semibold">지역별
 												통계 순위 ( <%// 시간 더하기
-										          textDate = DateFormat.format(currentDate); %>
+												  cal.setTime(currentDate);
+											   	  cal.add(Calendar.DATE, -6);
+											      textDate = DateFormat.format(cal.getTime()); %>	
 										          <%=textDate%>
-											   	  <%cal.setTime(currentDate);
-											   	  cal.add(Calendar.DATE, 6);
-											      textDate = DateFormat.format(cal.getTime()); 
+											   	  <% textDate = DateFormat.format(currentDate); 
 											      %> ~ <%=textDate%> )</h3>
 											<p class="block text-muted">Water Meter Data Management
 												System</p>
