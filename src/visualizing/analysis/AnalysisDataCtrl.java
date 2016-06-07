@@ -157,7 +157,9 @@ public class AnalysisDataCtrl {
 	public List<AnalysisData> getList (int start, int end, ArrayList<AnalysisData> arrayList){
 		List<AnalysisData> lists = new ArrayList<AnalysisData>();
 		
-		for (int i=start; i<end; i++){
+		if (end == 0) return lists;
+		
+		for (int i=start-1; i<end; i++){
 			lists.add(arrayList.get(i));
 		}
 		

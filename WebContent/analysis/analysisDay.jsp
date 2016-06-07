@@ -75,7 +75,7 @@
 	if(currentPage > totalPage) //현재 페이지가  전체 페이지 개수보다 많으면
 		currentPage = totalPage; //현재 페이지에 마지막 페이지를 넣기
 	
-	int start = (currentPage-1)*numPerPage; // 전체 데이터 개수중에 어디 부분을 출력할지 시작
+	int start = (currentPage-1)*numPerPage+1; // 전체 데이터 개수중에 어디 부분을 출력할지 시작
 	int end = currentPage*numPerPage; //끝
 	
 	if (end > array_list.size()){ // 마지막 페이지의 데이터 개수가 numPerPage보다 작을때 데이터의 오버 접근을 막기
