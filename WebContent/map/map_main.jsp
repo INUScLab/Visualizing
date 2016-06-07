@@ -235,10 +235,9 @@ summaryReportList.push( {
 							<!-- 도로명 주소,지번주소 tab 영역-->
 							<header class="header bg-gradient-1 shift">
 								<ul class="nav nav-tabs">
-									<li class="active" style="width: 50%;"><a href="#road"
-										data-toggle="tab">도로명 주소</a></li>
-									<li class="" style="width: 50%;"><a href="#number"
-										data-toggle="tab">지번주소</a></li>
+									<li class="active" style="width: 100%;"><a href="#road"
+										data-toggle="tab">수용가 주소</a></li>
+
 								</ul>
 							</header>
 							<!-- //도로명 주소,지번주소 tab 영역.. 검색결과 갯수를 for로 늘림?    -->
