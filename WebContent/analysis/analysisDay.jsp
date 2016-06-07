@@ -119,40 +119,11 @@
 <script src="../js/date.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
-		<%-- 
-		<%String s;
-			if (request.getParameter("sdate") == null){
-				cal.setTime(currentDate);
-			 	cal.add(Calendar.DATE, -1);
-				s = mSimpleDateFormat.format(cal.getTime()); 
-			}
-			else
-				s = request.getParameter("sdate");%>
-		search_form.sdate.value = "<%=s%>";
+		var startDateFields = document.getElementById("sdate");
+		var endDateFields = document.getElementById("edate");
 		
-		<%String e;
-			if (request.getParameter("edate") == null){
-				cal.setTime(currentDate);
-			    e = mSimpleDateFormat.format(cal.getTime()); 
-			}
-			else
-				e = request.getParameter("edate");%>
-		search_form.edate.value = "<%=e%>"; --%>
-		
-		
-			var startDateFields = document.getElementById("sdate");
-			var endDateFields = document.getElementById("edate");
-			
-			var sdate = new Date();
-			var edate = new Date();
-			sdate.setFullYear(2015, 0, 31); //1월 31일
-			edate.setFullYear(2015, 1, 28); //2월 28일
-			sdate = formatChange(sdate);
-			edate = formatChange(edate);
-			//console.log(sdate);
-			
-			startDateFields.value = sdate;
-			endDateFields.value = edate;
+		startDateFields.value = '<%=sdate%>';
+		endDateFields.value = '<%=edate%>';
 	};
 	
 	function pagePass (page) {
@@ -368,10 +339,10 @@
 																<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="sdate" value="${param['sdate']}"
-																	data-date-format="yyyy-mm-dd">~<input
+																	data-date-format="yyyy-mm-dd" id="sdate">~<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="edate" value="${param['edate']}"
-																	data-date-format="yyyy-mm-dd">
+																	data-date-format="yyyy-mm-dd" id="edate">
 															</div>
 														</div>
 													</div>
