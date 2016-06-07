@@ -75,9 +75,16 @@ public class ReadMonthCtrl {
 			this.meter_num = "u.meter_num like '%" + meter_num + "%'";
 		}
 		
-		char pre = (char)((int)(month.charAt(1))-1);
-		this.date_start = year + month.charAt(0) + pre + "01";
-		this.date_end = year + month + "31";
+		char pre;
+		if(month.charAt(1) == '0'){
+			this.date_start = year + "0901";
+			this.date_end = year + month + "31";
+		}
+		else{
+			pre = (char)((int)(month.charAt(1))-1);
+			this.date_start = year + month.charAt(0) + pre + "01";
+			this.date_end = year + month + "31";
+		}
 		
 	}
 	
