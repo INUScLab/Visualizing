@@ -58,34 +58,34 @@
 
 %>
 
-<%
+<%	//페이징 처리 관련
 	MyUtil myUtil = new MyUtil();
 
 	String pageNum = request.getParameter("pageNum");
-	int currentPage = 1;
+	int currentPage = 1; //현재 페이지 default로 1
 	
 	if(pageNum != null) //넘어온 값이 있을때
-		currentPage = Integer.parseInt(pageNum);
+		currentPage = Integer.parseInt(pageNum); //현재 페이지에 넘어온 값을 넣음
 	
-	int dataCount = array_list.size();
+	int dataCount = array_list.size(); //전체 데이터를 개수를 구해서
 	
-	int numPerPage = 10;
-	int totalPage = myUtil.getPageCount(numPerPage, dataCount);
+	int numPerPage = 10; //1페이지에 10개 씩
+	int totalPage = myUtil.getPageCount(numPerPage, dataCount); //필요한 페이지 개수를 알아옴
 	
-	if(currentPage > totalPage)
-		currentPage = totalPage;
+	if(currentPage > totalPage) //현재 페이지가  전체 페이지 개수보다 많으면
+		currentPage = totalPage; //현재 페이지에 마지막 페이지를 넣기
 	
-	int start = (currentPage-1)*numPerPage;
-	int end = currentPage*numPerPage;
+	int start = (currentPage-1)*numPerPage; // 전체 데이터 개수중에 어디 부분을 출력할지 시작
+	int end = currentPage*numPerPage; //끝
 	
-	if (end > array_list.size()){
+	if (end > array_list.size()){ // 마지막 페이지의 데이터 개수가 numPerPage보다 작을때 데이터의 오버 접근을 막기
 		end = array_list.size();
 	}
 	
-	List<AnalysisData> lists = adctrl.getList(start, end, array_list);
+	List<AnalysisData> lists = adctrl.getList(start, end, array_list); //출력할 데이터 만큼 받아오기.
 	
 	String listUrl = "/Visualizing/analysis/analysisDay.jsp";
-	String pageIndexList = myUtil.pageIndexList(currentPage, totalPage, listUrl);	
+	String pageIndexList = myUtil.pageIndexList(currentPage, totalPage, listUrl);//페이징에 관련 된 태그들을 생성
 %>
 
 <!DOCTYPE html>
@@ -116,37 +116,18 @@
 <script src="../js/app.data.js"></script>
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
+<script src="../js/date.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
-		<%String gugun;
-			if (request.getParameter("guGun") == null)
-				gugun = "전체";
-			else
-				gugun = request.getParameter("guGun");%>
-		search_form.guGun.value = "<%=gugun%>";
+		var startDateFields = document.getElementById("sdate");
+		var endDateFields = document.getElementById("edate");
 		
-		<%String s;
-			if (request.getParameter("sdate") == null){
-				cal.setTime(currentDate);
-			 	cal.add(Calendar.DATE, -1);
-				s = mSimpleDateFormat.format(cal.getTime()); 
-			}
-			else
-				s = request.getParameter("sdate");%>
-		search_form.sdate.value = "<%=s%>";
-		
-		<%String e;
-			if (request.getParameter("edate") == null){
-				cal.setTime(currentDate);
-			    e = mSimpleDateFormat.format(cal.getTime()); 
-			}
-			else
-				e = request.getParameter("edate");%>
-		search_form.edate.value = "<%=e%>";
-		
+		startDateFields.value = '<%=sdate%>';
+		endDateFields.value = '<%=edate%>';
 	};
 	
 	function pagePass (page) {
+		//페이징 버튼에서 사용하는 함수
 		f = document.pagePassF;
 		f.action = "/Visualizing/analysis/analysisDay.jsp?pageNum="+page;
 		f.submit();
@@ -338,13 +319,13 @@
 																<option value="인천광역시">인천광역시</option>
 															</select>
 															<select name=guGun class="input-sm form-control input-s-sm inline">
-																<option value="전체">전체</option>
-																<option value="강화군">강화군</option>
-																<option value="계양구">계양구</option>
-																<option value="남구">남구</option>
-																<option value="남동구">남동구</option>
-																<option value="동구">동구</option>
-																<option value="부평구">부평구</option>
+																<option value="전체" <%if(guGun.equals("전체")) out.print("selected=\"selected\"");%>>전체</option>
+																<option value="강화군" <%if(guGun.equals("강화군")) out.print("selected=\"selected\"");%>>강화군</option>
+																<option value="계양구" <%if(guGun.equals("계양구")) out.print("selected=\"selected\"");%>>계양구</option>
+																<option value="남구" <%if(guGun.equals("남구")) out.print("selected=\"selected\"");%>>남구</option>
+																<option value="남동구" <%if(guGun.equals("남동구")) out.print("selected=\"selected\"");%>>남동구</option>
+																<option value="동구" <%if(guGun.equals("동구")) out.print("selected=\"selected\"");%>>동구</option>
+																<option value="부평구" <%if(guGun.equals("부평구")) out.print("selected=\"selected\"");%>>부평구</option>
 															</select>
 															<select name=umDong class="input-sm form-control input-s-sm inline">
 																<option value="전체">전체</option>
@@ -358,10 +339,10 @@
 																<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="sdate" value="${param['sdate']}"
-																	data-date-format="yyyy-mm-dd">~<input
+																	data-date-format="yyyy-mm-dd" id="sdate">~<input
 																	class="input-sm input-s-sm datepicker-input form-control"
 																	type="text" name="edate" value="${param['edate']}"
-																	data-date-format="yyyy-mm-dd">
+																	data-date-format="yyyy-mm-dd" id="edate">
 															</div>
 														</div>
 													</div>
@@ -454,7 +435,6 @@
 															<td><%=ad.getTotal_consumed()%></td>
 															<td><%=ad.getCount()%></td>
 															<td><%=ad.getAvg_consumed()%></td>
-
 														</tr>
 														<%
 															}

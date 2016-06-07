@@ -11,55 +11,44 @@ public class MyUtil {
 	}
 	
 	public String pageIndexList(int currentPage,int totalPage, String listUrl){
-		int numPerBlock = 10;
+		int numPerBlock = 10; //페이지 개수
 		int currentPageSetup;
 		int page;
 		
 		StringBuffer sb = new StringBuffer();
 		
-		if(currentPage==0 || totalPage==0)
+		if(currentPage==0 || totalPage==0)//데이터가 없으면 아무것도 출력 안함
 			return "";
 		
-		if(listUrl.indexOf("?")!=-1)
-			listUrl = listUrl + "&";
+		if(listUrl.indexOf("?")!=-1) //주소에 다른 변수가 있으면
+			listUrl = listUrl + "&"; //&로 변수를 추가하고
 		else
-			listUrl = listUrl + "?";
+			listUrl = listUrl + "?"; //없으면 ?로 변수 추가
 		
 		
-		currentPageSetup = (currentPage/numPerBlock)*numPerBlock;
+		currentPageSetup = (currentPage/numPerBlock)*numPerBlock; //현재 page block 구하기 (ex 11 12 13 ~19)
 		if(currentPage%numPerBlock==0)
 			currentPageSetup = currentPageSetup-numPerBlock;
 		
-		if(totalPage>numPerBlock && currentPageSetup>0){
-			
+		if(totalPage>numPerBlock && currentPageSetup>0){					//이전 링크 생성
 			sb.append("<li><button onclick=\"pagePass("+ currentPageSetup +")\"><i class=\"fa fa-chevron-left\"></i></button></li>");
-			//<a href="list.jsp?pageNum=5">이전</a>*nbsp;
 		}
 		
 		page = currentPageSetup + 1;
 		
-		while(page<=totalPage && page<=(currentPageSetup+numPerBlock)){
-			
-			if(page==currentPage){
+		while(page<=totalPage && page<=(currentPageSetup+numPerBlock)){		//각 페이지 별 링크 생성
+			if(page==currentPage){	//현재 페이지 굵은 글씨체
 				sb.append("<li><button onclick=\"pagePass(" + page + ")\"><b>" + page + "</b></button></li>");
-			//<font color="Fuchsia">9</font>&nbsp;
-				
-			}else{
-				
+			}else{	//일반 페이지
 				sb.append("<li><button onclick=\"pagePass(" + page + ")\">" + page + "</button></li>");
-				//<a href="list.jsp?pageNum=6">6</a>&nbsp;
-				
 			}
 			
 			page++;
 			
 		}
 		
-		if(totalPage-currentPageSetup>numPerBlock){
-			
-			sb.append("<li><button onclick=\"pagePass("+ page +")\"><i class=\"fa fa-chevron-right\"></i></button></li>");
-			//<a href="list.jsp?pageNum=11">다음</a>&nbsp;
-			
+		if(totalPage-currentPageSetup>numPerBlock){						//다음 링크 생성
+			sb.append("<li><button onclick=\"pagePass("+ page +")\"><i class=\"fa fa-chevron-right\"></i></button></li>");	
 		}
 		
 		return sb.toString();
