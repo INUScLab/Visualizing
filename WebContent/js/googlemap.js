@@ -374,8 +374,6 @@ function drawConsumerReport( addressArray ){
 
 			//1.주소칸
 			document.getElementById('modal-title').innerHTML = incheon+ ' ' + gu + ' ' + dong + ' ' + detail;
-			console.log(incheon+ ' ' + gu + ' ' + dong + ' ' + detail);
-			info_date.style.fontSize = "90%"; // 주소 출력 폰트 사이즈
 
 			//일주일치 사용량 합 구하기.
 			sum_weeklyConsumption = Number(summaryReportList[i].day1) + Number ( summaryReportList[i].day2 ) + Number ( summaryReportList[i].day3 ) +
