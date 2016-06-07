@@ -342,9 +342,8 @@ function createConsumerMarkers ( addressArray ) {
 			// 수용가 마커를 클릭했을때의 이벤트 처리 함수
 			marker.addListener('click', function() {
 
-				globalMap.setCenter(this.position);
+//				globalMap.setCenter(this.position);
 				$('#element_to_pop_up').bPopup();
-				
 				drawConsumerReport(this.title.split(' '));
 
 			});
@@ -658,19 +657,16 @@ function drawDongSummaryReport(addressArray) {
 
 	//2.부가서비스별 발생 횟수.
 	document.getElementById('blockLeak').innerHTML = count_leak + "건";
-	blockLeak.style.fontSize = "130%";
 	
 	document.getElementById('blockFreezed').innerHTML = count_freezed + "건";
-	blockFreezed.style.fontSize = "130%";
 
 	document.getElementById('blockFat').innerHTML = count_fat + "건";
-	blockFat.style.fontSize = "130%";
 
 	document.getElementById('blockBreakage').innerHTML = count_breakage + "건";
-	blockBreakage.style.fontSize = "130%";
 	
 	document.getElementById('blockReverse').innerHTML = count_reverse + "건";
-	blockReverse.style.fontSize = "130%";
+
+	document.getElementById('blockAbsence').innerHTML = count_absence + "건";
 	
 	//일주일치 사용량 합 구하기.
 	sum_weeklyConsumption += sum_day1 + sum_day2 + sum_day3 + sum_day4 + sum_day5 + sum_day6 + sum_day7;
