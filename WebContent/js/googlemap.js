@@ -143,7 +143,7 @@ function initialize( ) {
 		document.getElementById('absenceimage').innerHTML = absencecount;
 
 	
-	
+	console.log(leakcount , freezecount, fatcount , breakcount , reversecount , absencecount)
 	
 
 }
@@ -389,7 +389,7 @@ function drawConsumerReport( addressArray ){
 			//4.요약 report history 그래프 그리기.
 			drawHistory ( Number(summaryReportList[i].day7) , Number ( summaryReportList[i].day6 ) , Number ( summaryReportList[i].day5 ) ,
 			Number ( summaryReportList[i].day4), Number ( summaryReportList[i].day3 ) , Number ( summaryReportList[i].day2 ) ,
-			Number (summaryReportList[i].day1));
+			Number (summaryReportList[i].day1) , Math.round(sum_weeklyConsumption/7) );
 		}
 	}
 }
@@ -463,13 +463,13 @@ function drawHistory(day1, day2, day3, day4, day5, day6, day7, avg) {
 	data.addColumn('number', 'Consumption');
 	data.addColumn('number', 'Average');
 
-	data.addRows([ [ new Date(2015, 1, 22), day1, avg ],
-			[ new Date(2015, 1, 23), day2, avg ],
-			[ new Date(2015, 1, 24), day3, avg ],
-			[ new Date(2015, 1, 25), day4, avg ],
-			[ new Date(2015, 1, 26), day5, avg ],
-			[ new Date(2015, 1, 27), day6, avg ],
-			[ new Date(2015, 1, 28), day7, avg ], ]);
+	data.addRows([ [ new Date(2016, 05, 8), day1, avg ],
+			[ new Date(2016, 05, 7), day2, avg ],
+			[ new Date(2016, 05, 6), day3, avg ],
+			[ new Date(2016, 05, 5), day4, avg ],
+			[ new Date(2016, 05, 4), day5, avg ],
+			[ new Date(2016, 05, 3), day6, avg ],
+			[ new Date(2016, 05, 2), day7, avg ], ]);
 
 	var options = {
 		//title : "일주일 간 history",
