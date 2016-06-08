@@ -1,3 +1,4 @@
+<%@page import="visualizing.util.MyUtil"%>
 <%@ page import="visualizing.report.DetailDataCtrl"%>
 <%@ page import="visualizing.report.DetailData"%>
 <%@ page import="java.util.*"%>
@@ -12,10 +13,6 @@
 <jsp:useBean id="ddctrl" class="visualizing.report.DetailDataCtrl" />
 
 <%
-	Integer data_start_num = 0;
-	Integer data_end_num = 10; // 데이터 오바되면 접근 되는 문제 수정필요.
-	String page_start_num = request.getParameter("page_start_num");
-
 	String si = request.getParameter("si");
 	String guGun = request.getParameter("guGun");
 	String umDong = request.getParameter("umDong");
@@ -59,18 +56,39 @@
 	if (meterNum != null)
 		if (meterNum.equals(""))
 			meterNum = null;
-	
-	if (page_start_num == null){
-		page_start_num = "1";
-	}
 
 	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" +  consumerName + "	" + telNumber + "	" + meterNum + "	" + dateYear + "	" + dateMonth);
 	
 	ArrayList<DetailData> array_list = ddctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, dateYear, dateMonth);
+%>
+<%	//페이징 처리 관련
+	MyUtil myUtil = new MyUtil();
 
-	if (data_end_num > array_list.size()){
-		data_end_num = array_list.size();
+	String pageNum = request.getParameter("pageNum");
+	int currentPage = 1; //현재 페이지 default로 1
+	
+	if(pageNum != null) //넘어온 값이 있을때
+		currentPage = Integer.parseInt(pageNum); //현재 페이지에 넘어온 값을 넣음
+	
+	int dataCount = array_list.size(); //전체 데이터를 개수를 구해서
+	
+	int numPerPage = 10; //1페이지에 10개 씩
+	int totalPage = myUtil.getPageCount(numPerPage, dataCount); //필요한 페이지 개수를 알아옴
+	
+	if(currentPage > totalPage) //현재 페이지가  전체 페이지 개수보다 많으면
+		currentPage = totalPage; //현재 페이지에 마지막 페이지를 넣기
+	
+	int start = (currentPage-1)*numPerPage+1; // 전체 데이터 개수중에 어디 부분을 출력할지 시작
+	int end = currentPage*numPerPage; //끝
+	
+	if (end > array_list.size()){ // 마지막 페이지의 데이터 개수가 numPerPage보다 작을때 데이터의 오버 접근을 막기
+		end = array_list.size();
 	}
+	
+	List<DetailData> lists = ddctrl.getList(start, end, array_list); //출력할 데이터 만큼 받아오기.
+	
+	String listUrl = "/Visualizing/report/reportDay.jsp";
+	String pageIndexList = myUtil.pageIndexList(currentPage, totalPage, listUrl);//페이징에 관련 된 태그들을 생성
 %>
 
 <!DOCTYPE html>
@@ -101,29 +119,16 @@
 <script src="../js/app.data.js"></script>
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
+<script src="../js/date.js"></script>
 <script type="text/javascript">
-	window.onload = function() {
-		<% 
-			String gugun;
-			if(request.getParameter("guGun") == null) gugun = "전체";
-			else gugun = request.getParameter("guGun");
-		%>
-		search_form.guGun.value = "<%=gugun%>";
+	function pagePass (page) {
+		//페이징 버튼에서 사용하는 함수
+		f = document.pagePassF;
+		f.action = "/Visualizing/report/reportDay.jsp?pageNum="+page;
+		f.submit();
 		
-		<% 
-		String dateyear;
-		if(request.getParameter("dateYear") == null) dateyear = yearFormat.format(currentDate); 
-		else dateyear = request.getParameter("dateYear");
-		%>
-		search_form.dateYear.value = "<%=dateyear%>";
-		
-		<% 
-		String datemonth;
-		if(request.getParameter("dateMonth") == null) datemonth = monthFormat.format(currentDate);
-		else datemonth = request.getParameter("dateMonth");
-		%>
-		search_form.dateMonth.value = "<%=datemonth%>";
-	};
+		return true;
+	}
 </script>
 </head>
 <body>
@@ -306,13 +311,13 @@
 																<option value="인천광역시">인천광역시</option>
 															</select>
 															<select name=guGun class="input-sm form-control input-s-sm inline">
-																<option value="전체">전체</option>
-																<option value="강화군">강화군</option>
-																<option value="계양구">계양구</option>
-																<option value="남구">남구</option>
-																<option value="남동구">남동구</option>
-																<option value="동구">동구</option>
-																<option value="부평구">부평구</option>
+																<option value="전체" <%if(guGun.equals("전체")) out.print("selected=\"selected\"");%>>전체</option>
+																<option value="강화군" <%if(guGun.equals("강화군")) out.print("selected=\"selected\"");%>>강화군</option>
+																<option value="계양구" <%if(guGun.equals("계양구")) out.print("selected=\"selected\"");%>>계양구</option>
+																<option value="남구" <%if(guGun.equals("남구")) out.print("selected=\"selected\"");%>>남구</option>
+																<option value="남동구" <%if(guGun.equals("남동구")) out.print("selected=\"selected\"");%>>남동구</option>
+																<option value="동구" <%if(guGun.equals("동구")) out.print("selected=\"selected\"");%>>동구</option>
+																<option value="부평구" <%if(guGun.equals("부평구")) out.print("selected=\"selected\"");%>>부평구</option>
 															</select>
 															<select name=umDong class="input-sm form-control input-s-sm inline">
 																<option value="전체">전체</option>
@@ -322,22 +327,22 @@
 													<div class="col-sm-4">
 														<div class="form-group m-b-none">
 															<select name=dateYear class="input-sm form-control input-s-sm inline">
-																<option value="2015">2015년</option>
-																<option value="2016">2016년</option>
+																<option value="2015" <%if(dateYear.equals("2015")) out.print("selected=\"selected\"");%>>2015년</option>
+																<option value="2016" <%if(dateYear.equals("2016")) out.print("selected=\"selected\"");%>>2016년</option>
 															</select>
 															<select name=dateMonth class="input-sm form-control input-s-sm inline">
-																<option value="01">01월</option>
-																<option value="02">02월</option>
-																<option value="03">03월</option>
-																<option value="04">04월</option>
-																<option value="05">05월</option>
-																<option value="06">06월</option>
-																<option value="07">07월</option>
-																<option value="08">08월</option>
-																<option value="09">09월</option>
-																<option value="10">10월</option>
-																<option value="11">11월</option>
-																<option value="12">12월</option>
+																<option value="01" <%if(dateMonth.equals("01")) out.print("selected=\"selected\"");%>>01월</option>
+																<option value="02" <%if(dateMonth.equals("02")) out.print("selected=\"selected\"");%>>02월</option>
+																<option value="03" <%if(dateMonth.equals("03")) out.print("selected=\"selected\"");%>>03월</option>
+																<option value="04" <%if(dateMonth.equals("04")) out.print("selected=\"selected\"");%>>04월</option>
+																<option value="05" <%if(dateMonth.equals("05")) out.print("selected=\"selected\"");%>>05월</option>
+																<option value="06" <%if(dateMonth.equals("06")) out.print("selected=\"selected\"");%>>06월</option>
+																<option value="07" <%if(dateMonth.equals("07")) out.print("selected=\"selected\"");%>>07월</option>
+																<option value="08" <%if(dateMonth.equals("08")) out.print("selected=\"selected\"");%>>08월</option>
+																<option value="09" <%if(dateMonth.equals("09")) out.print("selected=\"selected\"");%>>09월</option>
+																<option value="10" <%if(dateMonth.equals("10")) out.print("selected=\"selected\"");%>>10월</option>
+																<option value="11" <%if(dateMonth.equals("11")) out.print("selected=\"selected\"");%>>11월</option>
+																<option value="12" <%if(dateMonth.equals("12")) out.print("selected=\"selected\"");%>>12월</option>
 															</select>
 														</div>
 													</div>
@@ -441,33 +446,31 @@
 													</thead>
 													<tbody>
 														<%
-															for (int i = data_start_num; i < data_end_num; i++) {
+														for (DetailData dd : lists) {
 														%>
 														<tr>
-															<td><%=array_list.get(i).getCode()%></td>
-															<td><%=array_list.get(i).getDetail()%></td>
-															<td><%=array_list.get(i).getNumber()%></td>
-															<td><%=array_list.get(i).getMeter_num()%></td>
-															<td><%=array_list.get(i).getMeter_type()%></td>
+															<td><%=dd.getCode()%></td>
+															<td><%=dd.getDetail()%></td>
+															<td><%=dd.getNumber()%></td>
+															<td><%=dd.getMeter_num()%></td>
+															<td><%=dd.getMeter_type()%></td>
 															<td><%=dateYear%>-<%=dateMonth%></td>
-															<td><%=array_list.get(i).getTotal_consumed()%></td>
+															<td><%=dd.getTotal_consumed()%></td>
 															<%
-																for (String a : array_list.get(i).getConsumed_days()) {
+																for (String a : dd.getConsumed_days()) {
 															%>
 															<td><%=a%></td>
 															<%
 																}
 
-																	for (int j = 31 - array_list.get(i).getConsumed_days().length; j > 0; j--) {
+																for (int j = 31 - dd.getConsumed_days().length; j > 0; j--) {
 															%>
 															<td>0.00</td>
 															<%
 																}
+														}
 															%>
 														</tr>
-														<%
-															}
-														%>
 													</tbody>
 												</table>
 											</div>
@@ -477,15 +480,20 @@
 													</div>
 													<div class="col-sm-6 text-center text-center">
 															<input type="hidden" name="s_name" />
-															<ul class="pagination pagination-sm m-t-none m-b-none">
-																<li><a href="reportDay.jsp?page_start_num=<%=Integer.parseInt(page_start_num)-5%>"><i class="fa fa-chevron-left"></i></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)%></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)+1%></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)+2%></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)+3%></a></li>
-																<li><a href="#"><%=Integer.parseInt(page_start_num)+4%></a></li>
-																<li><a href="#" onclick="document.getElementById('search_form').submit();"><i class="fa fa-chevron-right"></i></a></li>
-															</ul>
+															<form action="" method="post" name="pagePassF">
+															<input type="hidden" name="si" value="${param['si']}">
+															<input type="hidden" name="guGun" value="${param['guGun']}">
+															<input type="hidden" name="umDong" value="${param['umDong']}">
+															<input type="hidden" name="dateYear" value="${param['dateYear']}">
+															<input type="hidden" name="dateMonth" value="${param['dateMonth']}">
+															<input type="hidden" name="consumerNum" value="${param['consumerNum']}">
+															<input type="hidden" name="consumerName" value="${param['consumerName']}">
+															<input type="hidden" name="telNumber" value="${param['telNumber']}">
+															<input type="hidden" name="meterNum" value="${param['meterNum']}">
+																<ul class="pagination pagination-sm m-t-none m-b-none">
+																	<%=pageIndexList %>
+																</ul>
+															</form>
 													</div>
 													<div class="col-sm-3 text-right hidden-xs">
 													</div>

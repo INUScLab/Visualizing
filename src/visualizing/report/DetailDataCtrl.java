@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import sclab.db.DbConnector;
+import visualizing.analysis.AnalysisData;
 
 public class DetailDataCtrl {
 
@@ -184,5 +187,17 @@ public class DetailDataCtrl {
 		disconnect();
 		
 		return info_array;
+	}
+	
+	public List<DetailData> getList (int start, int end, ArrayList<DetailData> arrayList){
+		List<DetailData> lists = new ArrayList<DetailData>();
+		
+		if (end == 0) return lists;
+		
+		for (int i=start-1; i<end; i++){
+			lists.add(arrayList.get(i));
+		}
+		
+		return lists;
 	}
 }
