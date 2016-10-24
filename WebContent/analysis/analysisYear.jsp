@@ -124,6 +124,7 @@
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
 <script src="../js/date.js"></script>
+<Script src="../js/csv_down.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
 		var startDateFields = document.getElementById("sdate");
@@ -448,6 +449,28 @@
 														%>
 													</tbody>
 												</table>
+												
+												<script>
+														var searchedData = [ ];
+														
+														console.log(<%=array_list.size()%>);
+														
+														<%for (int i=0; i < array_list.size() ; i++) {%>
+														searchedData.push( {
+															code:"<%=array_list.get(i).getCode()%>",
+															detail:"<%=array_list.get(i).getDetail()%>",
+															number:"<%=array_list.get(i).getNumber()%>",
+															meternum:"<%=array_list.get(i).getMeter_num()%>",
+															metertype:"<%=array_list.get(i).getMeter_type()%>",
+															term:"<%=array_list.get(i).getTerm()%>",
+															consume:"<%=array_list.get(i).getTotal_consumed()%>",
+															count:"<%=array_list.get(i).getCount()%>",
+															avgconsume:"<%=array_list.get(i).getAvg_consumed()%>"
+															
+														});
+														
+														<%}%>
+													</script>
 											</div>
 											<footer class="panel-footer">
 												<div class="row">
@@ -490,7 +513,7 @@
 						<ul class="nav nav-pills">
 							<li><a href="#"><i class="fa fa-list icon-lg"
 									data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-							<li><a href="#"><i class="fa fa-save icon-lg"
+							<li><a href="#" onclick="download_csv()"><i class="fa fa-save icon-lg"
 									data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
 							<li><a href="#"><i class="fa fa-print icon-lg"
 									data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>

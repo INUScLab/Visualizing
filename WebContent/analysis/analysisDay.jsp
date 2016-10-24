@@ -117,6 +117,7 @@
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
 <script src="../js/date.js"></script>
+<script src="../js/csv_down.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
 		var startDateFields = document.getElementById("sdate");
@@ -448,6 +449,7 @@
 												
 													<script>
 														var searchedData = [ ];
+														
 														console.log(<%=array_list.size()%>);
 														
 														<%for (int i=0; i < array_list.size() ; i++) {%>
@@ -514,7 +516,7 @@
 						<ul class="nav nav-pills">
 							<li><a href="#"><i class="fa fa-list icon-lg"
 									data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-							<li><a href="#"><i class="fa fa-save icon-lg"
+							<li><a href="#" onclick="download_csv()"><i class="fa fa-save icon-lg"
 									data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
 							<li><a href="#"><i class="fa fa-print icon-lg"
 									data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>
