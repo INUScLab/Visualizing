@@ -34,7 +34,7 @@ function download_csv() {
 	}
 	
 
-	var csv = '번호,수용가명,지시부번호,미터번호,미터타입,검침기간,총사용량,일수,일 평균사용량\n';
+	var csv = '번호,수용가명,지시부번호,미터번호,미터타입,검침기간,총사용량,일수,평균사용량\n';
 	data.forEach(function(row) {
 
 		csv += row.join(',');
