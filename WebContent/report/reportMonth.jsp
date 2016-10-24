@@ -115,6 +115,7 @@
 <script src="../js/app.data.js"></script>
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
+<Script src="../js/csv_down.js"></script>
 <script type="text/javascript">
 	function pagePass (page) {
 		//페이징 버튼에서 사용하는 함수
@@ -438,6 +439,35 @@
 														%>
 													</tbody>
 												</table>
+												
+												<script>
+														var searchedData = [ ];
+														
+														<%for (DetailData dd : array_list) {
+															int i=0;
+														%>
+															searchedData.push( {
+																code:"<%=dd.getCode()%>",
+																detail:"<%=dd.getDetail()%>",
+																number:"<%=dd.getNumber()%>",
+																meternum:"<%=dd.getMeter_num()%>",
+																metertype:"<%=dd.getMeter_type()%>",
+																term:"<%=dateYear%>",
+																consume:"<%=dd.getTotal_consumed()%>",
+																<% for (String a : dd.getConsumed_days()) {
+																	i++;
+																%>
+																	month<%=i%>:"<%=a%>",	
+																<%}
+																for (int j = 31 - dd.getConsumed_days().length; j > 0; j--) {
+																	i++;
+																%>
+																	month<%=i%>:"0.00",
+																<%}%>
+															});
+														
+														<%}%>
+													</script>
 											</div>
 											<footer class="panel-footer">
 												<div class="row">
@@ -488,7 +518,7 @@
 						<ul class="nav nav-pills">
 							<li><a href="#"><i class="fa fa-list icon-lg"
 									data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-							<li><a href="#"><i class="fa fa-save icon-lg"
+							<li><a href="#" onclick="download_csv_reportMonth()"><i class="fa fa-save icon-lg"
 									data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
 							<li><a href="#"><i class="fa fa-print icon-lg"
 									data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>
