@@ -421,6 +421,8 @@
 															<th>일 평균사용량</th>
 														</tr>
 													</thead>
+													
+													
 													<tbody>
 														<%
 															for (AnalysisData ad : lists) {
@@ -439,8 +441,37 @@
 														<%
 															}
 														%>
+													
 													</tbody>
+												
 												</table>
+												
+													<script>
+														var searchedData = [ ];
+														console.log(<%=array_list.size()%>);
+														
+														<%for (int i=0; i < array_list.size() ; i++) {%>
+														searchedData.push( {
+															code:"<%=array_list.get(i).getCode()%>",
+															detail:"<%=array_list.get(i).getDetail()%>",
+															number:"<%=array_list.get(i).getNumber()%>",
+															meternum:"<%=array_list.get(i).getMeter_num()%>",
+															metertype:"<%=array_list.get(i).getMeter_type()%>",
+															term:"<%=array_list.get(i).getTerm()%>",
+															consume:"<%=array_list.get(i).getTotal_consumed()%>",
+															count:"<%=array_list.get(i).getCount()%>",
+															avgconsume:"<%=array_list.get(i).getAvg_consumed()%>"
+															
+														});
+														
+														<%}%>
+														console.log(searchedData);
+													</script>
+												
+												
+												
+												
+												
 											</div>
 											<footer class="panel-footer">
 												<div class="row">
