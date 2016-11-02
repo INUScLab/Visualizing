@@ -1,22 +1,48 @@
-/*
- * var data = [
-   		['한글', 'programmer'],
-   		['되냐', '테스트좀bus driver'],
-   		['Moo', 'Reindeer Hunter']
-];
- */
-
-console.log("test")
+// Convert a hex string to a byte array
+function hexToBytes(hex) {
+    for (var bytes = [], c = 0; c < hex.length; c += 2)
+    bytes.push(parseInt(hex.substr(c, 2), 16));
+    return bytes;
+}
  
- 
-function download_csv_analysis() {
-	console.log(searchedData[1].avgconsume)
+function download_csv_analysis(pageName) {
+	//console.log(searchedData[1].avgconsume)
 	
 	var data = [];
 	
 	var csv = '번호, 수용가명, 지시부번호, 미터번호, 미터타입, 검침기간, 총사용량, 일수, 평균사용량\n';
 	
+	var form1 = $('#search_form').serialize();
+	var fileDatas1 = form1.split('&');
 	
+	var form2 = $('#pagePassF').serialize();
+	var fileDatas2 = form2.split('&');
+	
+	
+	var fileData = fileDatas2[5].split('=')
+	console.log(fileData[0] + ': ' + fileData[1]);
+	
+	//console.log(fileDatas2);
+	//si gugun umdong sdate edate consumerNum consumerName telNumber meterNum 순서
+	//console.log(fileName[0]);
+	var fileName = pageName + '_';
+	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_';
+	fileName += fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1];
+
+
+	for (i=5; i<fileDatas2.length; i++){
+		var fileData = fileDatas2[i].split('=')
+		console.log(fileData[0] + ': ' + fileData[1]);
+		if (fileData[1] != "")
+			fileName += '_' + fileData[1];
+		else
+			fileName += '_전체' ;
+	}
+	
+	fileName = decodeURIComponent(fileName);
+	
+	//console.log(fileName);
+	//console.log(fileDatas2);
 	
 	for(i=0; i<searchedData.length ; i++){
 		var indata = [];
@@ -43,7 +69,7 @@ function download_csv_analysis() {
 	var hiddenElement = document.createElement('a');
 	hiddenElement.href = 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURI(csv);
 	hiddenElement.target = '_blank';
-	hiddenElement.download = 'people.csv';
+	hiddenElement.download = fileName + '.csv';
 	hiddenElement.click();
     
 }

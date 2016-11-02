@@ -481,7 +481,7 @@
 													</div>
 													<div class="col-sm-6 text-center text-center">
 															<input type="hidden" name="s_name" />
-															<form action="" method="post" name="pagePassF">
+															<form action="" method="post" name="pagePassF" id="pagePassF">
 															<input type="hidden" name="si" value="${param['si']}">
 															<input type="hidden" name="guGun" value="${param['guGun']}">
 															<input type="hidden" name="umDong" value="${param['umDong']}">
@@ -516,7 +516,7 @@
 						<ul class="nav nav-pills">
 							<li><a href="#"><i class="fa fa-list icon-lg"
 									data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-							<li><a href="#" onclick="download_csv()_analysis"><i class="fa fa-save icon-lg"
+							<li><a href="#" onclick="download_csv_analysis('일별통계')"><i class="fa fa-save icon-lg"
 									data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
 							<li><a href="#"><i class="fa fa-print icon-lg"
 									data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>
