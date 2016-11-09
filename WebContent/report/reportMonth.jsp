@@ -518,7 +518,7 @@
 						<ul class="nav nav-pills">
 							<li><a href="#"><i class="fa fa-list icon-lg"
 									data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-							<li><a href="#" onclick="download_csv_reportMonth()"><i class="fa fa-save icon-lg"
+							<li><a href="#" onclick="download_csv_reportMonth('월별리포트')"><i class="fa fa-save icon-lg"
 									data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
 							<li><a href="#"><i class="fa fa-print icon-lg"
 									data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>

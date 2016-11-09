@@ -14,7 +14,7 @@ function download_csv_analysis(pageName) {
 	
 	var form1 = $('#search_form').serialize();
 	var fileDatas1 = form1.split('&');
-	
+	console.log(fileDatas1);
 	var form2 = $('#pagePassF').serialize();
 	var fileDatas2 = form2.split('&');
 	
@@ -28,6 +28,7 @@ function download_csv_analysis(pageName) {
 	var fileName = pageName + '_';
 	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_';
 	fileName += fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1];
+	console.log(fileDatas1);
 
 
 	for (i=5; i<fileDatas2.length; i++){
@@ -74,7 +75,7 @@ function download_csv_analysis(pageName) {
     
 }
 
-function download_csv_reportDay(){
+function download_csv_reportDay(pageName){
 	var data = [];
 	var csv = '번호,수용가명,지시부번호,미터번호,미터타입,검침월,사용량,01일,02일,03일,04일,05일,06일,07일,08일,09일,10일,11일,12일,13일,14일,15일,16일,17일,18일,19일,20일,21일,22일,23일,24일,25일,26일,27일,28일,29일,30일,31일\n';
 	
@@ -126,14 +127,41 @@ function download_csv_reportDay(){
     	csv += "\n";
 	});
 	
+	
+	var form1 = $('#search_form').serialize();
+	var fileDatas1 = form1.split('&');
+	/*console.log(fileDatas1);
+	console.log(fileDatas1[3].split('=')[1]);
+	console.log(decodeURIComponent(fileDatas1[6].split('=')[1]))
+	*/
+	
+	var form2 = $('#pagePassF').serialize();
+	var fileDatas2 = form2.split('&');
+	console.log(fileDatas2);
+	var fileName = pageName + '_';
+	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_'+ fileDatas1[6].split('=')[1];
+	//fileName += fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1];
+
+/*
+	for (i=5; i<fileDatas2.length; i++){
+		var fileData = fileDatas2[i].split('=')
+		console.log(fileData[0] + ': ' + fileData[1]);
+		if (fileData[1] != "")
+			fileName += '_' + fileData[1];
+		else
+			fileName += '_전체' ;
+	}
+	*/
+	fileName = decodeURIComponent(fileName);
+	
 	var hiddenElement = document.createElement('a');
 	hiddenElement.href = 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURI(csv);
 	hiddenElement.target = '_blank';
-	hiddenElement.download = 'reportDay.csv';
+	hiddenElement.download = fileName+'.csv';
 	hiddenElement.click();
 }
 
-function download_csv_reportMonth(){
+function download_csv_reportMonth(pageName){
 	var data = [];
 	var csv = '번호,수용가명,지시부번호,미터번호,미터타입,검침월,사용량,01월,02월,03월,04월,05월,06월,07월,08월,09월,10월,11월,12월\n';
 	
@@ -166,9 +194,36 @@ function download_csv_reportMonth(){
     	csv += "\n";
 	});
 	
+	
+	var form1 = $('#search_form').serialize();
+	var fileDatas1 = form1.split('&');
+	/*console.log(fileDatas1);
+	console.log(fileDatas1[3].split('=')[1]);
+	console.log(decodeURIComponent(fileDatas1[6].split('=')[1]))
+	*/
+	
+	var form2 = $('#pagePassF').serialize();
+	var fileDatas2 = form2.split('&');
+	console.log(fileDatas1);
+	var fileName = pageName + '_';
+	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_'+ fileDatas1[5].split('=')[1];
+	//fileName += fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1];
+
+/*
+	for (i=5; i<fileDatas2.length; i++){
+		var fileData = fileDatas2[i].split('=')
+		console.log(fileData[0] + ': ' + fileData[1]);
+		if (fileData[1] != "")
+			fileName += '_' + fileData[1];
+		else
+			fileName += '_전체' ;
+	}
+	*/
+	fileName = decodeURIComponent(fileName);
+	
 	var hiddenElement = document.createElement('a');
 	hiddenElement.href = 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURI(csv);
 	hiddenElement.target = '_blank';
-	hiddenElement.download = 'reportMonth.csv';
+	hiddenElement.download = fileName+'.csv';
 	hiddenElement.click();
 }
