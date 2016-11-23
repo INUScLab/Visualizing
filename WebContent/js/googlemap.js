@@ -295,6 +295,7 @@ function createDongMarkers( ) {
 
 }
 
+
 //수용가 마커를 생성하고 클릭 이벤트를 등록.
 function createConsumerMarkers ( addressArray ) {
 
@@ -343,8 +344,10 @@ function createConsumerMarkers ( addressArray ) {
 			marker.addListener('click', function() {
 
 //				globalMap.setCenter(this.position);
+				
 				$('#element_to_pop_up').bPopup();
 				drawConsumerReport(this.title.split(' '));
+				console.log(summaryReportList[1]);
 
 			});
 		}
@@ -352,6 +355,8 @@ function createConsumerMarkers ( addressArray ) {
 }
 
 function drawConsumerReport( addressArray ){
+	
+	console.log("컨슈머리포트 들어옴");
 
 	var gu = addressArray[1];
 	var dong = addressArray[2];
@@ -392,6 +397,87 @@ function drawConsumerReport( addressArray ){
 			Number (summaryReportList[i].day1) , Math.round(sum_weeklyConsumption/7) );
 		}
 	}
+/*
+	for(var i=0 ; i< summaryReportList.length ; i++){
+		console.log(summaryReportList[i].countAbsence);
+	}
+	console.log("정상인거 찍었을때");
+	*/
+	
+	for(var i=0;i<summaryReportList.length;i++){
+		
+		count_leak =0;
+		count_absence=0;
+		count_freezed=0;
+		count_reverse=0;
+		count_fat=0;
+		count_breakage=0;
+		if ( summaryReportList[i].leak == 1 ) {
+			count_leak ++;
+		}
+		if ( summaryReportList[i].absence == 1 ) {
+			count_absence ++;
+		}
+		if ( summaryReportList[i].freezed == 1 ) {
+			count_freezed ++;
+		}
+		if ( summaryReportList[i].reverse == 1 ) {
+			count_reverse ++;
+		}
+		if ( summaryReportList[i].fat == 1 ) {
+			count_fat ++;
+		}
+		if ( summaryReportList[i].breakage == 1 ) {
+			count_breakage ++;
+		}
+		
+		if(summaryReportList[i].gu == gu && summaryReportList[i].dong == dong && summaryReportList[i].detail == detail){
+			if(summaryReportList[i].countAbsence == 0 && summaryReportList[i].countBreakage == 0 && summaryReportList[i].countFat == 0 && summaryReportList[i].countFreezed == 0 && summaryReportList[i].countLeak == 0 && summaryReportList[i].countReverse == 0){
+		
+				console.log("위로왔어");
+				document.getElementById('blockLeak').innerHTML ="0 건";
+			
+				document.getElementById('blockFreezed').innerHTML ="0 건";
+		
+				document.getElementById('blockFat').innerHTML ="0 건";
+			
+				document.getElementById('blockBreakage').innerHTML ="0 건";
+				
+				document.getElementById('blockReverse').innerHTML ="0 건";
+			
+				document.getElementById('blockAbsence').innerHTML ="0 건";
+			}
+			
+			else{
+				
+				console.log("아래로왔어");
+				document.getElementById('blockLeak').innerHTML = count_leak + "건";
+				
+				document.getElementById('blockFreezed').innerHTML = count_freezed + "건";
+
+				document.getElementById('blockFat').innerHTML = count_fat + "건";
+
+				document.getElementById('blockBreakage').innerHTML = count_breakage + "건";
+				
+				document.getElementById('blockReverse').innerHTML = count_reverse + "건";
+
+				document.getElementById('blockAbsence').innerHTML = count_absence + "건";
+			}
+			
+				
+		}
+	}
+
+		
+	/*
+	leakFrequency += Number (summaryReportList[j].countLeak);
+	absenceFrequency += Number (summaryReportList[j].countAbsence);
+	freezedFrequency += Number(summaryReportList[j].countFreezed);
+	reverseFrequency += Number(summaryReportList[j].countReverse);
+	fatFrequency += Number(summaryReportList[j].countFat);
+	breakageFrequency += Number(summaryReportList[j].countBreakage);
+*/
+	
 }
 
 //누수, 동파, 비만, 파손, 역류, 부재중  동단위 count
@@ -649,6 +735,8 @@ function drawDongSummaryReport(addressArray) {
 			breakageFrequency += Number(summaryReportList[j].countBreakage);
 		}
 	}
+	
+	
 
 	//1.주소칸
 	document.getElementById('modal-title').innerHTML = incheon+ ' ' + gu + ' ' + dong ; // 주소 출력
