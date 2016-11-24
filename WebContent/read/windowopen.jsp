@@ -56,13 +56,17 @@
     String textDate2 = DateFormat.format(cal.getTime());
    
     RankData rd_data = rdctrl.returnCodeDatas(code, edate, date);
-   
-   System.out.println(rd_data.getTest().get(0).get(0));
-   
+          
 %>
 
 <!DOCTYPE html>
 <html lang="kr">
+<style>
+.tabmenu {position:relative; width:420px; height:260px;color:#555;}
+.tabmenu ul {margin:0px;padding:0px;list-style:none;}
+.tabmenu ul li {float:left}
+.tabmenu .tabcontent {display:none; width:420px;height:250px;position:absolute; overflow:scroll;}
+</style>
 <head>
 <meta charset="utf-8" />
 <title>::: 수도검침서비스 :::</title>
@@ -89,8 +93,10 @@
 <script src="../js/app.data.js"></script>
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
+
 <!--구글 그래프 그리기-->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript"
+   src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
    // Load Charts and the corechart package.
    google.charts.load('current', {'packages' : [ 'corechart' ]});
@@ -116,7 +122,9 @@
          textDate2 = DateFormat.format(cal.getTime()); 
          }%>
        ]);
-      
+      <%System.out.println(rd_data.getTest().get(0).get(0));%>
+      <%System.out.println(rd_data.getTest().get(0).get(1));%>
+
       // Set options for chart.
       var options = {
          colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
@@ -132,11 +140,12 @@
       var chart = new google.visualization.LineChart(document.getElementById('Consumed'));
       chart.draw(data, options);
    }
+   
 </script>
 </head>
 <body>
    <section class="hbox stretch">
-      
+
 
 
       <section id="content">
@@ -157,9 +166,9 @@
                            <div
                               class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
                               <div class="col-sm-4">
-                              
-                              
-                              <!--  
+
+
+                                 <!--  
                                  <h3 class="m-t m-b-none text-primary font-semibold">지역별
                                     통계 순위 ( <%// 시간 더하기
                                       cal.setTime(currentDate);
@@ -173,8 +182,8 @@
                                  <p class="block text-muted">Water Meter Data Management
                                     System</p>
                                     -->
-                                    
-                                    
+
+
                               </div>
                            </div>
                         </header>
@@ -186,53 +195,157 @@
                                  <header class="panel-heading text-primary font-semibold h5">
                                     <i class="fa fa-chevron-circle-right"></i> 상세정보
                                  </header>
-                                 
-                                 
+
+
                                  <table class="table table-striped b-t-blue" border="1">
-                                 <tr>
-                                    <td> 번호</td>
-                                      <td> <%=code %></td>
-                                     <td> 수용가명</td>
-                                    <td> <%=detail %></td>
-                                 </tr>
-                                 
-                                 <tr>
-                                    <td> 지시부번호</td>
-                                      <td> <%=number %></td>
-                                     <td> 미터번호</td>
-                                    <td> <%=meter_num %></td>
-                                 </tr>
-                                 
-                                  <tr>
-                                    <td> 미터타입</td>
-                                      <td> <%=meter_type %></td>
-                                     <td> 미터상태</td>
-                                    <td> <%=meter_status %></td>
-                                 </tr>
-                                 
-                                  <tr>
-                                    <td> 검침일</td>
-                                      <td> <%=d_date %></td>
-                                     <td> 검침값</td>
-                                    <td> <%=consumed %></td>
-                                 </tr>
+                                    <tr>
+                                       <td>번호</td>
+                                       <td><%=code %></td>
+                                       <td>수용가명</td>
+                                       <td><%=detail %></td>
+                                    </tr>
+
+                                    <tr>
+                                       <td>지시부번호</td>
+                                       <td><%=number %></td>
+                                       <td>미터번호</td>
+                                       <td><%=meter_num %></td>
+                                    </tr>
+
+                                    <tr>
+                                       <td>미터타입</td>
+                                       <td><%=meter_type %></td>
+                                       <td>미터상태</td>
+                                       <td><%=meter_status %></td>
+                                    </tr>
+
+                                    <tr>
+                                       <td>검침일</td>
+                                       <td><%=d_date %></td>
+                                       <td>검침값</td>
+                                       <td><%=consumed %></td>
+                                    </tr>
                                  </table>
+                                 <script>
+                                 $(document).ready(function(){
+                                      $(".tabmenu").each(function(){
+                                          var tab = $(this).children("ul");
+                                          var tabBtn = tab.children("li").children("a");
+                                          var content = tabBtn.nextAll();
+                                           
+                                          tabBtn.click(function(){
+                                              if( $(this).hasClass("on") ) return;
+                                              content.hide();
+                                              $(this).nextAll().show();
+                                              tabBtn.removeClass("on");
+                                              $(this).addClass("on");
+                                              tabBtn.each(function(){
+                                                  var src;
+                                                  var img = $(this).children("img");
+                                                  if( $(this).hasClass("on") ){
+                                                      src = img.attr("src").replace("_off.", "_on.");
+                                                  }else{
+                                                      src = img.attr("src").replace("_on.", "_off.");
+                                                  }
+                                                   
+                                                  img.attr("src", src);
+                                              });
+                                          });
+                                          tabBtn.eq(0).click();
+                                      });
+                                  });
+                                 </script>
                                  
-                                 <div class="row m-t m-b wrapper">
-                                    <div class="col-lg-3">
-                                       <section class="panel">
-                                          <header class="panel-heading">그래프</header>
-                                          <div class="panel-body text-center" id="Consumed"></div>
-                                       </section>
+                                 
+                                 
+                             
+                                             
+                                             
+                                             
+                                 
+                                 <div class="col-md-6">
+                                    <div class="panel">
+                                       <div class="tabmenu">
+                                          <ul>
+                                             <li><a href="#link">일별 조회</a>
+                                                <ul class="tabcontent">
+                                                   <table class="table table-striped b-t-blue">
+                                       <thead>
+                                       
+                                             <div class="col-lg-7 form-inline">
+                                                <input
+                                                   class="input-sm input-s-sm datepicker-input form-control"
+                                                   type="text" name="sdate" value="${param['sdate']}"
+                                                   data-date-format="yyyy-mm-dd" id="sdate">~
+                                                   
+                                                   <input
+                                                   class="input-sm input-s-sm datepicker-input form-control"
+                                                   type="text" name="edate" value="${param['edate']}"
+                                                   data-date-format="yyyy-mm-dd" id="edate">
+                                                   
+                                                   <label class="col-lg-3 control-label">조회</label>
+                                             </div>
+                                             
+                                          <tr>
+                                             <th>   </th>
+                                             <th>검침일시</th>
+                                             <th>사용량</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <%textDate2 = temp;%>
+                                          <%
+                                             for (int i = 0; i < rd_data.getUpper_consumed_data().get(0).size(); i++) {
+                                          %>
+                                          <tr>
+                                             <td><%=i+1%></td>
+                                             <td>
+                                           <%=textDate2%>
+                                             <%// 시간 더하기         
+                                    Date sdate = DateFormat.parse(textDate2);
+                                    cal.setTime(sdate);
+                                    cal.add(Calendar.DATE, 1);
+                                    textDate2 = DateFormat.format(cal.getTime()); 
+                                    %>
+                                             </td>
+                                             <td><%=rd_data.getUpper_consumed_data().get(0).get(i)%></td>
+                                          </tr>
+                                          <%
+                                             }
+                                          %>
+                                       </tbody>
+                                    </table>
+                                                </ul>
+                                             <li><a href="#link">메뉴2</a>
+                                                <ul class="tabcontent">
+                                                   <tr><a href="#">내용 2-1</a></tr>
+                                                   <tr><a href="#">내용 2-2</a></tr>
+                                                </ul>
+                                             <li><a href="#link">메뉴3</a>
+                                                <ul class="tabcontent">
+                                                   <li><a href="#">내용 3-1</a></li>
+                                                   <li><a href="#">내용 3-2</a></li>
+                                                </ul>
+                                             <li><a href="#link">메뉴4</a>
+                                                <ul class="tabcontent">
+                                                   <li><a href="#">내용 4-1</a></li>
+                                                   <li><a href="#">내용 4-2</a></li>
+                                                </ul>
+                                          </ul>
+                                       </div>
                                     </div>
                                  </div>
-                              </section>
+                                 <div class="col-sm-6">
+                                    <div class="panel">
+                                       <header class="panel-heading">그래프</header>
+                                       <div class="panel-body text-center" id="Consumed"></div>
+                                    </div>
+                                 </div>
+                           </div></section>
                            </div>
                         </div>
                      </section>
                      <!-- 업무영역 end-->
-
-
                   </section>
             </aside>
             <!-- /.aside -->
@@ -242,4 +355,4 @@
          </section>
       </section>
 </body>
-</html>                   
+</html>
