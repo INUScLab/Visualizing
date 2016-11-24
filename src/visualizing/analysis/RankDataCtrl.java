@@ -185,10 +185,6 @@ public class RankDataCtrl {
       
       setParameters(sido, sigoon, sdate, edate);
       
-      return_data.setTest(getTest("consumed"));
-      return_data.setUpper_consumed_data(getComsumedDatas("consumed",return_data.getTest()));
-
-      
       // 랭킹 정보
       return_data.setLeak_rank(getRanks("sum(leak)"));
       return_data.setFreezed_rank(getRanks("sum(freezed)"));
