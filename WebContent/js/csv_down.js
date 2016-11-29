@@ -22,15 +22,15 @@ function download_csv_analysis(pageName) {
 	var fileData = fileDatas2[5].split('=')
 	console.log(fileData[0] + ': ' + fileData[1]);
 	
-	//console.log(fileDatas2);
+	console.log(fileDatas2);
 	//si gugun umdong sdate edate consumerNum consumerName telNumber meterNum 순서
-	//console.log(fileName[0]);
+	console.log(fileDatas2);
 	var fileName = pageName + '_';
 	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_';
-	fileName += fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1];
-	console.log(fileDatas1);
+	fileName += fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1] + '_' + fileDatas1[6].split('=')[1];
+	console.log(decodeURIComponent(fileName));
 
-
+/*
 	for (i=5; i<fileDatas2.length; i++){
 		var fileData = fileDatas2[i].split('=')
 		console.log(fileData[0] + ': ' + fileData[1]);
@@ -39,7 +39,7 @@ function download_csv_analysis(pageName) {
 		else
 			fileName += '_전체' ;
 	}
-	
+	*/
 	fileName = decodeURIComponent(fileName);
 	
 	//console.log(fileName);
@@ -130,6 +130,8 @@ function download_csv_reportDay(pageName){
 	
 	var form1 = $('#search_form').serialize();
 	var fileDatas1 = form1.split('&');
+	
+	console.log(fileDatas1);
 	/*console.log(fileDatas1);
 	console.log(fileDatas1[3].split('=')[1]);
 	console.log(decodeURIComponent(fileDatas1[6].split('=')[1]))
@@ -139,7 +141,9 @@ function download_csv_reportDay(pageName){
 	var fileDatas2 = form2.split('&');
 	console.log(fileDatas2);
 	var fileName = pageName + '_';
-	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_'+ fileDatas1[6].split('=')[1];
+	
+	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_' + fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1] + '_' + fileDatas1[6].split('=')[1];
+	//console.log()
 	//fileName += fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1];
 
 /*
@@ -153,6 +157,7 @@ function download_csv_reportDay(pageName){
 	}
 	*/
 	fileName = decodeURIComponent(fileName);
+	
 	
 	var hiddenElement = document.createElement('a');
 	hiddenElement.href = 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURI(csv);
@@ -206,7 +211,10 @@ function download_csv_reportMonth(pageName){
 	var fileDatas2 = form2.split('&');
 	console.log(fileDatas1);
 	var fileName = pageName + '_';
-	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_'+ fileDatas1[5].split('=')[1];
+	fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1] + '_' + fileDatas1[5].split('=')[1];
+
+	
+	//fileName += fileDatas1[3].split('=')[1] + '_' + fileDatas1[4].split('=')[1] + '_'+ fileDatas1[5].split('=')[1];
 	//fileName += fileDatas1[0].split('=')[1] + '_' + fileDatas1[1].split('=')[1] + '_' + fileDatas1[2].split('=')[1];
 
 /*

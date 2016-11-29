@@ -1170,7 +1170,7 @@ function break_clicked(){
 }
 
 function hide(){
-	if((hidebutton%2)==0){
+	if((hidebutton%2)==1){
 		$('#sidebar').hide();
 		$('#hidebutton').css({left: '14.5em'});
 		hidebutton++;
