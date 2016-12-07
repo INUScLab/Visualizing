@@ -543,19 +543,38 @@ function drawColumn(cons, pred, week, region) {
 
 // 일주일간 히스토리 꺾은선 그래프 그리는 함수
 function drawHistory(day1, day2, day3, day4, day5, day6, day7, avg) {
+	
+	var dt = new Date();
+	var month = dt.getMonth();
+	var day = dt.getDate();
+	var year = dt.getFullYear();
+	var today = new Date(year, month, day);
+	var onedayago = new Date(year, month, day);
+	onedayago.setDate(onedayago.getDate()-1);
+	var twodayago = new Date(year, month, day);
+	twodayago.setDate(twodayago.getDate()-2);
+	var threedayago = new Date(year, month, day);
+	threedayago.setDate(threedayago.getDate()-3);
+	var fourdayago = new Date(year, month, day);
+	fourdayago.setDate(fourdayago.getDate()-4);
+	var fivedayago = new Date(year, month, day);
+	fivedayago.setDate(fivedayago.getDate()-5);
+	var sixdayago = new Date(year, month, day);
+	sixdayago.setDate(sixdayago.getDate()-6);
+	
 
 	var data = new google.visualization.DataTable();
 	data.addColumn('date', 'Time of Day');
 	data.addColumn('number', 'Consumption');
 	data.addColumn('number', 'Average');
-
-	data.addRows([ [ new Date(2016, 05, 8), day1, avg ],
-			[ new Date(2016, 05, 7), day2, avg ],
-			[ new Date(2016, 05, 6), day3, avg ],
-			[ new Date(2016, 05, 5), day4, avg ],
-			[ new Date(2016, 05, 4), day5, avg ],
-			[ new Date(2016, 05, 3), day6, avg ],
-			[ new Date(2016, 05, 2), day7, avg ], ]);
+// 달의 경우  0번이 시작이라 0 -> 1월, 1->2월 이런식
+	data.addRows([ [ today, day1, avg ],
+			[ onedayago, day2, avg ],
+			[ twodayago, day3, avg ],
+			[ threedayago, day4, avg ],
+			[ fourdayago, day5, avg ],
+			[ fivedayago, day6, avg ],
+			[ sixdayago, day7, avg ], ]);
 
 	var options = {
 		//title : "일주일 간 history",
@@ -1170,7 +1189,7 @@ function break_clicked(){
 }
 
 function hide(){
-	if((hidebutton%2)==0){
+	if((hidebutton%2)==1){
 		$('#sidebar').hide();
 		$('#hidebutton').css({left: '14.5em'});
 		hidebutton++;
