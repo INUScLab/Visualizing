@@ -52,7 +52,7 @@
 	$(function () {
     Highcharts.chart('timechart', {
         title: {
-            text: '일별 그래프',
+            text: '시간별 그래프',
             x: -20 //center
         },
         xAxis: {
