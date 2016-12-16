@@ -5,85 +5,86 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-   request.setCharacterEncoding("UTF-8");
-   String cp = request.getContextPath();
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
 %>
 
 <jsp:useBean id="rctrl" class="visualizing.read.ReadDataCtrl" />
 
 <%
-   Integer data_start_num = 0;
-   Integer data_end_num = 10; // 데이터 오바되면 접근 되는 문제 수정필요.
-   String page_start_num = request.getParameter("page_start_num");
+	Integer data_start_num = 0;
+	Integer data_end_num = 10; // 데이터 오바되면 접근 되는 문제 수정필요.
+	String page_start_num = request.getParameter("page_start_num");
 
-   String si = request.getParameter("si");
-   String guGun = request.getParameter("guGun");
-   String umDong = request.getParameter("umDong");
-   String consumerNum = request.getParameter("consumerNum");
-   String consumerName = request.getParameter("consumerName");
-   String telNumber = request.getParameter("telNumber");
-   String meterNum = request.getParameter("meterNum");
-   String dateYear = request.getParameter("dateYear");
-   String dateMonth = request.getParameter("dateMonth");
-   String dateDay = request.getParameter("dateDay");
-   String searchDate;
-   
-   String[] str = request.getParameterValues("status");
+	String si = request.getParameter("si");
+	String guGun = request.getParameter("guGun");
+	String umDong = request.getParameter("umDong");
+	String consumerNum = request.getParameter("consumerNum");
+	String consumerName = request.getParameter("consumerName");
+	String telNumber = request.getParameter("telNumber");
+	String meterNum = request.getParameter("meterNum");
+	String dateYear = request.getParameter("dateYear");
+	String dateMonth = request.getParameter("dateMonth");
+	String dateDay = request.getParameter("dateDay");
+	String searchDate;
 
-   // 오늘 날짜 구하기
-   SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-   Date currentDate = new Date ();
-   String date = mSimpleDateFormat.format ( currentDate );
-   
-   SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
-   SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.KOREA);
-   SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.KOREA);
-   Calendar cal = Calendar.getInstance();
-   
-   if (dateYear == null || dateYear.equals("")){
-      dateYear = yearFormat.format(currentDate); 
-   }
-   if (dateMonth == null || dateMonth.equals("")){
-      dateMonth = monthFormat.format(currentDate); 
-   }
-   if (dateDay == null || dateDay.equals("")){
-      dateDay = dayFormat.format(currentDate); 
-   }
+	String[] str = request.getParameterValues("status");
 
-   searchDate = dateYear + "-" + dateMonth + "-" + dateDay;
-   
-   if (si == null || si.equals(""))
-      si = "인천광역시";
-   if (guGun == null || guGun.equals(""))
-      guGun = "전체";
-   if (umDong == null || umDong.equals(""))
-      umDong = "전체";
-   
-   if (consumerNum != null)
-      if (consumerNum.equals(""))
-         consumerNum = null;
-   if (consumerName != null)
-      if (consumerName.equals(""))
-         consumerName = null;
-   if (telNumber != null)
-      if (telNumber.equals(""))
-         telNumber = null;
-   if (meterNum != null)
-      if (meterNum.equals(""))
-         meterNum = null;
-   
-   if (page_start_num == null){
-      page_start_num = "1";
-   }
+	// 오늘 날짜 구하기
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+	Date currentDate = new Date();
+	String date = mSimpleDateFormat.format(currentDate);
 
-   System.out.println(si + "   " + guGun + "   " + umDong + "   " + consumerNum + "   " +  consumerName + "   " + telNumber + "   " + meterNum + "   " + searchDate);
-   
-   ArrayList<ReadData> array_list = rctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber, meterNum, str, searchDate);
-   
-   if (data_end_num > array_list.size()){
-      data_end_num = array_list.size();
-   }
+	SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+	SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.KOREA);
+	SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.KOREA);
+	Calendar cal = Calendar.getInstance();
 
+	if (dateYear == null || dateYear.equals("")) {
+		dateYear = yearFormat.format(currentDate);
+	}
+	if (dateMonth == null || dateMonth.equals("")) {
+		dateMonth = monthFormat.format(currentDate);
+	}
+	if (dateDay == null || dateDay.equals("")) {
+		dateDay = dayFormat.format(currentDate);
+	}
+
+	searchDate = dateYear + "-" + dateMonth + "-" + dateDay;
+
+	if (si == null || si.equals(""))
+		si = "인천광역시";
+	if (guGun == null || guGun.equals(""))
+		guGun = "전체";
+	if (umDong == null || umDong.equals(""))
+		umDong = "전체";
+
+	if (consumerNum != null)
+		if (consumerNum.equals(""))
+			consumerNum = null;
+	if (consumerName != null)
+		if (consumerName.equals(""))
+			consumerName = null;
+	if (telNumber != null)
+		if (telNumber.equals(""))
+			telNumber = null;
+	if (meterNum != null)
+		if (meterNum.equals(""))
+			meterNum = null;
+
+	if (page_start_num == null) {
+		page_start_num = "1";
+	}
+
+	System.out.println(si + "   " + guGun + "   " + umDong + "   " + consumerNum + "   " + consumerName + "   "
+			+ telNumber + "   " + meterNum + "   " + searchDate);
+
+	ArrayList<ReadData> array_list = rctrl.returnDatas(si, guGun, umDong, consumerNum, consumerName, telNumber,
+			meterNum, str, searchDate);
+
+	if (data_end_num > array_list.size()) {
+		data_end_num = array_list.size();
+	}
 %>
 
 <!DOCTYPE html>
@@ -93,12 +94,12 @@
 <title>::: 수도검침서비스 :::</title>
 <meta name="description" content="" />
 <meta name="viewport"
-   content="width=device-width, initial-scale=1, maximum-scale=1" />
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
 <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="../css/font-awesome.min.css"
-   type="text/css" />
+	type="text/css" />
 <link rel="stylesheet" href="../css/font.css" type="text/css"
-   cache="false" />
+	cache="false" />
 <link rel="stylesheet" href="../css/app.css" type="text/css" />
 <!--[if lt IE 9]>
     <script src="js/ie/respond.min.js" cache="false"></script>
@@ -116,444 +117,460 @@
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
    window.onload = function() {
-      <% 
-         String gugun;
-         if(request.getParameter("guGun") == null) gugun = "전체";
-         else gugun = request.getParameter("guGun");
-      %>
+      <%String gugun;
+			if (request.getParameter("guGun") == null)
+				gugun = "전체";
+			else
+				gugun = request.getParameter("guGun");%>
       search_form.guGun.value = "<%=gugun%>";
       
-      <% 
-      String dateyear;
-      if(request.getParameter("dateYear") == null) dateyear = yearFormat.format(currentDate); 
-      else dateyear = request.getParameter("dateYear");
-      %>
+      <%String dateyear;
+			if (request.getParameter("dateYear") == null)
+				dateyear = yearFormat.format(currentDate);
+			else
+				dateyear = request.getParameter("dateYear");%>
       search_form.dateYear.value = "<%=dateyear%>";
       
-      <% 
-      String datemonth;
-      if(request.getParameter("dateMonth") == null) datemonth = monthFormat.format(currentDate); 
-      else datemonth = request.getParameter("dateMonth");
-      %>
+      <%String datemonth;
+			if (request.getParameter("dateMonth") == null)
+				datemonth = monthFormat.format(currentDate);
+			else
+				datemonth = request.getParameter("dateMonth");%>
       search_form.dateMonth.value = "<%=datemonth%>";
       
-      <% 
-      String dateday;
-      if(request.getParameter("dateDay") == null) dateday = dayFormat.format(currentDate); 
-      else dateday = request.getParameter("dateDay");
-      %>
+      <%String dateday;
+			if (request.getParameter("dateDay") == null)
+				dateday = dayFormat.format(currentDate);
+			else
+				dateday = request.getParameter("dateDay");%>
       search_form.dateDay.value = "<%=dateday%>";
-   };
+	};
 </script>
 </head>
 <body>
-   <section class="hbox stretch">
-      <!-- aside -->
+	<section class="hbox stretch">
+		<!-- aside -->
 
-      <aside class="bg-dark aside-md" id="nav">
-         <section class="vbox">
+		<aside class="bg-dark aside-md" id="nav">
+			<section class="vbox">
 
-            <!-- 모바일 로고,목록 -->
-            <header class="dk nav-bar bg-dk-mobile visible-xs">
-               <a class="btn btn-link visible-xs"
-                  data-toggle="class:nav-off-screen" data-target="#nav"> <i
-                  class="fa fa-bars"></i>
-               </a> <a href="../map/map_main.jsp" class="nav-brand "><img
-                  src="../images/logo-moblie.png" alt="수도검침서비스" /></a>
-            </header>
-            <!-- //모바일 로고,목록-->
+				<!-- 모바일 로고,목록 -->
+				<header class="dk nav-bar bg-dk-mobile visible-xs">
+					<a class="btn btn-link visible-xs"
+						data-toggle="class:nav-off-screen" data-target="#nav"> <i
+						class="fa fa-bars"></i>
+					</a> <a href="../map/map_main.jsp" class="nav-brand "><img
+						src="../images/logo-moblie.png" alt="수도검침서비스" /></a>
+				</header>
+				<!-- //모바일 로고,목록-->
 
-            <!-- 웹,타블렛 로고-->
-            <header class="dk nav-bar bg-dk-mobile shift">
-               <a href="../map/map_main.jsp" class="nav-brand "><img
-                  src="../images/logo.png" alt="수도검침서비스" /></a>
-            </header>
-            <!-- //웹,타블렛 -->
+				<!-- 웹,타블렛 로고-->
+				<header class="dk nav-bar bg-dk-mobile shift">
+					<a href="../map/map_main.jsp" class="nav-brand "><img
+						src="../images/logo.png" alt="수도검침서비스" /></a>
+				</header>
+				<!-- //웹,타블렛 -->
 
-            <!-- 좌측 메뉴 -->
-            <section class="scrollable">
-               <div class="slim-scroll" data-height="auto"
-                  data-disabsle-fade-out="true" data-distance="0" data-size="5px">
-                  <nav class="nav-primary hidden-xs" data-ride="collapse">
-                     <ul class="nav">
-                        <li><a href="#" class="dropdown-toggle"> <span
-                              class="pull-right auto"> <i
-                                 class="fa fa-angle-down text"></i> <i
-                                 class="fa fa-angle-up text-active"></i>
-                           </span> <span>검침조회</span>
-                        </a>
-                           <ul class="nav none dker">
-                              <li><a href="../read/readDay.jsp">일별 검침조회</a></li>
-                              <li><a href="../read/readMonth.jsp">월별 검침조회</a></li>
-                           </ul></li>
-                        <li><a href="#" class="dropdown-toggle"> <span
-                              class="pull-right auto"> <i
-                                 class="fa fa-angle-down text"></i> <i
-                                 class="fa fa-angle-up text-active"></i>
-                           </span> <span>통계분석</span>
-                        </a>
-                           <ul class="nav none dker">
-                              <li><a href="../analysis/analysisDay.jsp">일별 통계</a></li>
-                              <li><a href="../analysis/analysisMonth.jsp">월별 통계</a></li>
-                              <li><a href="../analysis/analysisYear.jsp">년별 통계</a></li>
-                              <li><a href="../analysis/analysisLocal.jsp">지역별 통계
-                                    순위</a></li>
-                           </ul></li>
-                        <li><a href="#" class="dropdown-toggle"> <span
-                              class="pull-right auto"> <i
-                                 class="fa fa-angle-down text"></i> <i
-                                 class="fa fa-angle-up text-active"></i>
-                           </span> <span>리포트</span>
-                        </a>
-                           <ul class="nav none dker">
-                              <li><a href="../report/reportDay.jsp">일간 리포트</a></li>
-                              <li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
-                           </ul></li>
-                        <li><a href="#"> <span class="pull-right auto">
-                                 <i class="fa fa-angle-down text"></i> <i
-                                 class="fa fa-angle-up text-active"></i>
-                           </span> <span>장애관리</span>
-                        </a>
-                           <ul class="nav none dker">
-                              <li><a href="#">검침기기 상태조회</a></li>
-                              <li><a href="#">검침값 상태조회</a></li>
-                              <li><a href="#">통신 상태조회</a></li>
-                           </ul></li>
-                        <li><a href="#"> <span class="pull-right auto">
-                                 <i class="fa fa-angle-down text"></i> <i
-                                 class="fa fa-angle-up text-active"></i>
-                           </span> <span>관리자</span>
-                        </a>
-                           <ul class="nav none dker">
-                              <li><a href="#">로그이력</a></li>
-                              <li><a href="#">시스템 관리</a></li>
-                           </ul></li>
-                     </ul>
-                  </nav>
-               </div>
-            </section>
-            <!-- //좌측 메뉴 -->
-         </section>
-      </aside>
-      <!-- /.aside -->
-
-
-      <section id="content">
-         <section class="hbox stretch">
-            <aside>
-               <!-- 상단영역 -->
-               <section class="vbox">
-                  <header class="nav bg-gradient-1 b-b">
-                     <div class="nav notify-row">
-                        <!--  start -->
-                        <ul class="nav top-menu">
-                           <!-- 누수 start-->
-                           <li class="dropdown"><a class="dropdown-toggle">
-                                 <img src="../images/water.png" data-toggle="tooltip"
-                                 data-placement="bottom" title="누수"><span
-                                 class="badge bg-danger">1</span>
-                           </a></li>
-                           <!-- 누수 end -->
-                           <!-- 동파 start-->
-                           <li class="dropdown"><a class="dropdown-toggle">
-                                 <img src="../images/winter.png" data-toggle="tooltip"
-                                 data-placement="bottom" title="동파">
-                           </a></li>
-                           <!-- 동파 end -->
-                           <!-- 비만 start-->
-                           <li class="dropdown"><a class="dropdown-toggle">
-                                 <img src="../images/obesity.png" data-toggle="tooltip"
-                                 data-placement="bottom" title="비만"><span
-                                 class="badge bg-danger">1</span>
-                           </a></li>
-                           <!-- 비만 end -->
-                           <!-- 파손 start-->
-                           <li class="dropdown"><a class="dropdown-toggle">
-                                 <img src="../images/damage.png" data-toggle="tooltip"
-                                 data-placement="bottom" title="파손">
-                           </a></li>
-                           <!-- 파손 end -->
-                           <!-- 역류 start-->
-                           <li class="dropdown"><a class="dropdown-toggle">
-                                 <img src="../images/backwash.png" data-toggle="tooltip"
-                                 data-placement="bottom" title="역류"><span
-                                 class="badge bg-danger">3</span>
-                           </a></li>
-                           <!-- 역류 end -->
-                           <!-- 비만 start-->
-                           <li class="dropdown"><a class="dropdown-toggle">
-                                 <img src="../images/absence.png" data-toggle="tooltip"
-                                 data-placement="bottom" title="부재중" >
-                           </a></li>
-                           <!-- 비만 end -->
-                        </ul>
-                        <!--  nd -->
-                     </div>
-                     <div class="pull-right m-r-lg m-t-xxs shift">
-                        <p class="m-t m-b text-primary">
-                           <i class="fa fa-clock-o"></i> Date: <strong><%=date%></strong>
-                        </p>
-                     </div>
-                  </header>
-
-                  <section class="scrollable m-t-xxs">
-                     <section class="panel b-b-n">
-                        <!-- 업무영역 start-->
-
-                        <!-- title 영역 -->
-                        <header class="m-b-lg">
-                           <div
-                              class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
-                              <div class="col-sm-4">
-                                 <h3 class="m-t m-b-none text-primary font-semibold">일별 검침조회</h3>
-                                 <p class="block text-muted">Water Meter Data Management
-                                    System</p>
-                              </div>
-                           </div>
-                        </header>
-                        <!-- //title 영역 -->
-                        <!-- 상세화면-->
-                        <div class="row padder">
-                           <div class="col-md-12">
-                              <!-- 검색조건 -->
-                              <form action="readDay.jsp" method="post" id=search_form>
-                                 <div class="well">
-                                    <div class="row text-sm">
-                                       <div class="col-sm-4">
-                                          <div class="form-group m-b-none">
-                                             <select name=si class="input-sm form-control input-s-sm inline">
-                                                <option value="인천광역시">인천광역시</option>
-                                             </select>
-                                             <select name=guGun class="input-sm form-control input-s-sm inline">
-                                                <option value="전체">전체</option>
-                                                <option value="강화군">강화군</option>
-                                                <option value="계양구">계양구</option>
-                                                <option value="남구">남구</option>
-                                                <option value="남동구">남동구</option>
-                                                <option value="동구">동구</option>
-                                                <option value="부평구">부평구</option>
-                                             </select>
-                                             <select name=umDong class="input-sm form-control input-s-sm inline">
-                                                <option value="전체">전체</option>
-                                             </select>
-                                          </div>
-                                       </div>
-                                       <div class="col-sm-4">
-                                          <div class="form-group m-b-none">
-                                             <select name=dateYear class="input-sm form-control input-s-sm inline">
-                                                <option value="2015">2015년</option>
-                                                <option value="2016">2016년</option>
-                                             </select>
-                                             <select name=dateMonth class="input-sm form-control input-s-sm inline">
-                                                <option value="01">01월</option>
-                                                <option value="02">02월</option>
-                                                <option value="03">03월</option>
-                                                <option value="04">04월</option>
-                                                <option value="05">05월</option>
-                                                <option value="06">06월</option>
-                                                <option value="07">07월</option>
-                                                <option value="08">08월</option>
-                                                <option value="09">09월</option>
-                                                <option value="10">10월</option>
-                                                <option value="11">11월</option>
-                                                <option value="12">12월</option>
-                                             </select>
-                                             <select name=dateDay class="input-sm form-control input-s-sm inline">
-                                                <option value="01">01일</option>
-                                                <option value="02">02일</option>
-                                                <option value="03">03일</option>
-                                                <option value="04">04일</option>
-                                                <option value="05">05일</option>
-                                                <option value="06">06일</option>
-                                                <option value="07">07일</option>
-                                                <option value="08">08일</option>
-                                                <option value="09">09일</option>
-                                                <option value="10">10일</option>
-                                                <option value="11">11일</option>
-                                                <option value="12">12일</option>
-                                                <option value="13">13일</option>
-                                                <option value="14">14일</option>
-                                                <option value="15">15일</option>
-                                                <option value="16">16일</option>
-                                                <option value="17">17일</option>
-                                                <option value="18">18일</option>
-                                                <option value="19">19일</option>
-                                                <option value="20">20일</option>
-                                                <option value="21">21일</option>
-                                                <option value="22">22일</option>
-                                                <option value="23">23일</option>
-                                                <option value="24">24일</option>
-                                                <option value="25">25일</option>
-                                                <option value="26">26일</option>
-                                                <option value="27">27일</option>
-                                                <option value="28">28일</option>
-                                                <option value="29">29일</option>
-                                                <option value="30">30일</option>
-                                                <option value="31">31일</option>
-                                             </select>
-                                          </div>
-                                       </div>
-                                       <div class="col-sm-4 p-l-none">
-                                          <div class="form-group m-b-none">
-                                             <label class="col-lg-3 control-label">수용가번호</label>
-                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control" name="consumerNum" value="${param['consumerNum']}">
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row text-sm">
-
-                                       <div class="col-sm-4 p-l-none">
-                                          <div class="form-group">
-                                             <label class="col-lg-3 control-label">수용가명</label>
-                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control" name="consumerName" value="${param['consumerName']}">
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-sm-4 p-l-none">
-                                          <div class="form-group">
-                                             <label class="col-lg-3 control-label">지시부번호</label>
-                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control" name="telNumber" value="${param['telNumber']}">
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-sm-4 p-l-none">
-                                          <div class="form-group">
-                                             <label class="col-lg-3 control-label">미터번호</label>
-                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control" name="meterNum" value="${param['meterNum']}">
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row text-sm">
-                                       <div class="col-sm-4 p-l-none">
-                                          <div class="form-group">
-                                             <label class="col-lg-3 control-label">미터상태</label>
-                                             <input type="checkbox" name="status" value="leak"> 누수
-                                             <input type="checkbox" name="status" value="freezed"> 동파
-                                             <input type="checkbox" name="status" value="fat"> 비만
-                                             <input type="checkbox" name="status" value="breakage"> 파손
-                                             <input type="checkbox" name="status" value="reverse"> 역류
-                                             <input type="checkbox" name="status" value="absence"> 부재중         
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <!-- 검색 버튼-->
-                                    <div class="row ">
-                                       <div class="col-sm-12 text-right">
-                                          <button class="btn btn-sm btn-default" id="search">
-                                             <i class="fa fa-search"></i> 검색
-                                          </button>
-                                       </div>
-                                    </div>
-                                    <!-- 검색버튼 -->
-                                 </div>
-                              </form>
-
-                              <!-- //검색조건 -->
-
-                              <section class="panel">
-                                 <div class="table-responsive">
-                                    <header class="panel-heading text-primary font-semibold h5">
-                                       <i class="fa fa-chevron-circle-right"></i> <%=dateYear + "년 " + dateMonth + "월 " + dateDay + "일" %>
-                                    </header>
-                                    <table class="table table-striped b-t-blue">
-                                       <thead>
-                                          <tr>
-                                             <th width="5">번호</th>
-                                             <th width="70">수용가명</th>
-                                             <th width="70">지시부번호</th>
-                                             <th width="60">미터번호</th>
-                                             <th width="60">미터타입</th>
-                                             <th width="50">미터상태</th>
-                                             <th width="50">검침일</th>
-                                             <th width="10">검침값</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <%
-                                             for (int i = data_start_num; i < data_end_num; i++) {
-                                          %>
-                                          <tr>
-                                             <td><%=array_list.get(i).getCode()%></td>
-                                             <td>
-                                             <a style="text-decoration:underline" href="#" onclick="window.open('windowopen.jsp?code=<%=array_list.get(i).getCode()%>&detail=<%=array_list.get(i).getDetail()%>&number=<%=array_list.get(i).getNumber()%>&meter_num=<%=array_list.get(i).getMeter_num()%>&meter_type=<%=array_list.get(i).getMeter_type()%>&meter_status=<%=array_list.get(i).getMeter_status()%>&d_date=<%=array_list.get(i).getDate()%>&consumed=<%=array_list.get(i).getConsumed()%>','window팝업','width=1000, height=600, menubar=no, status=no, toolbar=no');" ><%=array_list.get(i).getDetail()%></a>
-                                             </td>
-                                             <td><%=array_list.get(i).getNumber()%></td>
-                                             <td><%=array_list.get(i).getMeter_num()%></td>
-                                             <td><%=array_list.get(i).getMeter_type()%></td>
-                                             <% if(array_list.get(i).getMeter_status()=="정상"){ %>
-                                                <td><%=array_list.get(i).getMeter_status()%></td>
-                                             <%}else{%>
-                                                <td style="font-weight:bold;color:red"><%=array_list.get(i).getMeter_status()%></td>
-                                             <%}%>
-                                             <td><%=array_list.get(i).getDate()%></td>
-                                             <td><%=array_list.get(i).getConsumed()%></td>
-                                          </tr>
-                                          <%
-                                             }
-                                          %>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                                 <footer class="panel-footer">
-                                    <div class="row">
-                                       <div class="col-sm-3 hidden-xs">
-                                       </div>
-                                       <div class="col-sm-6 text-center text-center">
-                                             <input type="hidden" name="s_name" />
-                                             <ul class="pagination pagination-sm m-t-none m-b-none">
-                                                <li><a href="reportDay.jsp?page_start_num=<%=Integer.parseInt(page_start_num)-5%>"><i class="fa fa-chevron-left"></i></a></li>
-                                                <li><a href="#"><%=Integer.parseInt(page_start_num)%></a></li>
-                                                <li><a href="#"><%=Integer.parseInt(page_start_num)+1%></a></li>
-                                                <li><a href="#"><%=Integer.parseInt(page_start_num)+2%></a></li>
-                                                <li><a href="#"><%=Integer.parseInt(page_start_num)+3%></a></li>
-                                                <li><a href="#"><%=Integer.parseInt(page_start_num)+4%></a></li>
-                                                <li><a href="#" onclick="document.getElementById('search_form').submit();"><i class="fa fa-chevron-right"></i></a></li>
-                                             </ul>
-                                       </div>
-                                       <div class="col-sm-3 text-right hidden-xs">
-                                       </div>
-
-                                    </div>
-                                 </footer>
-                              </section>
+				<!-- 좌측 메뉴 -->
+				<section class="scrollable">
+					<div class="slim-scroll" data-height="auto"
+						data-disabsle-fade-out="true" data-distance="0" data-size="5px">
+						<nav class="nav-primary hidden-xs" data-ride="collapse">
+							<ul class="nav">
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>검침조회</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="../read/readDay.jsp">일별 검침조회</a></li>
+										<li><a href="../read/readMonth.jsp">월별 검침조회</a></li>
+									</ul></li>
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>통계분석</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="../analysis/analysisDay.jsp">일별 통계</a></li>
+										<li><a href="../analysis/analysisMonth.jsp">월별 통계</a></li>
+										<li><a href="../analysis/analysisYear.jsp">년별 통계</a></li>
+										<li><a href="../analysis/analysisLocal.jsp">지역별 통계 순위</a></li>
+									</ul></li>
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>리포트</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
+										<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
+									</ul></li>
+								<li><a href="#"> <span class="pull-right auto">
+											<i class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>장애관리</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="#">검침기기 상태조회</a></li>
+										<li><a href="#">검침값 상태조회</a></li>
+										<li><a href="#">통신 상태조회</a></li>
+									</ul></li>
+								<li><a href="#"> <span class="pull-right auto">
+											<i class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>관리자</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="#">로그이력</a></li>
+										<li><a href="#">시스템 관리</a></li>
+									</ul></li>
+							</ul>
+						</nav>
+					</div>
+				</section>
+				<!-- //좌측 메뉴 -->
+			</section>
+		</aside>
+		<!-- /.aside -->
 
 
-                           </div>
-                        </div>
-                        <!-- 검색조건 -->
-                        <!-- //검색조건 -->
+		<section id="content">
+			<section class="hbox stretch">
+				<aside>
+					<!-- 상단영역 -->
+					<section class="vbox">
+						<header class="nav bg-gradient-1 b-b">
+							<div class="nav notify-row">
+								<!--  start -->
+								<ul class="nav top-menu">
+									<!-- 누수 start-->
+									<li class="dropdown"><a class="dropdown-toggle"> <img
+											src="../images/water.png" data-toggle="tooltip"
+											data-placement="bottom" title="누수"><span
+											class="badge bg-danger">1</span>
+									</a></li>
+									<!-- 누수 end -->
+									<!-- 동파 start-->
+									<li class="dropdown"><a class="dropdown-toggle"> <img
+											src="../images/winter.png" data-toggle="tooltip"
+											data-placement="bottom" title="동파">
+									</a></li>
+									<!-- 동파 end -->
+									<!-- 비만 start-->
+									<li class="dropdown"><a class="dropdown-toggle"> <img
+											src="../images/obesity.png" data-toggle="tooltip"
+											data-placement="bottom" title="비만"><span
+											class="badge bg-danger">1</span>
+									</a></li>
+									<!-- 비만 end -->
+									<!-- 파손 start-->
+									<li class="dropdown"><a class="dropdown-toggle"> <img
+											src="../images/damage.png" data-toggle="tooltip"
+											data-placement="bottom" title="파손">
+									</a></li>
+									<!-- 파손 end -->
+									<!-- 역류 start-->
+									<li class="dropdown"><a class="dropdown-toggle"> <img
+											src="../images/backwash.png" data-toggle="tooltip"
+											data-placement="bottom" title="역류"><span
+											class="badge bg-danger">3</span>
+									</a></li>
+									<!-- 역류 end -->
+									<!-- 비만 start-->
+									<li class="dropdown"><a class="dropdown-toggle"> <img
+											src="../images/absence.png" data-toggle="tooltip"
+											data-placement="bottom" title="부재중">
+									</a></li>
+									<!-- 비만 end -->
+								</ul>
+								<!--  nd -->
+							</div>
+							<div class="pull-right m-r-lg m-t-xxs shift">
+								<p class="m-t m-b text-primary">
+									<i class="fa fa-clock-o"></i> Date: <strong><%=date%></strong>
+								</p>
+							</div>
+						</header>
+
+						<section class="scrollable m-t-xxs">
+							<section class="panel b-b-n">
+								<!-- 업무영역 start-->
+
+								<!-- title 영역 -->
+								<header class="m-b-lg">
+									<div
+										class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
+										<div class="col-sm-4">
+											<h3 class="m-t m-b-none text-primary font-semibold">일별
+												검침조회</h3>
+											<p class="block text-muted">Water Meter Data Management
+												System</p>
+										</div>
+									</div>
+								</header>
+								<!-- //title 영역 -->
+								<!-- 상세화면-->
+								<div class="row padder">
+									<div class="col-md-12">
+										<!-- 검색조건 -->
+										<form action="readDay.jsp" method="post" id=search_form>
+											<div class="well">
+												<div class="row text-sm">
+													<div class="col-sm-4">
+														<div class="form-group m-b-none">
+															<select name=si
+																class="input-sm form-control input-s-sm inline">
+																<option value="인천광역시">인천광역시</option>
+															</select> <select name=guGun
+																class="input-sm form-control input-s-sm inline">
+																<option value="전체">전체</option>
+																<option value="강화군">강화군</option>
+																<option value="계양구">계양구</option>
+																<option value="남구">남구</option>
+																<option value="남동구">남동구</option>
+																<option value="동구">동구</option>
+																<option value="부평구">부평구</option>
+															</select> <select name=umDong
+																class="input-sm form-control input-s-sm inline">
+																<option value="전체">전체</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<div class="form-group m-b-none">
+															<select name=dateYear
+																class="input-sm form-control input-s-sm inline">
+																<option value="2015">2015년</option>
+																<option value="2016">2016년</option>
+															</select> <select name=dateMonth
+																class="input-sm form-control input-s-sm inline">
+																<option value="01">01월</option>
+																<option value="02">02월</option>
+																<option value="03">03월</option>
+																<option value="04">04월</option>
+																<option value="05">05월</option>
+																<option value="06">06월</option>
+																<option value="07">07월</option>
+																<option value="08">08월</option>
+																<option value="09">09월</option>
+																<option value="10">10월</option>
+																<option value="11">11월</option>
+																<option value="12">12월</option>
+															</select> <select name=dateDay
+																class="input-sm form-control input-s-sm inline">
+																<option value="01">01일</option>
+																<option value="02">02일</option>
+																<option value="03">03일</option>
+																<option value="04">04일</option>
+																<option value="05">05일</option>
+																<option value="06">06일</option>
+																<option value="07">07일</option>
+																<option value="08">08일</option>
+																<option value="09">09일</option>
+																<option value="10">10일</option>
+																<option value="11">11일</option>
+																<option value="12">12일</option>
+																<option value="13">13일</option>
+																<option value="14">14일</option>
+																<option value="15">15일</option>
+																<option value="16">16일</option>
+																<option value="17">17일</option>
+																<option value="18">18일</option>
+																<option value="19">19일</option>
+																<option value="20">20일</option>
+																<option value="21">21일</option>
+																<option value="22">22일</option>
+																<option value="23">23일</option>
+																<option value="24">24일</option>
+																<option value="25">25일</option>
+																<option value="26">26일</option>
+																<option value="27">27일</option>
+																<option value="28">28일</option>
+																<option value="29">29일</option>
+																<option value="30">30일</option>
+																<option value="31">31일</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-sm-4 p-l-none">
+														<div class="form-group m-b-none">
+															<label class="col-lg-3 control-label">수용가번호</label>
+															<div class="col-lg-7">
+																<input type="text" class="form-control"
+																	name="consumerNum" value="${param['consumerNum']}">
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row text-sm">
+
+													<div class="col-sm-4 p-l-none">
+														<div class="form-group">
+															<label class="col-lg-3 control-label">수용가명</label>
+															<div class="col-lg-7">
+																<input type="text" class="form-control"
+																	name="consumerName" value="${param['consumerName']}">
+															</div>
+														</div>
+													</div>
+													<div class="col-sm-4 p-l-none">
+														<div class="form-group">
+															<label class="col-lg-3 control-label">지시부번호</label>
+															<div class="col-lg-7">
+																<input type="text" class="form-control" name="telNumber"
+																	value="${param['telNumber']}">
+															</div>
+														</div>
+													</div>
+													<div class="col-sm-4 p-l-none">
+														<div class="form-group">
+															<label class="col-lg-3 control-label">미터번호</label>
+															<div class="col-lg-7">
+																<input type="text" class="form-control" name="meterNum"
+																	value="${param['meterNum']}">
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row text-sm">
+													<div class="col-sm-4 p-l-none">
+														<div class="form-group">
+															<label class="col-lg-3 control-label">미터상태</label> <input
+																type="checkbox" name="status" value="leak"> 누수 <input
+																type="checkbox" name="status" value="freezed">
+															동파 <input type="checkbox" name="status" value="fat">
+															비만 <input type="checkbox" name="status" value="breakage">
+															파손 <input type="checkbox" name="status" value="reverse">
+															역류 <input type="checkbox" name="status" value="absence">
+															부재중
+														</div>
+													</div>
+												</div>
+												<!-- 검색 버튼-->
+												<div class="row ">
+													<div class="col-sm-12 text-right">
+														<button class="btn btn-sm btn-default" id="search">
+															<i class="fa fa-search"></i> 검색
+														</button>
+													</div>
+												</div>
+												<!-- 검색버튼 -->
+											</div>
+										</form>
+
+										<!-- //검색조건 -->
+
+										<section class="panel">
+											<div class="table-responsive">
+												<header class="panel-heading text-primary font-semibold h5">
+													<i class="fa fa-chevron-circle-right"></i>
+													<%=dateYear + "년 " + dateMonth + "월 " + dateDay + "일"%>
+												</header>
+												<table class="table table-striped b-t-blue">
+													<thead>
+														<tr>
+															<th width="5">번호</th>
+															<th width="70">수용가명</th>
+															<th width="70">지시부번호</th>
+															<th width="60">미터번호</th>
+															<th width="60">미터타입</th>
+															<th width="50">미터상태</th>
+															<th width="50">검침일</th>
+															<th width="10">검침값</th>
+														</tr>
+													</thead>
+													<tbody>
+														<%
+															for (int i = data_start_num; i < data_end_num; i++) {
+														%>
+														<tr>
+															<td><%=array_list.get(i).getCode()%></td>
+															<td><a style="text-decoration: underline" href="#"
+																onclick="window.open('windowopen.jsp?code=<%=array_list.get(i).getCode()%>&detail=<%=array_list.get(i).getDetail()%>&number=<%=array_list.get(i).getNumber()%>&meter_num=<%=array_list.get(i).getMeter_num()%>&meter_type=<%=array_list.get(i).getMeter_type()%>&meter_status=<%=array_list.get(i).getMeter_status()%>&d_date=<%=array_list.get(i).getDate()%>&consumed=<%=array_list.get(i).getConsumed()%>','window팝업','width=1000, height=600, menubar=no, status=no, toolbar=no');"><%=array_list.get(i).getDetail()%></a>
+															</td>
+															<td><%=array_list.get(i).getNumber()%></td>
+															<td><%=array_list.get(i).getMeter_num()%></td>
+															<td><%=array_list.get(i).getMeter_type()%></td>
+															<%
+																if (array_list.get(i).getMeter_status() == "정상") {
+															%>
+															<td><%=array_list.get(i).getMeter_status()%></td>
+															<%
+																} else {
+															%>
+															<td style="font-weight: bold; color: red"><%=array_list.get(i).getMeter_status()%></td>
+															<%
+																}
+															%>
+															<td><%=array_list.get(i).getDate()%></td>
+															<td><%=array_list.get(i).getConsumed()%></td>
+														</tr>
+														<%
+															}
+														%>
+													</tbody>
+												</table>
+											</div>
+											<footer class="panel-footer">
+												<div class="row">
+													<div class="col-sm-3 hidden-xs"></div>
+													<div class="col-sm-6 text-center text-center">
+														<input type="hidden" name="s_name" />
+														<ul class="pagination pagination-sm m-t-none m-b-none">
+															<li><a
+																href="reportDay.jsp?page_start_num=<%=Integer.parseInt(page_start_num) - 5%>"><i
+																	class="fa fa-chevron-left"></i></a></li>
+															<li><a href="#"><%=Integer.parseInt(page_start_num)%></a></li>
+															<li><a href="#"><%=Integer.parseInt(page_start_num) + 1%></a></li>
+															<li><a href="#"><%=Integer.parseInt(page_start_num) + 2%></a></li>
+															<li><a href="#"><%=Integer.parseInt(page_start_num) + 3%></a></li>
+															<li><a href="#"><%=Integer.parseInt(page_start_num) + 4%></a></li>
+															<li><a href="#"
+																onclick="document.getElementById('search_form').submit();"><i
+																	class="fa fa-chevron-right"></i></a></li>
+														</ul>
+													</div>
+													<div class="col-sm-3 text-right hidden-xs"></div>
+
+												</div>
+											</footer>
+										</section>
 
 
-                     </section>
-                  </section>
+									</div>
+								</div>
+								<!-- 검색조건 -->
+								<!-- //검색조건 -->
 
-               </section>
-            </aside>
-            <!-- /.aside -->
 
-            <!-- Quick menu -->
-            <aside class="aside-xs b-l bg-dark">
+							</section>
+						</section>
 
-               <section class="m-t-l">
-                  <ul class="nav nav-pills">
-                     <li><a href="#"><i class="fa fa-list icon-lg"
-                           data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-                     <li><a href="#"><i class="fa fa-save icon-lg"
-                           data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
-                     <li><a href="#"><i class="fa fa-print icon-lg"
-                           data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>
-                  </ul>
-               </section>
+					</section>
+				</aside>
+				<!-- /.aside -->
 
-            </aside>
-            <!-- //Quick menu -->
-         </section>
-      </section>
+				<!-- Quick menu -->
+				<aside class="aside-xs b-l bg-dark">
+
+					<section class="m-t-l">
+						<ul class="nav nav-pills">
+							<li><a href="#"><i class="fa fa-list icon-lg"
+									data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
+							<li><a href="#"><i class="fa fa-save icon-lg"
+									data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
+							<li><a href="#"><i class="fa fa-print icon-lg"
+									data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>
+						</ul>
+					</section>
+
+				</aside>
+				<!-- //Quick menu -->
+			</section>
+		</section>
 </body>
 </html>

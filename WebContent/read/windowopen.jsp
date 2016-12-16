@@ -1,10 +1,3 @@
-<%@ page import="visualizing.analysis.RankDataCtrl"%>
-<%@ page import="visualizing.analysis.RankData"%>
-<%@ page import="visualizing.read.ReadDataCtrl"%>
-<%@ page import="visualizing.read.ReadData"%>
-<%@ page import="visualizing.analysis.AnalysisDataCtrl"%>
-<%@ page import="visualizing.analysis.AnalysisData"%>
-<%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.Locale"%>
 <%@ page import="java.text.SimpleDateFormat"%>
@@ -13,117 +6,75 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-   request.setCharacterEncoding("UTF-8");
-   String cp = request.getContextPath();
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
 %>
-
-<jsp:useBean id="rdctrl" class="visualizing.analysis.RankDataCtrl" />
-<jsp:useBean id="rctrl" class="visualizing.read.ReadDataCtrl" />
-<jsp:useBean id="adctrl" class="visualizing.analysis.AnalysisDataCtrl" />
-
 <%
-   String si = request.getParameter("si");
-   String guGun = request.getParameter("guGun");
-   String umDong = request.getParameter("umDong");
-   String consumerNum = request.getParameter("consumerNum");
-   String consumerName = request.getParameter("consumerName");
-   String telNumber = request.getParameter("telNumber");
-   String meterNum = request.getParameter("meterNum");
-   String[] str = request.getParameterValues("str");
-   String searchDate = request.getParameter("searchDate");
+	// windowopen.jsp에는 readDay.jsp에서
+	// code, detail, number,meter_num, meter_type, meter status, d_date, consumed가 넘어 온다.
+	String code = request.getParameter("code");
+	String detail = request.getParameter("detail");
+	String number = request.getParameter("number");
+	String meter_num = request.getParameter("meter_num");
+	String meter_type = request.getParameter("meter_type");
+	String meter_status = request.getParameter("meter_status");
+	String d_date = request.getParameter("d_date");
+	String consumed = request.getParameter("consumed");
 
-   String code = request.getParameter("code");
-   String detail = request.getParameter("detail");
-   String number = request.getParameter("number");
-   String meter_num = request.getParameter("meter_num");
-   String meter_type = request.getParameter("meter_type");
-   String meter_status = request.getParameter("meter_status");
-   String d_date = request.getParameter("d_date");
-   String consumed = request.getParameter("consumed");
-   String syear;
-   String eyear;
+	String sdate = request.getParameter("sdate");
+	String edate = request.getParameter("edate");
+	String stime = request.getParameter("stime");
+	String etime = request.getParameter("etime");
 
-   if (si == null || si.equals(""))
-      si = "인천광역시";
-   if (guGun == null || guGun.equals(""))
-      guGun = "강화군";
+	// 어느 페이지로 부터 불려졌는지 알기 위함
+	String wherefrom = request.getParameter("wherefrom");
+	System.out.println(wherefrom);
+	if (wherefrom == null)
+		wherefrom = "null";
 
-   // 오늘 날짜 구하기
-   SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
-   Date currentDate = new Date();
-   String date = mSimpleDateFormat.format(currentDate);
-   SimpleDateFormat DateFormat = new SimpleDateFormat("M.d", Locale.KOREA);
-   String textDate = DateFormat.format(currentDate);
-   SimpleDateFormat yDateFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+	Date currentDate = new Date();
+	Calendar cal = Calendar.getInstance();
+	cal.setTime(currentDate);
+	cal.add(Calendar.DATE, -6);
+	if (sdate == null)
+		sdate = mSimpleDateFormat.format(cal.getTime());
+	if (edate == null)
+		edate = mSimpleDateFormat.format(currentDate);
+	if (sdate.length() != 10) {
+		sdate = sdate + "-01";
+		edate = edate + "-31";
+	}
+	if (request.getParameter("stime") == null)
+		stime = "0";
+	if (request.getParameter("etime") == null)
+		etime = "10";
 
-   Calendar cal = Calendar.getInstance();
-   Calendar cal_Year = Calendar.getInstance();
-   cal.setTime(currentDate);
-   cal_Year.setTime(currentDate);
-   cal.add(Calendar.DATE, -6);
-   cal_Year.add(Calendar.YEAR, -2);
-   syear = yDateFormat.format(cal_Year.getTime());
-   cal_Year.setTime(currentDate);
-   eyear = yDateFormat.format(cal_Year.getTime());
+	//임시
+	if (code == null)
+		code = "1";
 
-   String edate = mSimpleDateFormat.format(cal.getTime());
-   String temp = DateFormat.format(cal.getTime());
-   String textDate2 = DateFormat.format(cal.getTime());
-
-   RankData rd_data = rdctrl.returnCodeDatas(code, edate, date);
-   System.out.println(syear + " / " + eyear );
-   ArrayList<AnalysisData> array_list = adctrl.returnDatas_YEAR(code, syear, null, null, eyear, null, null);
+	System.out.println("<windowopen>");
+	System.out.println(code);
+	System.out.println(sdate);
+	System.out.println(edate);
+	System.out.println(stime);
+	System.out.println(etime);
 %>
 
 <!DOCTYPE html>
 <html lang="kr">
-<style>
-.tab {
-   border: 1px solid #ddd;
-   border-left: none;
-   background: #fff;
-}
-
-.tab li {
-   float: left; solid #ddd;
-   text-align: center;
-}
-
-.tab li {
-   display: inline-block;
-   cursor: pointer;
-}
-
-.tab li.on {
-   background-color: #eee;
-   color: #f00;
-}
-
-.tab_con {
-   clear: both;
-   solid
-   #ddd;
-}
-
-.tab_con div {
-   display: none;
-   height: 250px;
-   background: #fff;
-   text-align: center;
-   overflow: scroll;
-}
-</style>
 <head>
 <meta charset="utf-8" />
 <title>::: 수도검침서비스 :::</title>
 <meta name="description" content="" />
 <meta name="viewport"
-   content="width=device-width, initial-scale=1, maximum-scale=1" />
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
 <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="../css/font-awesome.min.css"
-   type="text/css" />
+	type="text/css" />
 <link rel="stylesheet" href="../css/font.css" type="text/css"
-   cache="false" />
+	cache="false" />
 <link rel="stylesheet" href="../css/app.css" type="text/css" />
 <!--[if lt IE 9]>
     <script src="js/ie/respond.min.js" cache="false"></script>
@@ -140,314 +91,101 @@
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
 
-<!--구글 그래프 그리기-->
-<script type="text/javascript"
-   src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-   // Load Charts and the corechart package.
-   google.charts.load('current', {'packages' : [ 'corechart' ]});
-
-   // 랭킹 그래프 로드
-   google.charts.setOnLoadCallback(Consumed);
-
-   
-   // 부재중 상위 데이터 그래프
-   function Consumed() {
-      
-      <%textDate2 = temp;%>
-      
-      // Create the data table
-      var data = google.visualization.arrayToDataTable([
-          ['Date', '<%=rd_data.getTest().get(0).get(0)%>'],
-            <%for (int i = 0; i < rd_data.getUpper_consumed_data().get(0).size(); i++) {%>
-            [ '<%=textDate2%>',
-<%=rd_data.getUpper_consumed_data().get(0).get(i)%>
-   ],
-<%// 시간 더하기         
-            Date sdate = DateFormat.parse(textDate2);
-            cal.setTime(sdate);
-            cal.add(Calendar.DATE, 1);
-            textDate2 = DateFormat.format(cal.getTime());
-         }%>
-   ]);
-<%System.out.println(rd_data.getTest().get(0).get(0));%>
-   
-<%System.out.println(rd_data.getTest().get(0).get(1));%>
-   // Set options for chart.
-      var options = {
-         colors : [ '#FF4943', '#7DCDF2', '#33B1EB', '#1871CD' ],
-         hAxis : {
-            title : '날짜'
-         },
-         vAxis : {
-            title : '소비량',
-            minValue : 0,
-            viewWindow : {
-               min : 0
-            }
-         }
-      };
-
-      // Instantiate and draw the chart
-      var chart = new google.visualization.LineChart(document
-            .getElementById('Consumed'));
-      chart.draw(data, options);
-   }
-</script>
 </head>
 <body>
-   <section class="hbox stretch">
+	<section id="content">
+		<section class="hbox stretch">
+			<!-- 상단영역 -->
+			<section class="scrollable m-t-xxs">
+				<section class="panel b-b-n">
+					<!-- 업무영역 start-->
+					<!-- =============================상세정보================================-->
+					<div class="row padder">
+						<div class="col-md-12">
+							<section class="panel">
+								<header class="panel-heading text-primary font-semibold h5">
+									<i class="fa fa-chevron-circle-right"></i> 상세정보
+								</header>
+								<table class="table table-striped b-t-blue" border="1">
+									<tr>
+										<td>수용가번호</td>
+										<td><%=code%></td>
+										<td>수용가명</td>
+										<td><%=detail%></td>
+									</tr>
 
+									<tr>
+										<td>지시부번호</td>
+										<td><%=number%></td>
+										<td>미터번호</td>
+										<td><%=meter_num%></td>
+									</tr>
 
+									<tr>
+										<td>미터타입</td>
+										<td><%=meter_type%></td>
+										<td>미터상태</td>
+										<td><%=meter_status%></td>
+									</tr>
 
-      <section id="content">
-         <section class="hbox stretch">
-
-
-            <aside>
-               <!-- 상단영역 -->
-               <section class="vbox">
-
-
-                  <section class="scrollable m-t-xxs">
-                     <section class="panel b-b-n">
-                        <!-- 업무영역 start-->
-
-                        <!-- title 영역 -->
-                        <header class="m-b-lg">
-                           <div
-                              class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
-                              <div class="col-sm-4">
-
-
-                                 <!--  
-                                 <h3 class="m-t m-b-none text-primary font-semibold">지역별
-                                    통계 순위 ( <%// 시간 더하기
-         cal.setTime(currentDate);
-         cal.add(Calendar.DATE, -6);
-         textDate = DateFormat.format(cal.getTime());%>   
-                                        <%=textDate%>
-                                         <%textDate = DateFormat.format(currentDate);%> ~ <%=textDate%> )</h3>
-                                       
-                                       
-                                 <p class="block text-muted">Water Meter Data Management
-                                    System</p>
-                                    -->
-
-
-                              </div>
-                           </div>
-                        </header>
-                        <!-- //title 영역 -->
-                        <!-- 상세화면-->
-                        <div class="row padder">
-                           <div class="col-md-12">
-                              <section class="panel">
-                                 <header class="panel-heading text-primary font-semibold h5">
-                                    <i class="fa fa-chevron-circle-right"></i> 상세정보
-                                 </header>
-
-
-                                 <table class="table table-striped b-t-blue" border="1">
-                                    <tr>
-                                       <td>번호</td>
-                                       <td><%=code%></td>
-                                       <td>수용가명</td>
-                                       <td><%=detail%></td>
-                                    </tr>
-
-                                    <tr>
-                                       <td>지시부번호</td>
-                                       <td><%=number%></td>
-                                       <td>미터번호</td>
-                                       <td><%=meter_num%></td>
-                                    </tr>
-
-                                    <tr>
-                                       <td>미터타입</td>
-                                       <td><%=meter_type%></td>
-                                       <td>미터상태</td>
-                                       <td><%=meter_status%></td>
-                                    </tr>
-
-                                    <tr>
-                                       <td>검침일</td>
-                                       <td><%=d_date%></td>
-                                       <td>검침값</td>
-                                       <td><%=consumed%></td>
-                                    </tr>
-                                 </table>
-                              </section>
-                           </div>
-                        </div>
-                        <script>
-                           $(function() {
-                              tab('#tab', 0);
-                           });
-
-                           function tab(e, num) {
-                              var num = num || 0;
-                              var menu = $(e).children();
-                              var con = $(e + '_con').children();
-                              var select = $(menu).eq(num);
-                              var i = num;
-
-                              select.addClass('on');
-                              con.eq(num).show();
-
-                              menu.click(function() {
-                                 if (select !== null) {
-                                    select.removeClass("on");
-                                    con.eq(i).hide();
-                                 }
-
-                                 select = $(this);
-                                 i = $(this).index();
-
-                                 select.addClass('on');
-                                 con.eq(i).show();
-                              });
-                           }
-                        </script>
-
-
-
-                        <div class="row padder">
-                           <div class="col-md-6">
-                              <section class="panel">
-                                 <div class="col-lg-7 form-inline">
-                                    <input
-                                       class="input-sm input-s-sm datepicker-input form-control"
-                                       type="text" name="sdate" value="${param['sdate']}"
-                                       data-date-format="yyyy-mm-dd" id="sdate">~ <input
-                                       class="input-sm input-s-sm datepicker-input form-control"
-                                       type="text" name="edate" value="${param['edate']}"
-                                       data-date-format="yyyy-mm-dd" id="edate"> 
-                                        <button class="btn btn-sm btn-default" id="search">
-                                             <i class="fa fa-search"></i> 검색
-                                        </button>
-     
-                                 </div>
-                                 <ul class="tab" id="tab">
-                                    <li><a href=#link " class="btn btn-default">시간별 조회</a></li>
-                                    <li><a href=#link " class="btn btn-default">일별 조회</a></li>
-                                    <li><a href=#link " class="btn btn-default">월별 조회</a></li>
-                                 </ul>
-                                 <div class="tab_con" id="tab_con">
-                                 <!-- 시간별 조회량 -->
-                                    <div>
-                                       <table class="table table-striped b-t-blue">
-                                          <thead>
-                                             <tr>
-                                                <th></th>
-                                                <th>검침일시</th>
-                                                <th>사용량</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             <%
-                                                textDate2 = temp;
-                                             %>
-                                             <%
-                                                for (int i = 0; i < rd_data.getUpper_consumed_data().get(0).size(); i++) {
-                                             %>
-                                             <tr>
-                                                <td><%=i + 1%></td>
-                                                <td><%=textDate2%> <%
-    // 시간 더하기         
-       Date sdate = DateFormat.parse(textDate2);
-       cal.setTime(sdate);
-       cal.add(Calendar.DATE, 1);
-       textDate2 = DateFormat.format(cal.getTime());
- %></td>
-                                                <td><%=rd_data.getUpper_consumed_data().get(0).get(i)%></td>
-                                             </tr>
-                                             <%
-                                                }
-                                             %>
-                                          </tbody>
-                                       </table>
-                                    </div>
-                                    <!-- 일별 조회량 -->
-                                    <div>
-                                       <table class="table table-striped b-t-blue">
-                                          <thead>
-                                             <tr>
-                                                <th></th>
-                                                <th>검침일시</th>
-                                                <th>사용량</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             <%
-                                                textDate2 = temp;
-                                             %>
-                                             <%
-                                                for (int i = 0; i < rd_data.getUpper_consumed_data().get(0).size(); i++) {
-                                             %>
-                                             <tr>
-                                                <td><%=i + 3%></td>
-                                                <td><%=textDate2%> <%
-    // 시간 더하기         
-       Date sdate = DateFormat.parse(textDate2);
-       cal.setTime(sdate);
-       cal.add(Calendar.DATE, 1);
-       textDate2 = DateFormat.format(cal.getTime());
- %></td>
-                                                <td><%=rd_data.getUpper_consumed_data().get(0).get(i)%></td>
-                                             </tr>
-                                             <%
-                                                }
-                                             %>
-                                          </tbody>
-                                       </table>
-                                    </div>
-                                    <!-- 월별 조회량 -->
-                                    <div>
-                                       <table class="table table-striped b-t-blue">
-                                          <thead>
-                                             <tr>
-                                                <th></th>
-                                                <th>검침일시</th>
-                                                <th>사용량</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             <%
-                                                for (AnalysisData ad : array_list) {
-                                             %>
-                                             <tr>
-                                                <td></td>
-                                                <td><%=ad.getCode()%></td>
-                                                <td><%=ad.getTotal_consumed()%></td>
-                                             </tr>
-                                             <%
-                                                }
-                                             %>
-                                          </tbody>
-                                       </table>
-                                    </div>
-                                    <div></div>
-                                 </div>
-                              </section>
-                           </div>
-                           <div class="col-sm-6">
-                              <div class="panel">
-                                 <header class="panel-heading">그래프</header>
-                                 <div class="panel-body text-center" id="Consumed"></div>
-                              </div>
-                           </div>
-                        </div>
-                     </section>
-                  </section>
-                  <!— 업무영역 end—>
-               </section>
-            </aside>
-            <!— /.aside —>
-
-
-
-         </section>
-      </section>
+									<tr>
+										<td>검침일</td>
+										<td><%=d_date%></td>
+										<td>검침값</td>
+										<td><%=consumed%></td>
+									</tr>
+								</table>
+							</section>
+						</div>
+					</div>
+					<!-- =============================탭바와 그래프================================-->
+					<div class="row padder">
+						<div class="col-md-12">
+							<section class="panel">
+								<header class="panel-heading text-primary font-semibold h5">
+									<ul class="nav nav-tabs" role="tablist">
+										<li role="presentation" class="active"><a href="#timely"
+											aria-controls="timely" role="tab" data-toggle="tab">시간대별</a></li>
+										<li role="presentation"><a href="#daily"
+											aria-controls="daily" role="tab" data-toggle="tab">일별</a></li>
+										<li role="presentation"><a href="#monthly"
+											aria-controls="monthly" role="tab" data-toggle="tab">월별</a></li>
+									</ul>
+								</header>
+							</section>
+						</div>
+					</div>
+					<div class="tab-content">
+						<!-- ====시간별==== -->
+						<div role="tabpanel" class="tab-pane active" id="timely">
+							<jsp:include page="timeTable.jsp" flush="false">
+								<jsp:param name="code" value="<%=code%>" />
+								<jsp:param name="sdate" value="<%=sdate%>" />
+								<jsp:param name="edate" value="<%=edate%>" />
+								<jsp:param name="stime" value="<%=stime%>" />
+								<jsp:param name="etime" value="<%=etime%>" />
+							</jsp:include>
+						</div>
+						<!-- ====일별==== -->
+						<div role="tabpanel" class="tab-pane" id="daily">
+							<jsp:include page="dayTable.jsp" flush="false">
+								<jsp:param name="code" value="<%=code%>" />
+								<jsp:param name="sdate" value="<%=sdate%>" />
+								<jsp:param name="edate" value="<%=edate%>" />
+							</jsp:include>
+						</div>
+						<!-- ====월별==== -->
+						<div role="tabpanel" class="tab-pane" id="monthly">
+							<jsp:include page="monthTable.jsp" flush="false">
+								<jsp:param name="code" value="<%=code%>" />
+								<jsp:param name="sdate" value="<%=sdate%>" />
+								<jsp:param name="edate" value="<%=edate%>" />
+							</jsp:include>
+						</div>
+					</div>
+				</section>
+			</section>
+		</section>
+	</section>
 </body>
 </html>

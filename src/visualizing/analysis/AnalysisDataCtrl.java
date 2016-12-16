@@ -168,37 +168,6 @@ void setParameters(String code, String start_year, String start_month, String st
       return datas;
    }
    
-   // 검색한 정보 반환
-   ArrayList<AnalysisData> getInfo_YEAR() {
-
-      ArrayList<AnalysisData> datas = new ArrayList<AnalysisData>();
-      String sql = null;
-         
-      sql = "select code, sum(c) from (select u.code, sum(consumed) as c from (select * from USER where code like \"" + code + "\") u inner join CONSUMPTION c on u.code = c.code where (date between '" + date_start + "' and '" + date_end + "') and (" + code + ") group by u.code, date_format(date,'" + format + "')) a group by code;";
-      
-      System.out.println(date_start);
-      try {
-         pstmt = conn.prepareStatement(sql);
-         ResultSet rs = pstmt.executeQuery();
-         
-         System.out.println("OUT CODE : " + code);
-         System.out.println("OUT");
-         while(rs.next()){
-            System.out.println("IN");   
-            AnalysisData temp = new AnalysisData();
-            temp.setCode(rs.getString("code"));
-            temp.setTotal_consumed(rs.getString("sum(c)"));
-            
-            datas.add(temp);
-         }
-         
-         rs.close();
-      } catch (SQLException e) {
-         e.printStackTrace();
-      }
-      return datas;
-   }
-   
    // 모든 작업은 여기서 한다.
    public ArrayList<AnalysisData> returnDatas(String sido, String sigoon, String umdong, String code, String detail, String number, String meter_num, String start_year, String start_month, String start_day, String end_year, String end_month, String end_day){
       
@@ -206,20 +175,6 @@ void setParameters(String code, String start_year, String start_month, String st
       
       // 기본 정보
       ArrayList<AnalysisData> info_array = getInfo();
-
-      // DB연결 해제
-      disconnect();
-      
-      return info_array;
-   }
-   
-   // 모든 작업은 여기서 한다.
-   public ArrayList<AnalysisData> returnDatas_YEAR(String code, String start_year, String start_month, String start_day, String end_year, String end_month, String end_day){
-      
-      setParameters(code, start_year, start_month, start_day, end_year, end_month, end_day);
-      
-      // 기본 정보
-      ArrayList<AnalysisData> info_array = getInfo_YEAR();
 
       // DB연결 해제
       disconnect();
