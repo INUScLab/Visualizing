@@ -490,7 +490,7 @@
 														<tr>
 															<td><%=array_list.get(i).getCode()%></td>
 															<td><a style="text-decoration: underline" href="#"
-																onclick="window.open('windowopen.jsp?code=<%=array_list.get(i).getCode()%>&detail=<%=array_list.get(i).getDetail()%>&number=<%=array_list.get(i).getNumber()%>&meter_num=<%=array_list.get(i).getMeter_num()%>&meter_type=<%=array_list.get(i).getMeter_type()%>&meter_status=<%=array_list.get(i).getMeter_status()%>&d_date=<%=array_list.get(i).getDate()%>&consumed=<%=array_list.get(i).getConsumed()%>','window팝업','width=1000, height=600, menubar=no, status=no, toolbar=no');"><%=array_list.get(i).getDetail()%></a>
+																onclick="window.open('windowopen_temp.jsp?code=<%=array_list.get(i).getCode()%>&detail=<%=array_list.get(i).getDetail()%>&number=<%=array_list.get(i).getNumber()%>&meter_num=<%=array_list.get(i).getMeter_num()%>&meter_type=<%=array_list.get(i).getMeter_type()%>&meter_status=<%=array_list.get(i).getMeter_status()%>&d_date=<%=array_list.get(i).getDate()%>&consumed=<%=array_list.get(i).getConsumed()%>&page=time','window팝업','width=1000, height=600, menubar=no, status=no, toolbar=no');"><%=array_list.get(i).getDetail()%></a>
 															</td>
 															<td><%=array_list.get(i).getNumber()%></td>
 															<td><%=array_list.get(i).getMeter_num()%></td>
