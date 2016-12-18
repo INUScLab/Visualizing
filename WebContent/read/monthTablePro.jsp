@@ -9,10 +9,15 @@
 <jsp:useBean id="wptrl" class="visualizing.read.WinPopCtrl" />
 <%
 	String code = request.getParameter("code");
-	String sdate = request.getParameter("sdate");
-	String edate = request.getParameter("edate");
+String sdate = request.getParameter("sdate");
+String edate = request.getParameter("edate");
+String sdate_m = request.getParameter("sdate_m");
+String edate_m = request.getParameter("edate_m");
 
-	ArrayList<WinPop> array_list = wptrl.returnDatas(code, sdate, edate);
+String sdate2 = sdate_m + "-01";
+String edate2 = edate_m + "-31";
+
+ArrayList<WinPop> array_list = wptrl.returnDatas2(code, sdate2, edate2);
 %>
 <script src="../js/jquery.min.js"></script>
 <!-- Bootstrap -->

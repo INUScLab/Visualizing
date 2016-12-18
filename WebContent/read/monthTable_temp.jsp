@@ -93,12 +93,12 @@
 });
 	
 	function searchData(){
-		var sdate_m=$("#sdate").val();
-		var edate_m=$("#edate").val();
+		var sdate_m=$("#sdate_m").val();
+		var edate_m=$("#edate_m").val();
 		var code=$("#code").val();
 		var query = {
-				sdate : sdate,
-				edate : edate,
+				sdate_m : sdate_m,
+				edate_m : edate_m,
 				code : code
 			};
 		$.ajax({
