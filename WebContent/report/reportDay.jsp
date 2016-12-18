@@ -405,7 +405,7 @@
 												<table class="table table-striped b-t-blue" style="width: 4500px;">
 													<thead>
 														<tr>
-															<th width="5">번호</th>
+															<th width="70">수용가번호</th>
 															<th width="70">수용가명</th>
 															<th width="70">지시부번호</th>
 															<th width="60">미터번호</th>

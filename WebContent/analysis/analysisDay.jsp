@@ -411,7 +411,7 @@
 												<table class="table table-striped b-t-blue">
 													<thead>
 														<tr>
-															<th>번호</th>
+															<th>수용가번호</th>
 															<th>수용가명</th>
 															<th>지시부번호</th>
 															<th>미터번호</th>
