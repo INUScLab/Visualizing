@@ -23,6 +23,8 @@
 
 	String sdate = request.getParameter("sdate");
 	String edate = request.getParameter("edate");
+	String sdate_m = request.getParameter("sdate_m");
+	String edate_m = request.getParameter("edate_m");
 	String stime = request.getParameter("stime");
 	String etime = request.getParameter("etime");
 	String selectPage = request.getParameter("page");
@@ -43,10 +45,16 @@
 		sdate = mSimpleDateFormat.format(cal.getTime());
 	if (edate == null)
 		edate = mSimpleDateFormat.format(currentDate);
-	if (sdate.length() != 10) {
-		sdate = sdate + "-01";
-		edate = edate + "-31";
-	}
+	
+	SimpleDateFormat mSimpleDateFormat_m = new SimpleDateFormat(
+			"yyyy-MM", Locale.KOREA);
+	cal.setTime(currentDate);
+	cal.add(Calendar.MONTH, -6);
+	if (sdate_m == null)
+		sdate_m = mSimpleDateFormat_m.format(cal.getTime());
+	if (edate_m == null)
+		edate_m = mSimpleDateFormat_m.format(currentDate);
+	
 	if (request.getParameter("stime") == null)
 		stime = "0";
 	if (request.getParameter("etime") == null)
@@ -60,8 +68,8 @@
 	System.out.println(code);
 	System.out.println(sdate);
 	System.out.println(edate);
-	System.out.println(stime);
-	System.out.println(etime);
+	System.out.println(sdate_m);
+	System.out.println(edate_m);
 	System.out.println(selectPage);
 %>
 
@@ -170,6 +178,8 @@
 								<jsp:param name="edate" value="<%=edate%>" />
 								<jsp:param name="stime" value="<%=stime%>" />
 								<jsp:param name="etime" value="<%=etime%>" />
+								<jsp:param name="sdate_m" value="<%=sdate_m%>" />
+								<jsp:param name="edate_m" value="<%=edate_m%>" />
 							</jsp:include>
 						</div>
 						<%
@@ -185,6 +195,8 @@
 								<jsp:param name="code" value="<%=code%>" />
 								<jsp:param name="sdate" value="<%=sdate%>" />
 								<jsp:param name="edate" value="<%=edate%>" />
+								<jsp:param name="sdate_m" value="<%=sdate_m%>" />
+								<jsp:param name="edate_m" value="<%=edate_m%>" />
 							</jsp:include>
 						</div>
 						<%
@@ -201,6 +213,8 @@
 								<jsp:param name="code" value="<%=code%>" />
 								<jsp:param name="sdate" value="<%=sdate%>" />
 								<jsp:param name="edate" value="<%=edate%>" />
+								<jsp:param name="sdate_m" value="<%=sdate_m%>" />
+								<jsp:param name="edate_m" value="<%=edate_m%>" />
 							</jsp:include>
 
 						</div>

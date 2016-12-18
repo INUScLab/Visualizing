@@ -12,8 +12,19 @@
 	String code = request.getParameter("code");
 	String sdate = request.getParameter("sdate");
 	String edate = request.getParameter("edate");
+	String sdate_m = request.getParameter("sdate_m");
+	String edate_m = request.getParameter("edate_m");
+	
+	String sdate2 = sdate_m + "-01";
+	String edate2 = edate_m + "-31";
 
-	ArrayList<WinPop> array_list = wptrl.returnDatas2(code, sdate, edate);
+	System.out.println("<month>");
+	System.out.println(code);
+	System.out.println(sdate);
+	System.out.println(edate);
+	System.out.println(sdate_m);
+	System.out.println(edate_m);
+	ArrayList<WinPop> array_list = wptrl.returnDatas2(code, sdate2, edate2);
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -82,8 +93,8 @@
 });
 	
 	function searchData(){
-		var sdate=$("#sdate").val();
-		var edate=$("#edate").val();
+		var sdate_m=$("#sdate").val();
+		var edate_m=$("#edate").val();
 		var code=$("#code").val();
 		var query = {
 				sdate : sdate,
@@ -113,16 +124,18 @@
 							<label class="col-lg-3 control-label">검색월</label>
 							<div class="col-lg-7 form-inline">
 								<input class="input-sm input-s-sm datepicker-input form-control"
-									type="text" name="sdate" value="${param['sdate']}"
-									data-date-format="yyyy-mm-dd" id="sdate"
+									type="text" name="sdate_m" value="${param['sdate_m']}"
+									data-date-format="yyyy-mm" id="sdate_m"
 									onchange="changeData(this.value);"> ~ <input
 									class="input-sm input-s-sm datepicker-input form-control"
-									type="text" name="edate" value="${param['edate']}"
-									data-date-format="yyyy-mm-dd" id="edate"
+									type="text" name="edate_m" value="${param['edate_m']}"
+									data-date-format="yyyy-mm" id="edate_m"
 									onchange="changeData(this.value);">
 							</div>
-							<input type=hidden name="wherefrom" value="일"> <input
-								type=hidden name="code" value="${param['code']}" id="code">
+							<input type=hidden name="wherefrom" value="월">
+							<input type=hidden name="sdate" value="${param['sdate']}">
+							<input type=hidden name="edate" value="${param['edate']}">
+							<input type=hidden name="code" value="${param['code']}" id="code">
 							<div class="col-xs-12 text-right">
 								<button class="btn btn-sm btn-default" id="search"
 									onclick="searchData();">
@@ -166,7 +179,7 @@
 					<i class="fa fa-chevron-circle-right"></i> 그래프
 				</header>
 				<div class="row m-t m-b wrapper">
-					<div id="monthchart" class="col-md-6"></div>
+					<div id="monthchart" class="col-md-12"></div>
 				</div>
 			</div>
 		</div>

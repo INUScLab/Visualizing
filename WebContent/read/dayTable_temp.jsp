@@ -12,6 +12,8 @@
 	String code = request.getParameter("code");
 	String sdate = request.getParameter("sdate");
 	String edate = request.getParameter("edate");
+	String sdate_m = request.getParameter("sdate_m");
+	String edate_m = request.getParameter("edate_m");
 	
 
 	ArrayList<WinPop> array_list = wptrl.returnDatas(code, sdate, edate);
@@ -120,8 +122,10 @@ function searchData(){
 									type="text" name="edate" value="${param['edate']}"
 									data-date-format="yyyy-mm-dd" id="edate">
 							</div>
-							<input type=hidden name="wherefrom" value="일"> <input
-								type=hidden name="code" value="${param['code']}" id="code">
+							<input type=hidden name="wherefrom" value="일">
+							<input type=hidden name="sdate_m" value="${param['sdate_m']}">
+							<input type=hidden name="edate_m" value="${param['edate_m']}">
+							<input type=hidden name="code" value="${param['code']}" id="code">
 							<div class="col-xs-12 text-right">
 								<button class="btn btn-sm btn-default" id="search" onclick="searchData();">
 									<i class="fa fa-search"></i> 검색
