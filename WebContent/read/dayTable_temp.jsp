@@ -14,7 +14,6 @@
 	String edate = request.getParameter("edate");
 	String sdate_m = request.getParameter("sdate_m");
 	String edate_m = request.getParameter("edate_m");
-	
 
 	ArrayList<WinPop> array_list = wptrl.returnDatas(code, sdate, edate);
 %>
@@ -108,8 +107,9 @@ function searchData(){
 <body>
 	<div class="row padder">
 		<div class="col-md-6 p-r-none">
-			<!-- 검색조건 -->
-			<!-- <form action="windowopen_temp.jsp?page=day" method="post" id=search_form> -->
+			<div class="panel">
+				<!-- 검색조건 -->
+				<!-- <form action="windowopen_temp.jsp?page=day" method="post" id=search_form> -->
 				<div class="well">
 					<div class="row text-sm">
 						<div class="form-group m-b-none">
@@ -122,44 +122,46 @@ function searchData(){
 									type="text" name="edate" value="${param['edate']}"
 									data-date-format="yyyy-mm-dd" id="edate">
 							</div>
-							<input type=hidden name="wherefrom" value="일">
-							<input type=hidden name="sdate_m" value="${param['sdate_m']}">
+							<input type=hidden name="wherefrom" value="일"> <input
+								type=hidden name="sdate_m" value="${param['sdate_m']}">
 							<input type=hidden name="edate_m" value="${param['edate_m']}">
 							<input type=hidden name="code" value="${param['code']}" id="code">
 							<div class="col-xs-12 text-right">
-								<button class="btn btn-sm btn-default" id="search" onclick="searchData();">
+								<button class="btn btn-sm btn-default" id="search"
+									onclick="searchData();">
 									<i class="fa fa-search"></i> 검색
 								</button>
 							</div>
 						</div>
 					</div>
 				</div>
-			<!-- </form> -->
-			<div class="table-responsive" id="result">
-				<table class="table table-striped b-t-blue">
-					<thead>
-						<tr>
-							<th width="5"></th>
-							<th width="80">검침일</th>
-							<th width="70">검침값</th>
-							<th width="70">사용량</th>
-						</tr>
-					</thead>
-					<tbody>
-						<%
-							for (int i = 0; i < array_list.size(); i++) {
-						%>
-						<tr>
-							<td><%=i + 1%></td>
-							<td><%=array_list.get(i).getDate()%></td>
-							<td><%=array_list.get(i).getConsumed()%></td>
-							<td></td>
-						</tr>
-						<%
-							}
-						%>
-					</tbody>
-				</table>
+				<!-- </form> -->
+				<div class="table-responsive" id="result">
+					<table class="table table-striped b-t-blue">
+						<thead>
+							<tr>
+								<th width="5"></th>
+								<th width="80">검침일</th>
+								<th width="70">검침값</th>
+								<th width="70">사용량</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (int i = 0; i < array_list.size(); i++) {
+							%>
+							<tr>
+								<td><%=i + 1%></td>
+								<td><%=array_list.get(i).getDate()%></td>
+								<td><%=array_list.get(i).getConsumed()%></td>
+								<td></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-6 p-l-none">

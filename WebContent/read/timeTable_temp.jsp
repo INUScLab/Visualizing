@@ -17,6 +17,8 @@
 	String sdate_m = request.getParameter("sdate_m");
 	String edate_m = request.getParameter("edate_m");
 
+	int stimeInt = Integer.parseInt(stime);
+	int etimeInt = Integer.parseInt(etime);
 	ArrayList<WinPop> array_list = wptrl.returnDatas(code, sdate, edate);
 %>
 <!DOCTYPE html>
@@ -112,113 +114,115 @@
 <body>
 	<div class="row padder">
 		<div class="col-md-6 p-r-none">
-			<!-- 검색조건 -->
-			<!-- <form action="windowopen.jsp" method="post" id=search_form> -->
-			<div class="well">
-				<div class="row text-sm">
-					<div class="form-group m-b-none">
-						<label class="col-xs-3 control-label">검색일시</label>
-						<div class="col-xs-7 form-inline">
-							<input class="input-sm input-s-sm datepicker-input form-control"
-								type="text" name="sdate" value="${param['sdate']}"
-								data-date-format="yyyy-mm-dd" id="sdate"> <select
-								name=stime class="input-sm form-control input-s-sm inline"
-								id="stime">
-								<option value="0">0시</option>
-								<option value="1">1시</option>
-								<option value="2">2시</option>
-								<option value="3">3시</option>
-								<option value="4">4시</option>
-								<option value="5">5시</option>
-								<option value="6">6시</option>
-								<option value="7">7시</option>
-								<option value="8">8시</option>
-								<option value="9">9시</option>
-								<option value="10">10시</option>
-								<option value="11">11시</option>
-								<option value="12">12시</option>
-								<option value="13">13시</option>
-								<option value="14">14시</option>
-								<option value="15">15시</option>
-								<option value="16">16시</option>
-								<option value="17">17시</option>
-								<option value="18">18시</option>
-								<option value="19">19시</option>
-								<option value="20">20시</option>
-								<option value="21">21시</option>
-								<option value="22">22시</option>
-								<option value="23">23시</option>
-							</select> ~ <input
-								class="input-sm input-s-sm datepicker-input form-control"
-								type="text" name="edate" value="${param['edate']}"
-								data-date-format="yyyy-mm-dd" id="edate"> <select
-								name=etime class="input-sm form-control input-s-sm inline"
-								id="etime">
-								<option value="0">0시</option>
-								<option value="1">1시</option>
-								<option value="2">2시</option>
-								<option value="3">3시</option>
-								<option value="4">4시</option>
-								<option value="5">5시</option>
-								<option value="6">6시</option>
-								<option value="7">7시</option>
-								<option value="8">8시</option>
-								<option value="9">9시</option>
-								<option value="10">10시</option>
-								<option value="11">11시</option>
-								<option value="12">12시</option>
-								<option value="13">13시</option>
-								<option value="14">14시</option>
-								<option value="15">15시</option>
-								<option value="16">16시</option>
-								<option value="17">17시</option>
-								<option value="18">18시</option>
-								<option value="19">19시</option>
-								<option value="20">20시</option>
-								<option value="21">21시</option>
-								<option value="22">22시</option>
-								<option value="23">23시</option>
-							</select>
-						</div>
-						<input type=hidden name="wherefrom" value="시간">
-						<input type=hidden name="sdate_m" value="${param['sdate_m']}">
-						<input type=hidden name="edate_m" value="${param['edate_m']}">
-						<input type=hidden name="code" value="${param['code']}" id="code">
-						<div class="col-xs-12 text-right">
-							<button class="btn btn-sm btn-default" id="search"
-								onclick="searchData();">
-								<i class="fa fa-search"></i> 검색
-							</button>
+			<div class="panel">
+				<!-- 검색조건 -->
+				<!-- <form action="windowopen.jsp" method="post" id=search_form> -->
+				<div class="well">
+					<div class="row text-sm">
+						<div class="form-group m-b-none">
+							<label class="col-xs-3 control-label">검색일시</label>
+							<div class="col-xs-7 form-inline">
+								<input class="input-sm input-s-sm datepicker-input form-control"
+									type="text" name="sdate" value="${param['sdate']}"
+									data-date-format="yyyy-mm-dd" id="sdate"> <select
+                        name=stime class="input-sm form-control input-s-sm inline"
+                        id="stime">
+                        <option value="0" <%if (stimeInt == 0) {%> selected <%}%>>0시</option>
+                        <option value="1" <%if (stimeInt == 1) {%> selected <%}%>>1시</option>
+                        <option value="2" <%if (stimeInt == 2) {%> selected <%}%>>2시</option>
+                        <option value="3" <%if (stimeInt == 3) {%> selected <%}%>>3시</option>
+                        <option value="4" <%if (stimeInt == 4) {%> selected <%}%>>4시</option>
+                        <option value="5" <%if (stimeInt == 5) {%> selected <%}%>>5시</option>
+                        <option value="6" <%if (stimeInt == 6) {%> selected <%}%>>6시</option>
+                        <option value="7" <%if (stimeInt == 7) {%> selected <%}%>>7시</option>
+                        <option value="8" <%if (stimeInt == 8) {%> selected <%}%>>8시</option>
+                        <option value="9" <%if (stimeInt == 9) {%> selected <%}%>>9시</option>
+                        <option value="10" <%if (stimeInt == 10) {%> selected <%}%>>10시</option>
+                        <option value="11" <%if (stimeInt == 11) {%> selected <%}%>>11시</option>
+                        <option value="12" <%if (stimeInt == 12) {%> selected <%}%>>12시</option>
+                        <option value="13" <%if (stimeInt == 13) {%> selected <%}%>>13시</option>
+                        <option value="14" <%if (stimeInt == 14) {%> selected <%}%>>14시</option>
+                        <option value="15" <%if (stimeInt == 15) {%> selected <%}%>>15시</option>
+                        <option value="16" <%if (stimeInt == 16) {%> selected <%}%>>16시</option>
+                        <option value="17" <%if (stimeInt == 17) {%> selected <%}%>>17시</option>
+                        <option value="18" <%if (stimeInt == 18) {%> selected <%}%>>18시</option>
+                        <option value="19" <%if (stimeInt == 19) {%> selected <%}%>>19시</option>
+                        <option value="20" <%if (stimeInt == 20) {%> selected <%}%>>20시</option>
+                        <option value="21" <%if (stimeInt == 21) {%> selected <%}%>>21시</option>
+                        <option value="22" <%if (stimeInt == 22) {%> selected <%}%>>22시</option>
+                        <option value="23" <%if (stimeInt == 23) {%> selected <%}%>>23시</option>
+                     </select> ~ <input
+									class="input-sm input-s-sm datepicker-input form-control"
+									type="text" name="edate" value="${param['edate']}"
+									data-date-format="yyyy-mm-dd" id="edate"> <select
+                        name=etime class="input-sm form-control input-s-sm inline"
+                        id="etime">
+                        <option value="0" <%if (etimeInt == 0) {%> selected <%}%>>0시</option>
+                        <option value="1" <%if (etimeInt == 1) {%> selected <%}%>>1시</option>
+                        <option value="2" <%if (etimeInt == 2) {%> selected <%}%>>2시</option>
+                        <option value="3" <%if (etimeInt == 3) {%> selected <%}%>>3시</option>
+                        <option value="4" <%if (etimeInt == 4) {%> selected <%}%>>4시</option>
+                        <option value="5" <%if (etimeInt == 5) {%> selected <%}%>>5시</option>
+                        <option value="6" <%if (etimeInt == 6) {%> selected <%}%>>6시</option>
+                        <option value="7" <%if (etimeInt == 7) {%> selected <%}%>>7시</option>
+                        <option value="8" <%if (etimeInt == 8) {%> selected <%}%>>8시</option>
+                        <option value="9" <%if (etimeInt == 9) {%> selected <%}%>>9시</option>
+                        <option value="10" <%if (etimeInt == 10) {%> selected <%}%>>10시</option>
+                        <option value="11" <%if (etimeInt == 11) {%> selected <%}%>>11시</option>
+                        <option value="12" <%if (etimeInt == 12) {%> selected <%}%>>12시</option>
+                        <option value="13" <%if (etimeInt == 13) {%> selected <%}%>>13시</option>
+                        <option value="14" <%if (etimeInt == 14) {%> selected <%}%>>14시</option>
+                        <option value="15" <%if (etimeInt == 15) {%> selected <%}%>>15시</option>
+                        <option value="16" <%if (etimeInt == 16) {%> selected <%}%>>16시</option>
+                        <option value="17" <%if (etimeInt == 17) {%> selected <%}%>>17시</option>
+                        <option value="18" <%if (etimeInt == 18) {%> selected <%}%>>18시</option>
+                        <option value="19" <%if (etimeInt == 19) {%> selected <%}%>>19시</option>
+                        <option value="20" <%if (etimeInt == 20) {%> selected <%}%>>20시</option>
+                        <option value="21" <%if (etimeInt == 21) {%> selected <%}%>>21시</option>
+                        <option value="22" <%if (etimeInt == 22) {%> selected <%}%>>22시</option>
+                        <option value="23" <%if (etimeInt == 23) {%> selected <%}%>>23시</option>
+                     </select>
+							</div>
+							<input type=hidden name="wherefrom" value="시간"> <input
+								type=hidden name="sdate_m" value="${param['sdate_m']}">
+							<input type=hidden name="edate_m" value="${param['edate_m']}">
+							<input type=hidden name="code" value="${param['code']}" id="code">
+							<div class="col-xs-12 text-right">
+								<button class="btn btn-sm btn-default" id="search"
+									onclick="searchData();">
+									<i class="fa fa-search"></i> 검색
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- </form> -->
-			<div class="table-responsive" id="result">
-				<table class="table table-striped b-t-blue">
-					<thead>
-						<tr>
-							<th width="5"></th>
-							<th width="80">검침일시</th>
-							<th width="70">검침값</th>
-							<th width="70">사용량</th>
-						</tr>
-					</thead>
-					<tbody>
-						<%
-							for (int i = 0; i < array_list.size(); i++) {
-						%>
-						<tr>
-							<td><%=i + 1%></td>
-							<td><%=array_list.get(i).getDate()%></td>
-							<td><%=array_list.get(i).getConsumed()%></td>
-							<td></td>
-						</tr>
-						<%
-							}
-						%>
-					</tbody>
-				</table>
+				<!-- </form> -->
+				<div class="table-responsive" id="result">
+					<table class="table table-striped b-t-blue">
+						<thead>
+							<tr>
+								<th width="5"></th>
+								<th width="80">검침일시</th>
+								<th width="70">검침값</th>
+								<th width="70">사용량</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (int i = 0; i < array_list.size(); i++) {
+							%>
+							<tr>
+								<td><%=i + 1%></td>
+								<td><%=array_list.get(i).getDate()%></td>
+								<td><%=array_list.get(i).getConsumed()%></td>
+								<td></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-6 p-l-none">

@@ -56,7 +56,7 @@
 		edate_m = mSimpleDateFormat_m.format(currentDate);
 	
 	if (request.getParameter("stime") == null)
-		stime = "0";
+		stime = "1";
 	if (request.getParameter("etime") == null)
 		etime = "10";
 

@@ -14,7 +14,7 @@
 	String edate = request.getParameter("edate");
 	String sdate_m = request.getParameter("sdate_m");
 	String edate_m = request.getParameter("edate_m");
-	
+
 	String sdate2 = sdate_m + "-01";
 	String edate2 = edate_m + "-31";
 
@@ -115,8 +115,9 @@
 <body>
 	<div class="row padder">
 		<div class="col-md-6 p-r-none">
-			<!-- 검색조건 -->
-			<!-- <form action="windowopen_temp.jsp?page=month" method="post"
+			<div class="panel">
+				<!-- 검색조건 -->
+				<!-- <form action="windowopen_temp.jsp?page=month" method="post"
 				id=search_form> -->
 				<div class="well">
 					<div class="row text-sm">
@@ -132,10 +133,10 @@
 									data-date-format="yyyy-mm" id="edate_m"
 									onchange="changeData(this.value);">
 							</div>
-							<input type=hidden name="wherefrom" value="월">
-							<input type=hidden name="sdate" value="${param['sdate']}">
-							<input type=hidden name="edate" value="${param['edate']}">
-							<input type=hidden name="code" value="${param['code']}" id="code">
+							<input type=hidden name="wherefrom" value="월"> <input
+								type=hidden name="sdate" value="${param['sdate']}"> <input
+								type=hidden name="edate" value="${param['edate']}"> <input
+								type=hidden name="code" value="${param['code']}" id="code">
 							<div class="col-xs-12 text-right">
 								<button class="btn btn-sm btn-default" id="search"
 									onclick="searchData();">
@@ -145,32 +146,34 @@
 						</div>
 					</div>
 				</div>
-			<!-- </form> -->
-			<div class="table-responsive" id="result">
-				<table class="table table-striped b-t-blue">
-					<thead>
-						<tr>
-							<th width="5"></th>
-							<th width="80">검침월</th>
-							<th width="70">검침값</th>
-							<th width="70">사용량</th>
-						</tr>
-					</thead>
-					<tbody>
-						<%
-							for (int i = 0; i < array_list.size(); i++) {
-						%>
-						<tr>
-							<td><%=i + 1%></td>
-							<td><%=array_list.get(i).getDate()%></td>
-							<td><%=array_list.get(i).getConsumed()%></td>
-							<td></td>
-						</tr>
-						<%
-							}
-						%>
-					</tbody>
-				</table>
+				<!-- </form> -->
+
+				<div class="table-responsive" id="result">
+					<table class="table table-striped b-t-blue">
+						<thead>
+							<tr>
+								<th width="5"></th>
+								<th width="80">검침월</th>
+								<th width="70">검침값</th>
+								<th width="70">사용량</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (int i = 0; i < array_list.size(); i++) {
+							%>
+							<tr>
+								<td><%=i + 1%></td>
+								<td><%=array_list.get(i).getDate()%></td>
+								<td><%=array_list.get(i).getConsumed()%></td>
+								<td></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-6 p-l-none">
