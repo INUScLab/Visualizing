@@ -1192,11 +1192,15 @@ function hide(){
 	if((hidebutton%2)==1){
 		$('#sidebar').hide();
 		$('#hidebutton').css({left: '14.5em'});
+		$('#hidebutton').removeClass('spmh spmh_aside_close').addClass('spmh spmh_aside_open');
+		
 		hidebutton++;
+		
 	}
 	else{
 		$('#sidebar').show();
 		$('#hidebutton').css({left: '34.5em'});
+		$('#hidebutton').removeClass('spmh spmh_aside_open').addClass('spmh spmh_aside_close');
 		hidebutton++;
 	}
 	

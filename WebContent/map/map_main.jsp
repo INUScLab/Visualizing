@@ -282,7 +282,8 @@ summaryReportList.push( {
 						<!--vbox-->
 					</aside>
 					
-					<a href="#" class="spmh spmh_aside_close nclicks(mtw.lwfold) title="fold" onclick="hide()" style="left: 14.5em;" id="hidebutton" >본문 컨텐츠 접기</a>
+					<a href="#" class="spmh spmh_aside_open" title="fold" onclick="hide()" style="left: 14.5em;" id="hidebutton" nclicks(mtw.lwfold)>본문 컨텐츠 접기</a>
+					
 
 					<!-- 상단영역 -->
 					<section class="vbox">
