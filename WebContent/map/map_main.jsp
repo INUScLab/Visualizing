@@ -141,7 +141,7 @@ summaryReportList.push( {
 							src="../images/logo.png" alt="수도검침서비스" /></a>
 					</header>
 					<!-- //웹,타블렛 -->
-
+					<!-- 좌측 메뉴 -->
 					<section class="scrollable">
 						<div class="slim-scroll" data-height="auto"
 							data-disabsle-fade-out="true" data-distance="0" data-size="5px">
@@ -167,9 +167,18 @@ summaryReportList.push( {
 											<li><a href="../analysis/analysisDay.jsp">일별 통계</a></li>
 											<li><a href="../analysis/analysisMonth.jsp">월별 통계</a></li>
 											<li><a href="../analysis/analysisYear.jsp">년별 통계</a></li>
-											<li><a href="../analysis/analysisLocal.jsp">지역별 통계
-													순위</a></li>
+											
 										</ul></li>
+									<li><a href="#"> <span class="pull-right auto">
+												<i class="fa fa-angle-down text"></i> <i
+												class="fa fa-angle-up text-active"></i>
+										</span>  <span>빅데이터 분석</span>
+									</a>
+										<ul class="nav none dker">
+											<li><a href="../biganalysis/analysisLocal.jsp">지역별 부가서비스 분석</a></li>
+											<li><a href="../biganalysis/analysisWateruse.jsp">지역별 사용량 분석</a></li>
+										</ul></li>	
+										
 									<li><a href="#" class="dropdown-toggle"> <span
 											class="pull-right auto"> <i
 												class="fa fa-angle-down text"></i> <i
@@ -180,6 +189,7 @@ summaryReportList.push( {
 											<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
 											<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
 										</ul></li>
+									
 									<li><a href="#"> <span class="pull-right auto">
 												<i class="fa fa-angle-down text"></i> <i
 												class="fa fa-angle-up text-active"></i>
@@ -196,7 +206,7 @@ summaryReportList.push( {
 										</span> <span>관리자</span>
 									</a>
 										<ul class="nav none dker">
-											<li><a href="#">로그이력</a></li>
+											<li><a href="../log_administor/log.jsp">로그이력</a></li>
 											<li><a href="#">시스템 관리</a></li>
 										</ul></li>
 								</ul>

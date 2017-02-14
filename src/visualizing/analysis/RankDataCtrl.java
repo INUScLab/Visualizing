@@ -44,6 +44,8 @@ public class RankDataCtrl {
          this.endday = edate;
       }
    
+   
+   
    ArrayList<ArrayList<String>> getRanks(String column) {
       
       ArrayList<ArrayList<String>> datas = new ArrayList<ArrayList<String>>();
@@ -91,7 +93,6 @@ public class RankDataCtrl {
          while(rs.next()){
             System.out.println("HI IM INSIDE");
             ArrayList<String> temp = new ArrayList<String>();
-            
             temp.add(rs.getString("u.code"));
             System.out.println("HI IM INSIDE Num1 : " + rs.getString("u.code"));
             temp.add(rs.getString(column));
@@ -115,7 +116,7 @@ public class RankDataCtrl {
 
       try {
          
-         for(int i=0; i<4; i++){
+         for(int i=0; i<10; i++){
             
             ArrayList<String> temp = new ArrayList<String>();
             
@@ -192,6 +193,10 @@ public class RankDataCtrl {
       return_data.setBreakage_rank(getRanks("sum(breakage)"));
       return_data.setReverse_rank(getRanks("sum(reverse)"));
       return_data.setAbsence_rank(getRanks("sum(absence)"));
+      return_data.setConsumed_rank(getRanks("sum(consumed)"));
+      return_data.setPredictedConsumed_rank(getRanks("sum(abs(consumed-predicted))"));
+      return_data.setCount( getRanks("count(*)"));
+      
       
       // 상위 랭킹의 한달간 데이터 받아오기
       return_data.setUpper_leak_data(getUpperDatas("sum(leak)",return_data.getLeak_rank()));
@@ -200,6 +205,8 @@ public class RankDataCtrl {
       return_data.setUpper_breakage_data(getUpperDatas("sum(breakage)",return_data.getBreakage_rank()));
       return_data.setUpper_reverse_data(getUpperDatas("sum(reverse)",return_data.getReverse_rank()));
       return_data.setUpper_absence_data(getUpperDatas("sum(absence)",return_data.getAbsence_rank()));
+      return_data.setUpper_consumed_data(getUpperDatas("sum(consumed)",return_data.getConsumed_rank()));
+      return_data.setUpper_predicted_consumed_data(getUpperDatas("sum(abs(consumed-predicted))",return_data.getPredictedConsumed_rank()));
       
       // DB연결 해제
       disconnect();
@@ -207,18 +214,5 @@ public class RankDataCtrl {
       return return_data;
    }
    
-   public RankData returnCodeDatas(String code, String sdate, String edate){
-         
-         RankData return_data = new RankData();
-         
-         setParameters(code, sdate, edate);
-         
-         return_data.setTest(getTest("consumed"));
-         return_data.setUpper_consumed_data(getComsumedDatas("consumed",return_data.getTest()));
-         
-         // DB연결 해제
-         disconnect();
-         
-         return return_data;
-      }
+  
 }

@@ -17,6 +17,8 @@
 <%
 	String si = request.getParameter("si");
 	String guGun = request.getParameter("guGun");
+	String startdate = request.getParameter("sdate");
+	String enddate = request.getParameter("edate");
 	
 	if (si == null || si.equals(""))
 		si = "인천광역시";
@@ -37,7 +39,8 @@
     String temp = DateFormat.format(cal.getTime());
     String textDate2 = DateFormat.format(cal.getTime());
 	
-	RankData rd_data = rdctrl.returnDatas(si, guGun, edate, date);
+    RankData rd_data = rdctrl.returnDatas(si, guGun, edate, date);
+    
 	
 %>
 
@@ -102,14 +105,12 @@
          ['<%=rd_data.getLeak_rank().get(1).get(0)%>', <%=rd_data.getLeak_rank().get(1).get(1)%>, '#7DCDF2'],  
          ['<%=rd_data.getLeak_rank().get(2).get(0)%>', <%=rd_data.getLeak_rank().get(2).get(1)%>, '#33B1EB'],
 		 ['<%=rd_data.getLeak_rank().get(3).get(0)%>', <%=rd_data.getLeak_rank().get(3).get(1)%>, '#1871CD'],
-		 
         ]);
 		
 		// Set options for chart.
 		var options = {
 			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
 	        legend: { position: "none" },
-	        pieSliceText: 'label',
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '누수 횟수',
 	        	minValue : 0,
@@ -139,7 +140,6 @@
 		var options = {
 			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
 			legend: { position: "none" },
-			pieSliceText: 'label',
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '동파 횟수',
 	        	minValue : 0,
@@ -155,6 +155,8 @@
 	
 	// 비만관 랭킹 그래프
 	function drawFatRankChart() {
+		<%System.out.println(startdate);%>
+	
 
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -169,7 +171,6 @@
 		var options = {
 			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
 			legend: { position: "none" },
-			pieSliceText: 'label',
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '비만관 횟수',
 	        	minValue : 0,
@@ -199,7 +200,6 @@
 		var options = {
 			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
 			legend: { position: "none" },
-			pieSliceText: 'label',
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '파손 횟수',
 	        	minValue : 0,
@@ -229,7 +229,6 @@
 		var options = {
 			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
 			legend: { position: "none" },
-			pieSliceText: 'label',
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '역류 횟수',
 	        	minValue : 0,
@@ -259,7 +258,6 @@
 		var options = {
 			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
 			legend: { position: "none" },
-			pieSliceText: 'label',
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '부재중 횟수',
 	        	minValue : 0,
@@ -306,13 +304,10 @@
 		chart.draw(data, options);
 	}
 	
-
-	
 	// 동파 상위 데이터 그래프
 	function drawUpperFreezedRankChart() {
 		
 		<%textDate2 = temp;%>
-		
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
@@ -505,78 +500,67 @@
 				<!-- //웹,타블렛 -->
 
 				<!-- 좌측 메뉴 -->
-					<section class="scrollable">
-						<div class="slim-scroll" data-height="auto"
-							data-disabsle-fade-out="true" data-distance="0" data-size="5px">
-							<nav class="nav-primary hidden-xs" data-ride="collapse">
-								<ul class="nav">
-									<li><a href="#" class="dropdown-toggle"> <span
-											class="pull-right auto"> <i
-												class="fa fa-angle-down text"></i> <i
-												class="fa fa-angle-up text-active"></i>
-										</span> <span>검침조회</span>
-									</a>
-										<ul class="nav none dker">
-											<li><a href="../read/readDay.jsp">일별 검침조회</a></li>
-											<li><a href="../read/readMonth.jsp">월별 검침조회</a></li>
-										</ul></li>
-									<li><a href="#" class="dropdown-toggle"> <span
-											class="pull-right auto"> <i
-												class="fa fa-angle-down text"></i> <i
-												class="fa fa-angle-up text-active"></i>
-										</span> <span>통계분석</span>
-									</a>
-										<ul class="nav none dker">
-											<li><a href="../analysis/analysisDay.jsp">일별 통계</a></li>
-											<li><a href="../analysis/analysisMonth.jsp">월별 통계</a></li>
-											<li><a href="../analysis/analysisYear.jsp">년별 통계</a></li>
-											
-										</ul></li>
-									<li><a href="#"> <span class="pull-right auto">
-												<i class="fa fa-angle-down text"></i> <i
-												class="fa fa-angle-up text-active"></i>
-										</span>  <span>빅데이터 분석</span>
-									</a>
-										<ul class="nav none dker">
-											<li><a href="../biganalysis/analysisLocal.jsp">지역별 부가서비스 분석</a></li>
-											<li><a href="../biganalysis/analysisWateruse.jsp">지역별 사용량 분석</a></li>
-										</ul></li>	
-										
-									<li><a href="#" class="dropdown-toggle"> <span
-											class="pull-right auto"> <i
-												class="fa fa-angle-down text"></i> <i
-												class="fa fa-angle-up text-active"></i>
-										</span> <span>리포트</span>
-									</a>
-										<ul class="nav none dker">
-											<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
-											<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
-										</ul></li>
-									
-									<li><a href="#"> <span class="pull-right auto">
-												<i class="fa fa-angle-down text"></i> <i
-												class="fa fa-angle-up text-active"></i>
-										</span> <span>장애관리</span>
-									</a>
-										<ul class="nav none dker">
-											<li><a href="#">검침기기 상태조회</a></li>
-											<li><a href="#">검침값 상태조회</a></li>
-											<li><a href="#">통신 상태조회</a></li>
-										</ul></li>
-									<li><a href="#"> <span class="pull-right auto">
-												<i class="fa fa-angle-down text"></i> <i
-												class="fa fa-angle-up text-active"></i>
-										</span> <span>관리자</span>
-									</a>
-										<ul class="nav none dker">
-											<li><a href="#">로그이력</a></li>
-											<li><a href="#">시스템 관리</a></li>
-										</ul></li>
-								</ul>
-							</nav>
-						</div>
-					</section>
-					<!-- //좌측 메뉴 -->
+				<section class="scrollable">
+					<div class="slim-scroll" data-height="auto"
+						data-disabsle-fade-out="true" data-distance="0" data-size="5px">
+						<nav class="nav-primary hidden-xs" data-ride="collapse">
+							<ul class="nav">
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>검침조회</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="../read/readDay.jsp">일별 검침조회</a></li>
+										<li><a href="../read/readMonth.jsp">월별 검침조회</a></li>
+									</ul></li>
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>통계분석</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="../analysis/analysisDay.jsp">일별 통계</a></li>
+										<li><a href="../analysis/analysisMonth.jsp">월별 통계</a></li>
+										<li><a href="../analysis/analysisYear.jsp">년별 통계</a></li>
+										<li><a href="../analysis/analysisLocal.jsp">지역별 통계 순위</a></li>
+									</ul></li>
+								<li><a href="#" class="dropdown-toggle"> <span
+										class="pull-right auto"> <i
+											class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>리포트</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
+										<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
+									</ul></li>
+								<li><a href="#"> <span class="pull-right auto">
+											<i class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>장애관리</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="#">검침기기 상태조회</a></li>
+										<li><a href="#">검침값 상태조회</a></li>
+										<li><a href="#">통신 상태조회</a></li>
+									</ul></li>
+								<li><a href="#"> <span class="pull-right auto">
+											<i class="fa fa-angle-down text"></i> <i
+											class="fa fa-angle-up text-active"></i>
+									</span> <span>관리자</span>
+								</a>
+									<ul class="nav none dker">
+										<li><a href="#">로그이력</a></li>
+										<li><a href="#">시스템 관리</a></li>
+									</ul></li>
+							</ul>
+						</nav>
+					</div>
+				</section>
+				<!-- //좌측 메뉴 -->
 			</section>
 		</aside>
 		<!-- /.aside -->
@@ -662,7 +646,8 @@
 								<!-- 상세화면-->
 								<div class="row padder">
 									<div class="col-md-12">
-									<form action="analysisLocal.jsp" method="post" id=search_form>
+									
+									<form action="analysisLocal_backup.jsp" method="post" id=search_form>
 											<div class="well">
 												<div class="row text-sm">
 													<div class="col-sm-4">
@@ -694,16 +679,6 @@
 																	type="text" name="edate" value="${param['edate']}"
 																	data-date-format="yyyy-mm-dd" id="edate">
 															</div>
-														</div>
-													</div>
-													
-													<div class="col-sm-4 p-l-none">
-														<div class="form-group m-b-none">
-															<label class="col-lg-3 control-label">Top</label>
-															<div class="col-lg-7 form-inline">
-																<input type="number" name="quantity" min="1" max="10">
-															</div>
-															
 														</div>
 													</div>
 													

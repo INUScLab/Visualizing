@@ -26,6 +26,7 @@ public class Login {
    public String checkId(String id,String pw){
       
       String sql = "select strcmp((select SHA2(\"" + pw + "\",512)),(select password from ADMIN where id =\"" + id +"\")) as checkId;"; // 쿼리
+      System.out.println(sql);
       String value = null;
       
       try {

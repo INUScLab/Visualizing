@@ -9,12 +9,15 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
+	String []color = {"#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"};
 %>
 
 
 <jsp:useBean id="rdctrl" class="visualizing.analysis.RankDataCtrl" />
 
 <%
+	String topnum = request.getParameter("topget");
+	
 	String si = request.getParameter("si");
 	String guGun = request.getParameter("guGun");
 	
@@ -31,13 +34,31 @@
 	String textDate = DateFormat.format(currentDate);
 	
 	Calendar cal = Calendar.getInstance();
- 	cal.setTime(currentDate);
+ 	
  	cal.add(Calendar.DATE, -6);
     String edate = mSimpleDateFormat.format(cal.getTime());
     String temp = DateFormat.format(cal.getTime());
+    
     String textDate2 = DateFormat.format(cal.getTime());
-	
-	RankData rd_data = rdctrl.returnDatas(si, guGun, edate, date);
+    String startDay = request.getParameter("sdate");
+    String endDay = request.getParameter("edate");
+    
+    if(startDay==null)
+    	startDay = edate;
+    
+    if(endDay==null)
+    	endDay = date;
+    
+    Date temp2 = mSimpleDateFormat.parse(startDay);
+    String temp3 = DateFormat.format(temp2);
+    System.out.println(temp3);
+    
+    //String temp2 = startDay;
+    //String startDay = request.getParameter("sdate");
+    //String endDay = request.getParameter("edate");
+	//System.out.println(startDay);
+	//System.out.println(endDay);
+	RankData rd_data = rdctrl.returnDatas(si, guGun, startDay, endDay);
 	
 %>
 
@@ -94,22 +115,39 @@
 	
 	// 누수 랭킹 그래프
 	function drawLeakRankChart() {
-
+		
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
+		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getLeak_rank().get(0).get(0)%>', <%=rd_data.getLeak_rank().get(0).get(1)%>, '#FF4943'],
-         ['<%=rd_data.getLeak_rank().get(1).get(0)%>', <%=rd_data.getLeak_rank().get(1).get(1)%>, '#7DCDF2'],  
-         ['<%=rd_data.getLeak_rank().get(2).get(0)%>', <%=rd_data.getLeak_rank().get(2).get(1)%>, '#33B1EB'],
-		 ['<%=rd_data.getLeak_rank().get(3).get(0)%>', <%=rd_data.getLeak_rank().get(3).get(1)%>, '#1871CD'],
+         <%for(int i=0;i<Integer.parseInt(topnum);i++){ %>
+         	['<%=rd_data.getLeak_rank().get(i).get(0)%>', <%=rd_data.getLeak_rank().get(i).get(1)%>, '<%=color[i]%>'],
+         <%}%>
+     
 		 
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 	        legend: { position: "none" },
 	        pieSliceText: 'label',
+	        pieSliceTextStyle: {
+	            color: 'black',
+	          },
+	        pieSliceTextStyle: {
+	            color: 'black',
+	          },
+	          chartArea: {
+	              left: 0,
+	              height: 250,
+	              width: 600
+	            },
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '누수 횟수',
 	        	minValue : 0,
@@ -126,20 +164,36 @@
 	// 동파 랭킹 그래프
 	function drawFreezedRankChart() {
 
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getFreezed_rank().get(0).get(0)%>', <%=rd_data.getFreezed_rank().get(0).get(1)%>, '#FF4943'], 
-         ['<%=rd_data.getFreezed_rank().get(1).get(0)%>', <%=rd_data.getFreezed_rank().get(1).get(1)%>, '#7DCDF2'],
-         ['<%=rd_data.getFreezed_rank().get(2).get(0)%>', <%=rd_data.getFreezed_rank().get(2).get(1)%>, '#33B1EB'],
-		 ['<%=rd_data.getFreezed_rank().get(3).get(0)%>', <%=rd_data.getFreezed_rank().get(3).get(1)%>, '#1871CD'],
+         <%for(int i=0;i<Integer.parseInt(topnum);i++){ %>
+      	['<%=rd_data.getFreezed_rank().get(i).get(0)%>', <%=rd_data.getFreezed_rank().get(i).get(1)%>, '<%=color[i]%>'],
+      	<%}%>
+      	
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			legend: { position: "none" },
 			pieSliceText: 'label',
+			pieSliceTextStyle: {
+	            color: 'black',
+	          },
+			pieSliceTextStyle: {
+	            color: 'black',
+	          },
+	          chartArea: {
+	              left: 0,
+	              height: 250,
+	              width: 600
+	            },
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '동파 횟수',
 	        	minValue : 0,
@@ -155,21 +209,35 @@
 	
 	// 비만관 랭킹 그래프
 	function drawFatRankChart() {
+		
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+	
+		document.getElementById('topnumber').value = <%=topnum%>;
 
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getFat_rank().get(0).get(0)%>', <%=rd_data.getFat_rank().get(0).get(1)%>, '#FF4943'],
-         ['<%=rd_data.getFat_rank().get(1).get(0)%>', <%=rd_data.getFat_rank().get(1).get(1)%>, '#7DCDF2'],
-         ['<%=rd_data.getFat_rank().get(2).get(0)%>', <%=rd_data.getFat_rank().get(2).get(1)%>, '#33B1EB'],
-		 ['<%=rd_data.getFat_rank().get(3).get(0)%>', <%=rd_data.getFat_rank().get(3).get(1)%>, '#1871CD'],
+         <%for(int i=0;i<Integer.parseInt(topnum);i++){ %>
+       	['<%=rd_data.getFat_rank().get(i).get(0)%>', <%=rd_data.getFat_rank().get(i).get(1)%>, '<%=color[i]%>'],
+       	<%}%>
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			legend: { position: "none" },
 			pieSliceText: 'label',
+			pieSliceTextStyle: {
+	            color: 'black',
+	          },
+	          chartArea: {
+	              left: 0,
+	              height: 250,
+	              width: 600
+	            },
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '비만관 횟수',
 	        	minValue : 0,
@@ -186,20 +254,34 @@
 	// 파손 랭킹 그래프
 	function drawBreakageRankChart() {
 
+		
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		
+		document.getElementById('topnumber').value = <%=topnum%>;
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getBreakage_rank().get(0).get(0)%>', <%=rd_data.getBreakage_rank().get(0).get(1)%>, '#FF4943'],
-         ['<%=rd_data.getBreakage_rank().get(1).get(0)%>', <%=rd_data.getBreakage_rank().get(1).get(1)%>, '#7DCDF2'],
-         ['<%=rd_data.getBreakage_rank().get(2).get(0)%>', <%=rd_data.getBreakage_rank().get(2).get(1)%>, '#33B1EB'],
-		 ['<%=rd_data.getBreakage_rank().get(3).get(0)%>', <%=rd_data.getBreakage_rank().get(3).get(1)%>, '#1871CD'],
+         <%for(int i=0;i<Integer.parseInt(topnum);i++){ %>
+       	['<%=rd_data.getBreakage_rank().get(i).get(0)%>', <%=rd_data.getBreakage_rank().get(i).get(1)%>, '<%=color[i]%>'],
+       	<%}%>
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			legend: { position: "none" },
 			pieSliceText: 'label',
+			pieSliceTextStyle: {
+	            color: 'black',
+	          },
+	          chartArea: {
+	              left: 0,
+	              height: 250,
+	              width: 600
+	            },
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '파손 횟수',
 	        	minValue : 0,
@@ -216,20 +298,34 @@
 	// 역류 랭킹 그래프
 	function drawReverseRankChart() {
 
+		
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		
+		document.getElementById('topnumber').value = <%=topnum%>;
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getReverse_rank().get(0).get(0)%>', <%=rd_data.getReverse_rank().get(0).get(1)%>, '#FF4943'],
-         ['<%=rd_data.getReverse_rank().get(1).get(0)%>', <%=rd_data.getReverse_rank().get(1).get(1)%>, '#7DCDF2'],
-         ['<%=rd_data.getReverse_rank().get(2).get(0)%>', <%=rd_data.getReverse_rank().get(2).get(1)%>, '#33B1EB'],
-		 ['<%=rd_data.getReverse_rank().get(3).get(0)%>', <%=rd_data.getReverse_rank().get(3).get(1)%>, '#1871CD'],
+         <%for(int i=0;i<Integer.parseInt(topnum);i++){ %>
+       	['<%=rd_data.getReverse_rank().get(i).get(0)%>', <%=rd_data.getReverse_rank().get(i).get(1)%>, '<%=color[i]%>'],
+       	<%}%>
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			legend: { position: "none" },
 			pieSliceText: 'label',
+			pieSliceTextStyle: {
+	            color: 'black',
+	          },
+	          chartArea: {
+	              left: 0,
+	              height: 250,
+	              width: 600
+	            },
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '역류 횟수',
 	        	minValue : 0,
@@ -246,20 +342,33 @@
 	// 부재중 랭킹 그래프
 	function drawAbsenceRankChart() {
 
+		
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
          ['Element', 'Density', { role: 'style' }],
-         ['<%=rd_data.getAbsence_rank().get(0).get(0)%>', <%=rd_data.getAbsence_rank().get(0).get(1)%>, '#FF4943'],
-         ['<%=rd_data.getAbsence_rank().get(1).get(0)%>', <%=rd_data.getAbsence_rank().get(1).get(1)%>, '#7DCDF2'],
-         ['<%=rd_data.getAbsence_rank().get(2).get(0)%>', <%=rd_data.getAbsence_rank().get(2).get(1)%>, '#33B1EB'],
-		 ['<%=rd_data.getAbsence_rank().get(3).get(0)%>', <%=rd_data.getAbsence_rank().get(3).get(1)%>, '#1871CD'],
+         <%for(int i=0;i<Integer.parseInt(topnum);i++){ %>
+       	['<%=rd_data.getAbsence_rank().get(i).get(0)%>', <%=rd_data.getAbsence_rank().get(i).get(1)%>, '<%=color[i]%>'],
+       	<%}%>
         ]);
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			legend: { position: "none" },
 			pieSliceText: 'label',
+			pieSliceTextStyle: {
+	            color: 'black',
+	          },
+	          chartArea: {
+	              left: 0,
+	              height: 250,
+	              width: 600
+	            },
 	        hAxis: {title: '읍/면/동'},
 	        vAxis: {title: '부재중 횟수',
 	        	minValue : 0,
@@ -275,15 +384,30 @@
 	// 누수 상위 데이터 그래프
 	function drawUpperLeakRankChart() {
 		
-		<%textDate2 = temp;%>
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		//System.out.println(rd_data.getUpper_leak_data().get(2)); //7일 동안에 대한 각 누수횟수
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
+	
+		
+		
+		<%textDate2 = temp3;%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
-         ['Date', '<%=rd_data.getLeak_rank().get(0).get(0)%>','<%=rd_data.getLeak_rank().get(1).get(0)%>','<%=rd_data.getLeak_rank().get(2).get(0)%>','<%=rd_data.getLeak_rank().get(3).get(0)%>'],
-         <% for(int i=0; i<rd_data.getUpper_leak_data().get(0).size(); i++){ %>
-         [ '<%=textDate2%>' ,<%=rd_data.getUpper_leak_data().get(0).get(i)%>, <%=rd_data.getUpper_leak_data().get(1).get(i)%>, <%=rd_data.getUpper_leak_data().get(2).get(i)%>, <%=rd_data.getUpper_leak_data().get(3).get(i)%>],
+         ['Date', 
+        	 <% for(int i=0; i<Integer.parseInt(topnum);i++){%>
+        	 '<%=rd_data.getLeak_rank().get(i).get(0)%>',
+        	 <%}%>],
+        	 <% for(int i=0; i<rd_data.getUpper_leak_data().get(0).size(); i++){ %>
+         [ '<%=textDate2%>', <%for(int j=0;j<Integer.parseInt(topnum);j++){%><%=rd_data.getUpper_leak_data().get(j).get(i)%>,<%}%>],
          <%// 시간 더하기
           Date sdate = DateFormat.parse(textDate2);
+          //System.out.println(temp);
+          //System.out.println(temp2);
+         
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
 	      textDate2 = DateFormat.format(cal.getTime()); 
@@ -292,7 +416,7 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 	        hAxis: {title: '날짜'},
 	        vAxis: {title: '누수 횟수',
 	        	minValue : 0,
@@ -300,7 +424,7 @@
 					min : 0
 				}}
 		};
-
+		
 		// Instantiate and draw the chart
 		var chart = new google.visualization.ColumnChart(document.getElementById('leak_upper_chart_div'));
 		chart.draw(data, options);
@@ -311,14 +435,23 @@
 	// 동파 상위 데이터 그래프
 	function drawUpperFreezedRankChart() {
 		
-		<%textDate2 = temp;%>
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
+		<%textDate2 = temp3;%>
 		
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
-         ['Date', '<%=rd_data.getFreezed_rank().get(0).get(0)%>','<%=rd_data.getFreezed_rank().get(1).get(0)%>','<%=rd_data.getFreezed_rank().get(2).get(0)%>','<%=rd_data.getFreezed_rank().get(3).get(0)%>'],
-         <% for(int i=0; i<rd_data.getUpper_freezed_data().get(0).size(); i++){ %>
-         [ '<%=textDate2%>' ,<%=rd_data.getUpper_freezed_data().get(0).get(i)%>, <%=rd_data.getUpper_freezed_data().get(1).get(i)%>, <%=rd_data.getUpper_freezed_data().get(2).get(i)%>, <%=rd_data.getUpper_freezed_data().get(3).get(i)%>],
+         ['Date',
+        	 <% for(int i=0; i<Integer.parseInt(topnum);i++){%>
+        	 '<%=rd_data.getFreezed_rank().get(i).get(0)%>',
+        	 <%}%>],
+        	 <% for(int i=0; i<rd_data.getUpper_freezed_data().get(0).size(); i++){ %>
+         [ '<%=textDate2%>', <%for(int j=0;j<Integer.parseInt(topnum);j++){%><%=rd_data.getUpper_freezed_data().get(j).get(i)%>,<%}%>],
+    
          <%// 시간 더하기
           Date sdate = DateFormat.parse(textDate2);
 	   	  cal.setTime(sdate);
@@ -329,7 +462,7 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 	        hAxis: {title: '날짜'},
 	        vAxis: {title: '동파 횟수',
 	        	minValue : 0,
@@ -345,15 +478,25 @@
 	
 	// 비만관 상위 데이터 그래프
 	function drawUpperFatRankChart() {
-		
-		<%textDate2 = temp;%>
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
+		<%textDate2 = temp3;%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
-         ['Date', '<%=rd_data.getFat_rank().get(0).get(0)%>','<%=rd_data.getFat_rank().get(1).get(0)%>','<%=rd_data.getFat_rank().get(2).get(0)%>','<%=rd_data.getFat_rank().get(3).get(0)%>'],
-         <% for(int i=0; i<rd_data.getUpper_fat_data().get(0).size(); i++){ %>
-         [ '<%=textDate2%>' ,<%=rd_data.getUpper_fat_data().get(0).get(i)%>, <%=rd_data.getUpper_fat_data().get(1).get(i)%>, <%=rd_data.getUpper_fat_data().get(2).get(i)%>, <%=rd_data.getUpper_fat_data().get(3).get(i)%>],
-         <%// 시간 더하기
+         ['Date',
+        	 <% for(int i=0; i<Integer.parseInt(topnum);i++){%>
+        	 '<%=rd_data.getFat_rank().get(i).get(0)%>',
+        	 <%}%>],
+        	 <% for(int i=0; i<rd_data.getUpper_fat_data().get(0).size(); i++){ %>
+         [ '<%=textDate2%>', <%for(int j=0;j<Integer.parseInt(topnum);j++){%><%=rd_data.getUpper_fat_data().get(j).get(i)%>,<%}%>],
+         
+         
+        
+        <%// 시간 더하기
           Date sdate = DateFormat.parse(textDate2);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -363,7 +506,7 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			hAxis: {title: '날짜'},
 	        vAxis: {title: '비만관 횟수',
 	        	minValue : 0,
@@ -379,14 +522,22 @@
 	
 	// 파손 상위 데이터 그래프
 	function drawUpperBreakageRankChart() {
-		
-		<%textDate2 = temp;%>
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
+		<%textDate2 = temp3;%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
-         ['Date', '<%=rd_data.getBreakage_rank().get(0).get(0)%>','<%=rd_data.getBreakage_rank().get(1).get(0)%>','<%=rd_data.getBreakage_rank().get(2).get(0)%>','<%=rd_data.getBreakage_rank().get(3).get(0)%>'],
-         <% for(int i=0; i<rd_data.getUpper_breakage_data().get(0).size(); i++){ %>
-         [ '<%=textDate2%>' ,<%=rd_data.getUpper_breakage_data().get(0).get(i)%>, <%=rd_data.getUpper_breakage_data().get(1).get(i)%>, <%=rd_data.getUpper_breakage_data().get(2).get(i)%>, <%=rd_data.getUpper_breakage_data().get(3).get(i)%>],
+         ['Date', 
+        	 <% for(int i=0; i<Integer.parseInt(topnum);i++){%>
+        	 '<%=rd_data.getBreakage_rank().get(i).get(0)%>',
+        	 <%}%>],
+        	 <% for(int i=0; i<rd_data.getUpper_breakage_data().get(0).size(); i++){ %>
+         [ '<%=textDate2%>', <%for(int j=0;j<Integer.parseInt(topnum);j++){%><%=rd_data.getUpper_breakage_data().get(j).get(i)%>,<%}%>],
+         
          <%// 시간 더하기
           Date sdate = DateFormat.parse(textDate2);
 	   	  cal.setTime(sdate);
@@ -397,7 +548,7 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			hAxis: {title: '날짜'},
 	        vAxis: {title: '파손 횟수',
 	        	minValue : 0,
@@ -413,15 +564,25 @@
 	
 	// 역류 상위 데이터 그래프
 	function drawUpperReverseRankChart() {
-
-		<%textDate2 = temp;%>
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
+		<%textDate2 = temp3;%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
-         ['Date', '<%=rd_data.getReverse_rank().get(0).get(0)%>','<%=rd_data.getReverse_rank().get(1).get(0)%>','<%=rd_data.getReverse_rank().get(2).get(0)%>','<%=rd_data.getReverse_rank().get(3).get(0)%>'],
-         <% for(int i=0; i<rd_data.getUpper_reverse_data().get(0).size(); i++){ %>
-         [ '<%=textDate2%>' ,<%=rd_data.getUpper_reverse_data().get(0).get(i)%>, <%=rd_data.getUpper_reverse_data().get(1).get(i)%>, <%=rd_data.getUpper_reverse_data().get(2).get(i)%>, <%=rd_data.getUpper_reverse_data().get(3).get(i)%>],
-         <%// 시간 더하기
+         ['Date', 
+        	 <% for(int i=0; i<Integer.parseInt(topnum);i++){%>
+        	 '<%=rd_data.getReverse_rank().get(i).get(0)%>',
+        	 <%}%>],
+        	 <% for(int i=0; i<rd_data.getUpper_reverse_data().get(0).size(); i++){ %>
+         [ '<%=textDate2%>', <%for(int j=0;j<Integer.parseInt(topnum);j++){%><%=rd_data.getUpper_reverse_data().get(j).get(i)%>,<%}%>],
+         
+         
+        
+        <%// 시간 더하기
           Date sdate = DateFormat.parse(textDate2);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -431,7 +592,7 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			hAxis: {title: '날짜'},
 	        vAxis: {title: '역류 횟수',
 	        	minValue : 0,
@@ -447,15 +608,26 @@
 	
 	// 부재중 상위 데이터 그래프
 	function drawUpperAbsenceRankChart() {
-		
-		<%textDate2 = temp;%>
+		<%topnum = request.getParameter("topget");
+		if(topnum==null)
+			topnum="4";
+		%>
+		document.getElementById('topnumber').value = <%=topnum%>;
+		<%textDate2 = temp3;%>
 		
 		// Create the data table
 		var data = google.visualization.arrayToDataTable([
-         ['Date', '<%=rd_data.getAbsence_rank().get(0).get(0)%>','<%=rd_data.getAbsence_rank().get(1).get(0)%>','<%=rd_data.getAbsence_rank().get(2).get(0)%>','<%=rd_data.getAbsence_rank().get(3).get(0)%>'],
-         <% for(int i=0; i<rd_data.getUpper_absence_data().get(0).size(); i++){ %>
-         [ '<%=textDate2%>' ,<%=rd_data.getUpper_absence_data().get(0).get(i)%>, <%=rd_data.getUpper_absence_data().get(1).get(i)%>, <%=rd_data.getUpper_absence_data().get(2).get(i)%>, <%=rd_data.getUpper_absence_data().get(3).get(i)%>],
-         <%// 시간 더하기
+         ['Date', 
+        	 <% for(int i=0; i<Integer.parseInt(topnum);i++){%>
+        	 '<%=rd_data.getAbsence_rank().get(i).get(0)%>',
+        	 <%}%>],
+        	 <% for(int i=0; i<rd_data.getUpper_absence_data().get(0).size(); i++){ %>
+         [ '<%=textDate2%>', <%for(int j=0;j<Integer.parseInt(topnum);j++){%><%=rd_data.getUpper_absence_data().get(j).get(i)%>,<%}%>],
+         
+         
+         
+        
+        <%// 시간 더하기
           Date sdate = DateFormat.parse(textDate2);
 	   	  cal.setTime(sdate);
 	   	  cal.add(Calendar.DATE, 1);
@@ -465,7 +637,7 @@
 		
 		// Set options for chart.
 		var options = {
-			colors: ['#FF4943', '#7DCDF2','#33B1EB', '#1871CD'],
+			colors: ["#ead0d0", "#f9f5b6", "#1871CD", "#33B1EB", "#7DCDF2", "#FF4943", "#e2b5f4", "#a1d3e2", "#ffcc7f", "#e894a8"],
 			hAxis: {title: '날짜'},
 	        vAxis: {title: '부재중 횟수',
 	        	minValue : 0,
@@ -569,7 +741,7 @@
 										</span> <span>관리자</span>
 									</a>
 										<ul class="nav none dker">
-											<li><a href="#">로그이력</a></li>
+											<li><a href="../log_administor/log.jsp">로그이력</a></li>
 											<li><a href="#">시스템 관리</a></li>
 										</ul></li>
 								</ul>
@@ -651,8 +823,7 @@
 									<div
 										class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
 										<div class="col-sm-4">
-											<h3 class="m-t m-b-none text-primary font-semibold">지역별
-												통계 순위</h3>
+											<h3 class="m-t m-b-none text-primary font-semibold">지역별 부가서비스 분석</h3>
 											<p class="block text-muted">Water Meter Data Management
 												System</p>
 										</div>
@@ -701,7 +872,7 @@
 														<div class="form-group m-b-none">
 															<label class="col-lg-3 control-label">Top</label>
 															<div class="col-lg-7 form-inline">
-																<input type="number" name="quantity" min="1" max="10">
+																<input type="number" name="topget" min="1" max="10" value="4" id="topnumber">
 															</div>
 															
 														</div>

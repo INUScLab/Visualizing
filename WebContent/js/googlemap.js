@@ -482,7 +482,10 @@ function drawConsumerReport( addressArray ){
 
 //누수, 동파, 비만, 파손, 역류, 부재중  동단위 count
 function countTrouble(){
+	
+	
 	for (var i = 0; i < dongInfoList.length; i++) {
+		console.log(dongInfoList[i]);
 		if(dongInfoList[i].leak != 0)
 			leakcount++;
 		if(dongInfoList[i].freezed != 0)
