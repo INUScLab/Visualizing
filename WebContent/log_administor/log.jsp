@@ -89,6 +89,7 @@
 
 <jsp:useBean id="rdctrl" class="visualizing.analysis.RankDataCtrl" />
 <jsp:useBean id="log" class="visualizing.log_administor.adminlog_ctrl"/>
+
 <%
 //logData 가져오기
 ArrayList<adminlog> z = new ArrayList<adminlog>();
@@ -122,18 +123,21 @@ for(int i=0;i<z.size();i++){
 <script src="../js/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="../js/bootstrap.js"></script>
+
 <!-- App -->
 <script src="../js/app.js"></script>
 <script src="../js/app.plugin.js"></script>
 <script src="../js/app.data.js"></script>
+<!-- 저장버튼 클릭시 csv다운로드 -->
+<script src="../js/csv_down.js"></script>
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
 <!--구글 그래프 그리기-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
-
 </script>
+
 </head>
 <body>
 	<section class="hbox stretch">
@@ -325,30 +329,27 @@ for(int i=0;i<z.size();i++){
 
 							</tbody>
 						</table>
-					</div>
-					<footer class="panel-footer">
-						<div class="row">
-							<div class="col-sm-3 hidden-xs"></div>
-							<div class="col-sm-6 text-center text-center">
-								<input type="hidden" name="s_name" />
-								<ul class="pagination pagination-sm m-t-none m-b-none">
-									<li><a
-										href="reportDay.jsp?page_start_num=<%=Integer.parseInt(page_start_num) - 5%>"><i
-											class="fa fa-chevron-left"></i></a></li>
-									<li><a href="#"><%=Integer.parseInt(page_start_num)%></a></li>
-									<li><a href="#"><%=Integer.parseInt(page_start_num) + 1%></a></li>
-									<li><a href="#"><%=Integer.parseInt(page_start_num) + 2%></a></li>
-									<li><a href="#"><%=Integer.parseInt(page_start_num) + 3%></a></li>
-									<li><a href="#"><%=Integer.parseInt(page_start_num) + 4%></a></li>
-									<li><a href="#"
-										onclick="document.getElementById('search_form').submit();"><i
-											class="fa fa-chevron-right"></i></a></li>
-								</ul>
-							</div>
-							<div class="col-sm-3 text-right hidden-xs"></div>
 
-						</div>
-					</footer>
+						<script>
+							var searchedData = [ ];
+						
+						console.log(<%=z.size()%>);
+						
+						<%for (int i = 0; i < z.size(); i++) {%>
+						searchedData.push( {
+							number:"<%=z.get(i).getNum()%>",
+							date:"<%=z.get(i).getDayandtime()%>",
+							id:"<%=z.get(i).getId()%>",
+							ip:"<%=z.get(i).getIp()%>"
+							
+
+							});
+						<%}%>
+						console.log(searchedData);
+							
+						</script>
+					</div>
+					
 				</section>
 			</section>
 		</section>
@@ -366,7 +367,7 @@ for(int i=0;i<z.size();i++){
 				<ul class="nav nav-pills">
 					<li><a href="#"><i class="fa fa-list icon-lg"
 							data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-					<li><a href="#"><i class="fa fa-save icon-lg"
+					<li><a href="#" onclick="download_csv_adminlog('사용자로그이력')"><i class="fa fa-save icon-lg"
 							data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
 					<li><a href="#"><i class="fa fa-print icon-lg"
 							data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>

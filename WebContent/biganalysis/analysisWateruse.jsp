@@ -52,7 +52,7 @@
     Date temp2 = mSimpleDateFormat.parse(startDay);
     String temp3 = DateFormat.format(temp2);
     
-	RankData rd_data = rdctrl.returnDatas(si, guGun, edate, date);
+	RankData rd_data = rdctrl.returnDatas(si, guGun, startDay, endDay);
 	
 %>
 

@@ -4,9 +4,10 @@ function hexToBytes(hex) {
     bytes.push(parseInt(hex.substr(c, 2), 16));
     return bytes;
 }
+
+
  
 function download_csv_analysis(pageName) {
-	//console.log(searchedData[1].avgconsume)
 	
 	var data = [];
 	
@@ -234,4 +235,45 @@ function download_csv_reportMonth(pageName){
 	hiddenElement.target = '_blank';
 	hiddenElement.download = fileName+'.csv';
 	hiddenElement.click();
+}
+
+function download_csv_adminlog(pageName){
+	
+	var data = [];
+	
+	var csv = '번호, 일시, 아이디, 관리자명, IP, 비고\n';
+	
+	var fileName = pageName;
+	
+	console.log(decodeURIComponent(fileName));
+
+	fileName = decodeURIComponent(fileName);
+
+	for(i=0; i<searchedData.length ; i++){
+		var indata = [];
+		indata.push(searchedData[i].number)  //번호
+		indata.push(searchedData[i].date) //날짜
+		indata.push(searchedData[i].id) //아이디
+		indata.push("관리자")
+		indata.push(searchedData[i].ip) //아이피
+		indata.push("로그인")
+		
+		data.push(indata)
+	}
+	console.log(indata);
+	
+	var csv = '번호, 일시, 아이디, 관리자명, IP, 비고\n';
+	data.forEach(function(row) {
+
+		csv += row.join(',');
+    	csv += "\n";
+	});
+ 
+	var hiddenElement = document.createElement('a');
+	hiddenElement.href = 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURI(csv);
+	hiddenElement.target = '_blank';
+	hiddenElement.download = fileName + '.csv';
+	hiddenElement.click();
+    
+	
 }
