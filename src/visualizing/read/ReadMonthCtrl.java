@@ -23,6 +23,7 @@ public class ReadMonthCtrl {
 	public String meter_num;
 	public String date_start;
 	public String date_end;
+	public String cost;
 
 	
 	public ReadMonthCtrl(){
@@ -94,9 +95,9 @@ public class ReadMonthCtrl {
 		ArrayList<ReadMonth> datas = new ArrayList<ReadMonth>();
 		String sql = null;
 		
-		sql = "select u.code, u.detail, u.number, u.meter_num, date_format(date, '%Y-%m'), sum(c.consumed) from (select * from USER where sido like \"" + sido + "\" and sigoon like \"" + sigoon + "\" and umdong like \"" + umdong + "\") u inner join CONSUMPTION c on u.code = c.code where (date between '" + date_start + "' and '" + date_end + "') and (" + code + " and " + detail + " and " + number + " and " + meter_num + ") group by u.code, date_format(date, '%Y-%m')";
+		sql = "select u.code, u.detail, u.number, u.meter_num, date_format(date, '%Y-%m'), u.cost, sum(c.consumed) from (select code, sido, sigoon, umdong, detail, meter_num, meter_type, number, cost from USER j inner join WATER_COST_TABLE t on j.meter_type=t.pipeSize and sido like \"" + sido + "\" and sigoon like \"" + sigoon + "\" and umdong like \"" + umdong + "\") u inner join CONSUMPTION c on u.code = c.code where (date between '" + date_start + "' and '" + date_end + "') and (" + code + " and " + detail + " and " + number + " and " + meter_num + ") group by u.code, date_format(date, '%Y-%m')";
 
-		//System.out.println(sql);
+		System.out.println(sql);
 
 		try{
 			pstmt = conn.prepareStatement(sql);
@@ -117,6 +118,7 @@ public class ReadMonthCtrl {
 					temp.setNumber(rs.getString("u.number"));
 					temp.setMeter_num(rs.getString("u.meter_num"));
 					temp.setMonth(rs.getString("date_format(date, '%Y-%m')"));
+					temp.setCost(rs.getString("u.cost"));
 					temp.setValue(rs.getString("sum(c.consumed)"));
 					temp.setPre_value(pre_value);
 					datas.add(temp);

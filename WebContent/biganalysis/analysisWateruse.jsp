@@ -43,17 +43,19 @@
     String startDay = request.getParameter("sdate");
     String endDay = request.getParameter("edate");
     
-    if(startDay==null)
+    if(startDay==null || startDay=="")
     	startDay = edate;
     
-    if(endDay==null)
+    if(endDay==null || endDay=="")
     	endDay = date;
     
     Date temp2 = mSimpleDateFormat.parse(startDay);
     String temp3 = DateFormat.format(temp2);
     
 	RankData rd_data = rdctrl.returnDatas(si, guGun, startDay, endDay);
-	
+	//for(int i=0;i<10;i++){
+	//	System.out.println(rd_data.getLessconsumed_rank().get(i));
+	//}
 %>
 
 
@@ -204,7 +206,7 @@
 		<%topnum = request.getParameter("topget");
 		if(topnum==null)
 			topnum="4";
-		System.out.println(rd_data.getCount().get(2)); //7일 동안에 대한 각 누수횟수
+		//System.out.println(rd_data.getCount().get(2)); //7일 동안에 대한 각 누수횟수
 		%>
 	
 		document.getElementById('topnumber').value = <%=topnum%>;
@@ -350,7 +352,10 @@
 										<ul class="nav none dker">
 											<li><a href="../biganalysis/analysisLocal.jsp">지역별 부가서비스 분석</a></li>
 											<li><a href="../biganalysis/analysisWateruse.jsp">지역별 사용량 분석</a></li>
-										</ul></li>	
+											<li><a href="../biganalysis/Nonwateruse.jsp">장기 미사용자 정보</a></li>
+										</ul></li>
+										
+											
 										
 									<li><a href="#" class="dropdown-toggle"> <span
 											class="pull-right auto"> <i
@@ -472,6 +477,7 @@
 								<div class="row padder">
 									<div class="col-md-12">
 									<form action="analysisWateruse.jsp" method="post" id=search_form>
+											
 											<div class="well">
 												<div class="row text-sm">
 													<div class="col-sm-4">
@@ -581,6 +587,7 @@
 									</div>
 
 											</div>
+										
 										</section>
 									</div>
 								</div>

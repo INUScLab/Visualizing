@@ -18,8 +18,11 @@ public class RankDataCtrl {
 
    public String sido;
    public String sigoon;
+   public String umdong;
    public String startday;
    public String endday;
+   public String order;
+   
    
    public RankDataCtrl(){
       dbconnector = new DbConnector();
@@ -38,12 +41,76 @@ public class RankDataCtrl {
       this.endday = edate;
    }
    
+
+   
+   void setParameters(String sido, String sigoon, String umdong, String sdate, String edate, String order){
+	      this.sido = sido;
+	      this.sigoon = sigoon;
+	      this.umdong = umdong;
+	      this.startday = sdate;
+	      this.endday = edate;
+	      this.order = order;
+	   }
+   
    void setParameters(String code, String sdate, String edate){
          this.code = code;
          this.startday = sdate;
          this.endday = edate;
       }
    
+   
+   ArrayList<ArrayList<String>> getLessconsumed_code(){
+	   ArrayList<ArrayList<String>> datas = new ArrayList<ArrayList<String>>();
+	   String sql = null;
+	   sql = "SELECT count(*), a.code, avg(consumed), detail, count(case when consumed<150 then 1 end)losscount FROM CONSUMPTION a left outer join USER b ON a.CODE = b.CODE where(date between '" + startday + "' and '" + endday + "') and sido like \"" + sido + "\" and sigoon like \"" + sigoon+"\" and umdong like \"" + umdong + "\"" + "group by code order by" + order;
+	   System.out.println(sql);
+	   try{
+		   pstmt=conn.prepareStatement(sql);
+		   ResultSet rs = pstmt.executeQuery();
+		   while(rs.next()){
+			   ArrayList<String> temp = new ArrayList<String>();
+			   temp.add(rs.getString("count(*)"));
+			   temp.add(rs.getString("code"));
+			   temp.add(rs.getString("avg(consumed)"));
+			   temp.add(rs.getString("detail"));
+			   temp.add(rs.getString("losscount"));
+			   datas.add(temp);
+		   }
+		   rs.close();
+	   }catch(SQLException e){
+		   e.printStackTrace();
+	   }
+	   return datas;
+   }
+   
+   
+   ArrayList<ArrayList<String>> getLessConsumedRank(){
+	   ArrayList<ArrayList<String>> datas = new ArrayList<ArrayList<String>>();
+	   String sql = null;
+	   sql = "SELECT a.code, a.DATE, b.SIGOON, consumed, b.DETAIL FROM CONSUMPTION a left outer join USER b ON a.CODE = b.CODE where(date between '" + startday + "' and '" + endday + "') and sido like \"" + sido + "\" and sigoon like \"" + sigoon+"\" and umdong like \"" + umdong + "\"";
+	   System.out.println(sql);
+	   try{
+		   pstmt= conn.prepareStatement(sql);
+		   ResultSet rs = pstmt.executeQuery();
+		   while(rs.next()){
+			   ArrayList<String> temp = new ArrayList<String>();
+			   temp.add(rs.getString("code"));
+			   temp.add(rs.getString("DATE"));
+			   temp.add(rs.getString("SIGOON"));
+			   temp.add(rs.getString("consumed"));
+			   temp.add(rs.getString("DETAIL"));
+			   
+			   
+			   
+			   
+			   datas.add(temp);
+		   }
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return datas;
+	}
    
    
    ArrayList<ArrayList<String>> getRanks(String column) {
@@ -77,37 +144,7 @@ public class RankDataCtrl {
       return datas;
    } 
    
-   ArrayList<ArrayList<String>> getTest(String column) {
-      
-      ArrayList<ArrayList<String>> datas = new ArrayList<ArrayList<String>>();
-      String sql = null;
-      
-      sql = "select u.code, " + column + " from (select * from USER where code like \"" + code + "\") u inner join CONSUMPTION c on u.code = c.code where (date between '" + startday + "' and '" + endday + "') group by u.code";
-      
-      //System.out.println(sql);
 
-      try {
-         pstmt = conn.prepareStatement(sql);
-         ResultSet rs = pstmt.executeQuery();
-         
-         while(rs.next()){
-            System.out.println("HI IM INSIDE");
-            ArrayList<String> temp = new ArrayList<String>();
-            temp.add(rs.getString("u.code"));
-            System.out.println("HI IM INSIDE Num1 : " + rs.getString("u.code"));
-            temp.add(rs.getString(column));
-            System.out.println("HI IM INSIDE Num2 : " + rs.getString(column));
-            
-            datas.add(temp);
-         }
-         System.out.println("HI IM OUTSIDE");
-         rs.close();
-      } catch (SQLException e) {
-         e.printStackTrace();
-      }
-      
-      return datas;
-   }
    
    ArrayList<ArrayList<String>> getUpperDatas(String column, ArrayList<ArrayList<String>> umdongs) {
       
@@ -178,7 +215,51 @@ public class RankDataCtrl {
       
       return datas;
    }
+   
+   ArrayList<ArrayList<String>> getTest(String column) {
+	      
+	      ArrayList<ArrayList<String>> datas = new ArrayList<ArrayList<String>>();
+	      String sql = null;
+	      
+	      sql = "select u.code, " + column + " from (select * from USER where code like \"" + code + "\") u inner join CONSUMPTION c on u.code = c.code where (date between '" + startday + "' and '" + endday + "') group by u.code";
+	      
+	      //System.out.println(sql);
 
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         ResultSet rs = pstmt.executeQuery();
+	         
+	         while(rs.next()){
+	            System.out.println("HI IM INSIDE");
+	            ArrayList<String> temp = new ArrayList<String>();
+	            temp.add(rs.getString("u.code"));
+	            System.out.println("HI IM INSIDE Num1 : " + rs.getString("u.code"));
+	            temp.add(rs.getString(column));
+	            System.out.println("HI IM INSIDE Num2 : " + rs.getString(column));
+	            
+	            datas.add(temp);
+	         }
+	         System.out.println("HI IM OUTSIDE");
+	         rs.close();
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      
+	      return datas;
+	   }
+
+public RankData returnDatas(String sido, String sigoon, String umdong, String sdate, String edate, String order){
+	   
+	   RankData return_data = new RankData();
+	   setParameters(sido, sigoon, umdong, sdate, edate, order);
+	   return_data.setLessconsumed_rank(getLessConsumedRank());
+	   return_data.setLessconsumed_code(getLessconsumed_code());
+	   
+	   
+	   disconnect();
+	      
+	   return return_data;
+   }
    
    public RankData returnDatas(String sido, String sigoon, String sdate, String edate){
       
@@ -195,7 +276,7 @@ public class RankDataCtrl {
       return_data.setAbsence_rank(getRanks("sum(absence)"));
       return_data.setConsumed_rank(getRanks("sum(consumed)"));
       return_data.setPredictedConsumed_rank(getRanks("sum(abs(consumed-predicted))"));
-      return_data.setCount( getRanks("count(*)"));
+      
       
       
       // 상위 랭킹의 한달간 데이터 받아오기

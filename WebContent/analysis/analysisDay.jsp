@@ -50,6 +50,8 @@
 
 	//System.out.println(si + "	" + guGun + "	" + umDong + "	" + consumerNum + "	" + consumerName + "	" + telNumber + "	" + meterNum + "	" + sdate + "	" + edate);
 
+	
+	System.out.println(umDong);
 	String[] sdates = new String(sdate).split("-");
 	String[] edates = new String(edate).split("-");
 	
@@ -197,6 +199,7 @@
 										<ul class="nav none dker">
 											<li><a href="../biganalysis/analysisLocal.jsp">지역별 부가서비스 분석</a></li>
 											<li><a href="../biganalysis/analysisWateruse.jsp">지역별 사용량 분석</a></li>
+											<li><a href="../biganalysis/Nonwateruse.jsp">장기 미사용자 정보</a></li>
 										</ul></li>	
 										
 									<li><a href="#" class="dropdown-toggle"> <span
@@ -340,6 +343,7 @@
 															</select>
 															<select name=umDong class="input-sm form-control input-s-sm inline">
 																<option value="전체">전체</option>
+																
 															</select>
 														</div>
 													</div>

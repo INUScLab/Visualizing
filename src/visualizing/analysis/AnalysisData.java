@@ -9,8 +9,18 @@ public class AnalysisData {
 	public String meter_type; // 미터 타입
 	public String term; // 기간
 	public String total_consumed; // 총사용량
+	
 	public String count; // 일/월/년 수
 	public String avg_consumed; // 일/월/년 평균 사용량
+	public String cost; //사용량
+	
+	
+	public String getCost() {
+		return cost;
+	}
+	public void setCost(String cost) {
+		this.cost = cost;
+	}
 	
 	public String getCode() {
 		return code;

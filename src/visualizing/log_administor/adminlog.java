@@ -1,3 +1,4 @@
+
 package visualizing.log_administor;
 
 public class adminlog {

@@ -189,6 +189,7 @@
 										<ul class="nav none dker">
 											<li><a href="../biganalysis/analysisLocal.jsp">지역별 부가서비스 분석</a></li>
 											<li><a href="../biganalysis/analysisWateruse.jsp">지역별 사용량 분석</a></li>
+											<li><a href="../biganalysis/Nonwateruse.jsp">장기 미사용자 정보</a></li>
 										</ul></li>	
 										
 									<li><a href="#" class="dropdown-toggle"> <span
@@ -417,7 +418,9 @@
 															<th width="60">미터번호</th>
 															<th width="60">검침월</th>
 															<th width="50">검침값</th>
+															<th width="10">과금 비용</th>
 															<th width="10">전월검침값</th>
+															
 														</tr>
 													</thead>
 													<tbody>
@@ -431,7 +434,9 @@
 															<td><%=array_list.get(i).getMeter_num()%></td>
 															<td><%=array_list.get(i).getMonth()%></td>
 															<td><%=array_list.get(i).getValue()%></td>
+															<td><%=Math.round(Float.valueOf(array_list.get(i).getValue()))*Integer.parseInt(array_list.get(i).getCost()) %></td>
 															<td><%=array_list.get(i).getPre_value()%></td>
+															
 														</tr>
 														<%
 															}

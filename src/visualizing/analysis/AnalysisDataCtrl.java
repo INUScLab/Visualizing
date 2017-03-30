@@ -30,6 +30,7 @@ public class AnalysisDataCtrl {
    public String start_day;
    public String end_day;
    
+   
    public String date_start;
    public String date_end;
    public String term;
@@ -134,6 +135,7 @@ void setParameters(String code, String start_year, String start_month, String st
       }
    }
    
+
    // 검색한 정보 반환
    ArrayList<AnalysisData> getInfo() {
 
@@ -141,7 +143,7 @@ void setParameters(String code, String start_year, String start_month, String st
       String sql = null;
          
       sql = "select code, detail, number, meter_num, meter_type, sum(c), count(c), avg(c) from (select u.code, u.detail, u.number, u.meter_num, u.meter_type, sum(consumed) as c from (select * from USER where sido like \"" + sido + "\" and sigoon like \"" + sigoon + "\" and umdong like \"" + umdong + "\") u inner join CONSUMPTION c on u.code = c.code where (date between '" + date_start + "' and '" + date_end + "') and (" + code + " and " + detail + " and " + number + " and " + meter_num + ") group by u.code, date_format(date,'" + format + "')) a group by code;";
-      
+      System.out.println(sql);
       try {
          pstmt = conn.prepareStatement(sql);
          ResultSet rs = pstmt.executeQuery();

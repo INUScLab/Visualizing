@@ -5,7 +5,7 @@
 <%@ page import="java.util.Locale"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import="visualizing.log_administor.adminlog" %>
+<%@ page import="visualizing.log_administor.adminlog"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
@@ -88,7 +88,7 @@
 
 
 <jsp:useBean id="rdctrl" class="visualizing.analysis.RankDataCtrl" />
-<jsp:useBean id="log" class="visualizing.log_administor.adminlog_ctrl"/>
+<jsp:useBean id="log" class="visualizing.log_administor.adminlog_ctrl" />
 
 <%
 //logData 가져오기
@@ -100,7 +100,7 @@ for(int i=0;i<z.size();i++){
 	System.out.println(z.get(i).getDayandtime());
 }
 %>
- 
+
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -133,7 +133,8 @@ for(int i=0;i<z.size();i++){
 <!-- datepicker -->
 <script src="../js/datepicker/bootstrap-datepicker.js"></script>
 <!--구글 그래프 그리기-->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
 </script>
@@ -201,6 +202,8 @@ for(int i=0;i<z.size();i++){
 												부가서비스 분석</a></li>
 										<li><a href="../biganalysis/analysisWateruse.jsp">지역별
 												사용량 분석</a></li>
+										<li><a href="../biganalysis/Nonwateruse.jsp">장기 미사용자
+												정보</a></li>
 									</ul></li>
 
 								<li><a href="#" class="dropdown-toggle"> <span
@@ -250,7 +253,8 @@ for(int i=0;i<z.size();i++){
 				<header class="m-b-lg">
 					<div class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
 						<div class="col-sm-4">
-							<h3 class="m-t m-b-none text-primary font-semibold">관리자 접속 로그 이력</h3>
+							<h3 class="m-t m-b-none text-primary font-semibold">관리자 접속
+								로그 이력</h3>
 							<p class="block text-muted">Water Meter Data Management
 								System</p>
 						</div>
@@ -259,42 +263,7 @@ for(int i=0;i<z.size();i++){
 				<!-- //title 영역 -->
 				<!-- 상세화면-->
 				<div class="row padder">
-					<div class="col-md-12">
-						<!-- form action="log.jsp" method="post" id=search_form>
-							<div class="well">
-								<div class="row text-sm">
-
-									<div class="col-sm-4 p-l-none">
-										<div class="form-group m-b-none">
-											<label class="col-lg-3 control-label">검색일</label>
-											<div class="col-lg-7 form-inline">
-												<input
-													class="input-sm input-s-sm datepicker-input form-control"
-													type="text" name="sdate" value="${param['sdate']}"
-													data-date-format="yyyy-mm-dd" id="sdate">~<input
-													class="input-sm input-s-sm datepicker-input form-control"
-													type="text" name="edate" value="${param['edate']}"
-													data-date-format="yyyy-mm-dd" id="edate">
-											</div>
-										</div>
-									</div>
-								</div>
-
-
-								<div class="row">
-									<div class="col-sm-12 text-right">
-										<button class="btn btn-sm btn-default" id="search">
-											<i class="fa fa-search"></i> 검색
-										</button>
-									</div>
-								</div>
-
-
-							</div>
-						</form-->
-						
-
-					</div>
+					<div class="col-md-12"></div>
 
 
 				</div>
@@ -325,7 +294,7 @@ for(int i=0;i<z.size();i++){
 									<td>로그인</td>
 								</tr>
 								<%} %>
-								
+
 
 							</tbody>
 						</table>
@@ -349,7 +318,7 @@ for(int i=0;i<z.size();i++){
 							
 						</script>
 					</div>
-					
+
 				</section>
 			</section>
 		</section>
@@ -367,8 +336,9 @@ for(int i=0;i<z.size();i++){
 				<ul class="nav nav-pills">
 					<li><a href="#"><i class="fa fa-list icon-lg"
 							data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-					<li><a href="#" onclick="download_csv_adminlog('사용자로그이력')"><i class="fa fa-save icon-lg"
-							data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
+					<li><a href="#" onclick="download_csv_adminlog('사용자로그이력')"><i
+							class="fa fa-save icon-lg" data-toggle="tooltip"
+							data-placement="top" title="저장"></i></a></li>
 					<li><a href="#"><i class="fa fa-print icon-lg"
 							data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>
 				</ul>
@@ -376,8 +346,8 @@ for(int i=0;i<z.size();i++){
 
 		</aside>
 		<!-- //Quick menu -->
-		
-		
+
+
 	</section>
 
 

@@ -9,6 +9,15 @@ public class ReadMonth {
 	private String month;
 	private String value;
 	private String pre_value;
+	private String cost;
+
+	public String getCost() {
+		return cost;
+	}
+
+	public void setCost(String cost) {
+		this.cost = cost;
+	}
 
 	public String getCode() {
 		return code;
