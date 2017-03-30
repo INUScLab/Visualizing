@@ -434,7 +434,7 @@
 															<td><%=array_list.get(i).getMeter_num()%></td>
 															<td><%=array_list.get(i).getMonth()%></td>
 															<td><%=array_list.get(i).getValue()%></td>
-															<td><%=Math.round(Float.valueOf(array_list.get(i).getValue()))*Integer.parseInt(array_list.get(i).getCost()) %></td>
+															<td><%=Math.round(Float.valueOf(array_list.get(i).getValue())*Integer.parseInt(array_list.get(i).getCost())) %></td>
 															<td><%=array_list.get(i).getPre_value()%></td>
 															
 														</tr>

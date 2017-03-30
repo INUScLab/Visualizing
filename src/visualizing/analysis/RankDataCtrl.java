@@ -62,7 +62,7 @@ public class RankDataCtrl {
    ArrayList<ArrayList<String>> getLessconsumed_code(){
 	   ArrayList<ArrayList<String>> datas = new ArrayList<ArrayList<String>>();
 	   String sql = null;
-	   sql = "SELECT count(*), a.code, avg(consumed), detail, count(case when consumed<150 then 1 end)losscount FROM CONSUMPTION a left outer join USER b ON a.CODE = b.CODE where(date between '" + startday + "' and '" + endday + "') and sido like \"" + sido + "\" and sigoon like \"" + sigoon+"\" and umdong like \"" + umdong + "\"" + "group by code order by" + order;
+	   sql = "SELECT count(*), a.code, avg(consumed), detail, count(case when consumed<0.01 then 1 end)losscount FROM CONSUMPTION a left outer join USER b ON a.CODE = b.CODE where(date between '" + startday + "' and '" + endday + "') and sido like \"" + sido + "\" and sigoon like \"" + sigoon+"\" and umdong like \"" + umdong + "\"" + "group by code order by" + order;
 	   System.out.println(sql);
 	   try{
 		   pstmt=conn.prepareStatement(sql);
