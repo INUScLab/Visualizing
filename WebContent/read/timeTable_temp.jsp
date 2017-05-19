@@ -231,7 +231,7 @@
 					<i class="fa fa-chevron-circle-right"></i> 그래프
 				</header>
 				<div class="row m-t m-b wrapper">
-					<div id="timechart" class="col-md-12"></div>
+					<div id="timechart"></div>
 				</div>
 			</div>
 		</div>

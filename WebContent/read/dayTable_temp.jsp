@@ -170,7 +170,7 @@ function searchData(){
 					<i class="fa fa-chevron-circle-right"></i> 그래프
 				</header>
 				<div class="row m-t m-b wrapper">
-					<div id="daychart" class="col-md-12"></div>
+					<div id="daychart"></div>
 				</div>
 			</div>
 		</div>

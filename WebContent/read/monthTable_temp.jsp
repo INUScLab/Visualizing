@@ -182,7 +182,7 @@
 					<i class="fa fa-chevron-circle-right"></i> 그래프
 				</header>
 				<div class="row m-t m-b wrapper">
-					<div id="monthchart" class="col-md-12"></div>
+					<div id="monthchart"></div>
 				</div>
 			</div>
 		</div>
