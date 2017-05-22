@@ -30,8 +30,6 @@
 	String searchDate;
 
 	String[] str = request.getParameterValues("status");
-	
-	
 
 	// 오늘 날짜 구하기
 	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
@@ -81,9 +79,6 @@
 
 	System.out.println(si + "   " + guGun + "   " + umDong + "   " + consumerNum + "   " + consumerName + "   "
 			+ telNumber + "   " + meterNum + "   " + searchDate);
-
-
-	
 %>
 
 
@@ -91,14 +86,13 @@
 <jsp:useBean id="log" class="visualizing.log_administor.adminlog_ctrl" />
 
 <%
-//logData 가져오기
-ArrayList<adminlog> z = new ArrayList<adminlog>();
-z = log.getLog();
+	//logData 가져오기
+	ArrayList<adminlog> z = new ArrayList<adminlog>();
+	z = log.getLog();
 
-
-for(int i=0;i<z.size();i++){
-	System.out.println(z.get(i).getDayandtime());
-}
+	for (int i = 0; i < z.size(); i++) {
+		System.out.println(z.get(i).getDayandtime());
+	}
 %>
 
 <!DOCTYPE html>
@@ -216,17 +210,6 @@ for(int i=0;i<z.size();i++){
 										<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
 										<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
 									</ul></li>
-
-								<li><a href="#"> <span class="pull-right auto">
-											<i class="fa fa-angle-down text"></i> <i
-											class="fa fa-angle-up text-active"></i>
-									</span> <span>장애관리</span>
-								</a>
-									<ul class="nav none dker">
-										<li><a href="#">검침기기 상태조회</a></li>
-										<li><a href="#">검침값 상태조회</a></li>
-										<li><a href="#">통신 상태조회</a></li>
-									</ul></li>
 								<li><a href="#"> <span class="pull-right auto">
 											<i class="fa fa-angle-down text"></i> <i
 											class="fa fa-angle-up text-active"></i>
@@ -234,7 +217,6 @@ for(int i=0;i<z.size();i++){
 								</a>
 									<ul class="nav none dker">
 										<li><a href="../log_administor/log.jsp">로그이력</a></li>
-										<li><a href="#">시스템 관리</a></li>
 									</ul></li>
 							</ul>
 						</nav>
@@ -245,61 +227,79 @@ for(int i=0;i<z.size();i++){
 		</aside>
 		<!-- /.aside -->
 
-		<section class="scrollable m-t-xxs">
-			<section class="panel b-b-n">
-				<!-- 업무영역 start-->
+		<section id="content">
+			<section class="hbox stretch">
+				<aside>
+					<!-- 상단영역 -->
+					<section class="vbox">
+						<header class="nav bg-gradient-1 b-b">
+							<div class="pull-right m-r-lg m-t-xxs shift">
+								<p class="m-t m-b text-primary">
+									<i class="fa fa-clock-o"></i> Date: <strong><%=date%></strong>
+								</p>
+							</div>
+						</header>
 
-				<!-- title 영역 -->
-				<header class="m-b-lg">
-					<div class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
-						<div class="col-sm-4">
-							<h3 class="m-t m-b-none text-primary font-semibold">관리자 접속
-								로그 이력</h3>
-							<p class="block text-muted">Water Meter Data Management
-								System</p>
-						</div>
-					</div>
-				</header>
-				<!-- //title 영역 -->
-				<!-- 상세화면-->
-				<div class="row padder">
-					<div class="col-md-12"></div>
+						<section class="scrollable m-t-xxs">
+							<section class="panel b-b-n">
+								<!-- 업무영역 start-->
 
-
-				</div>
-				<section class="panel">
-					<div class="table-responsive">
-
-						<table class="table table-striped b-t-blue">
-							<thead>
-								<tr>
-									<th width="80">번호</th>
-									<th width="200">일시</th>
-									<th width="200">아이디</th>
-									<th width="100">관리자명</th>
-									<th width="200">IP</th>
-									<th width="100">비고</th>
-
-								</tr>
-							</thead>
-							<tbody>
-								<!--  for문 있어야함 date 차이만큼 로그 받아오는 쿼리작성 -->
-								<%for(int i=0;i<z.size();i++){ %>
-								<tr>
-									<td><%=z.get(i).getNum()%></td>
-									<td><%=z.get(i).getDayandtime() %></td>
-									<td><%=z.get(i).getId() %></td>
-									<td>관리자</td>
-									<td><%=z.get(i).getIp()%></td>
-									<td>로그인</td>
-								</tr>
-								<%} %>
+								<!-- title 영역 -->
+								<header class="m-b-lg">
+									<div
+										class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
+										<div class="col-sm-4">
+											<h3 class="m-t m-b-none text-primary font-semibold">관리자
+												접속 로그 이력</h3>
+											<p class="block text-muted">Water Meter Data Management
+												System</p>
+										</div>
+									</div>
+								</header>
+								<!-- //title 영역 -->
+								<!-- 상세화면-->
+								<div class="row padder">
+									<div class="col-md-12"></div>
 
 
-							</tbody>
-						</table>
+								</div>
+								<section class="panel">
+									<div class="table-responsive">
 
-						<script>
+										<table class="table table-striped b-t-blue">
+											<thead>
+												<tr>
+													<th width="80">번호</th>
+													<th width="200">일시</th>
+													<th width="200">아이디</th>
+													<th width="100">관리자명</th>
+													<th width="200">IP</th>
+													<th width="100">비고</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<!--  for문 있어야함 date 차이만큼 로그 받아오는 쿼리작성 -->
+												<%
+													for (int i = 0; i < z.size(); i++) {
+												%>
+												<tr>
+													<td><%=z.get(i).getNum()%></td>
+													<td><%=z.get(i).getDayandtime()%></td>
+													<td><%=z.get(i).getId()%></td>
+													<td>관리자</td>
+													<td><%=z.get(i).getIp()%></td>
+													<td>로그인</td>
+												</tr>
+												<%
+													}
+												%>
+
+
+											</tbody>
+										</table>
+
+										<script>
 							var searchedData = [ ];
 						
 						console.log(<%=z.size()%>);
@@ -309,48 +309,29 @@ for(int i=0;i<z.size();i++){
 							number:"<%=z.get(i).getNum()%>",
 							date:"<%=z.get(i).getDayandtime()%>",
 							id:"<%=z.get(i).getId()%>",
-							ip:"<%=z.get(i).getIp()%>"
-							
+							ip:"<%=z.get(i).getIp()%>
+											"
 
-							});
-						<%}%>
-						console.log(searchedData);
-							
-						</script>
-					</div>
+													});
+										<%}%>
+											console.log(searchedData);
+										</script>
+									</div>
 
-				</section>
+								</section>
+							</section>
+						</section>
+						<!-- 업무영역 end-->
+
+					</section>
+				</aside>
+				<!-- /.aside -->
+
+				<!-- Quick menu -->
+				<aside class="aside-xs b-l bg-dark">
+				</aside>
+				<!-- //Quick menu -->
 			</section>
 		</section>
-		<!-- 업무영역 end-->
-		</aside>
-		<!-- /.aside -->
-
-
-
-
-		<!-- Quick menu -->
-		<aside class="aside-xs b-l bg-dark">
-
-			<section class="m-t-l">
-				<ul class="nav nav-pills">
-					<li><a href="#"><i class="fa fa-list icon-lg"
-							data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
-					<li><a href="#" onclick="download_csv_adminlog('사용자로그이력')"><i
-							class="fa fa-save icon-lg" data-toggle="tooltip"
-							data-placement="top" title="저장"></i></a></li>
-					<li><a href="#"><i class="fa fa-print icon-lg"
-							data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>
-				</ul>
-			</section>
-
-		</aside>
-		<!-- //Quick menu -->
-
-
-	</section>
-
-
-
 </body>
 </html>

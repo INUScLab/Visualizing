@@ -221,17 +221,6 @@
 											<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
 											<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
 										</ul></li>
-									
-									<li><a href="#"> <span class="pull-right auto">
-												<i class="fa fa-angle-down text"></i> <i
-												class="fa fa-angle-up text-active"></i>
-										</span> <span>장애관리</span>
-									</a>
-										<ul class="nav none dker">
-											<li><a href="#">검침기기 상태조회</a></li>
-											<li><a href="#">검침값 상태조회</a></li>
-											<li><a href="#">통신 상태조회</a></li>
-										</ul></li>
 									<li><a href="#"> <span class="pull-right auto">
 												<i class="fa fa-angle-down text"></i> <i
 												class="fa fa-angle-up text-active"></i>
@@ -239,7 +228,6 @@
 									</a>
 										<ul class="nav none dker">
 											<li><a href="../log_administor/log.jsp">로그이력</a></li>
-											<li><a href="#">시스템 관리</a></li>
 										</ul></li>
 								</ul>
 							</nav>
@@ -259,51 +247,6 @@
 					<!-- 상단영역 -->
 					<section class="vbox">
 						<header class="nav bg-gradient-1 b-b">
-							<div class="nav notify-row">
-								<!--  start -->
-								<ul class="nav top-menu">
-									<!-- 누수 start-->
-									<li class="dropdown"><a class="dropdown-toggle">
-											<img src="../images/water.png" data-toggle="tooltip"
-											data-placement="bottom" title="누수"><span
-											class="badge bg-danger">1</span>
-									</a></li>
-									<!-- 누수 end -->
-									<!-- 동파 start-->
-									<li class="dropdown"><a class="dropdown-toggle">
-											<img src="../images/winter.png" data-toggle="tooltip"
-											data-placement="bottom" title="동파">
-									</a></li>
-									<!-- 동파 end -->
-									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle">
-											<img src="../images/obesity.png" data-toggle="tooltip"
-											data-placement="bottom" title="비만"><span
-											class="badge bg-danger">1</span>
-									</a></li>
-									<!-- 비만 end -->
-									<!-- 파손 start-->
-									<li class="dropdown"><a class="dropdown-toggle">
-											<img src="../images/damage.png" data-toggle="tooltip"
-											data-placement="bottom" title="파손">
-									</a></li>
-									<!-- 파손 end -->
-									<!-- 역류 start-->
-									<li class="dropdown"><a class="dropdown-toggle">
-											<img src="../images/backwash.png" data-toggle="tooltip"
-											data-placement="bottom" title="역류"><span
-											class="badge bg-danger">3</span>
-									</a></li>
-									<!-- 역류 end -->
-									<!-- 비만 start-->
-									<li class="dropdown"><a class="dropdown-toggle">
-											<img src="../images/absence.png" data-toggle="tooltip"
-											data-placement="bottom" title="부재중" >
-									</a></li>
-									<!-- 비만 end -->
-								</ul>
-								<!--  nd -->
-							</div>
 							<div class="pull-right m-r-lg m-t-xxs shift">
 								<p class="m-t m-b text-primary">
 									<i class="fa fa-clock-o"></i> Date: <strong><%=date%></strong>
@@ -529,12 +472,8 @@
 
 					<section class="m-t-l">
 						<ul class="nav nav-pills">
-							<li><a href="#"><i class="fa fa-list icon-lg"
-									data-toggle="tooltip" data-placement="top" title="범례"></i></a></li>
 							<li><a href="#" onclick="download_csv_analysis('월별통계')"><i class="fa fa-save icon-lg"
 									data-toggle="tooltip" data-placement="top" title="저장"></i></a></li>
-							<li><a href="#"><i class="fa fa-print icon-lg"
-									data-toggle="tooltip" data-placement="top" title="인쇄"></i></a></li>
 						</ul>
 					</section>
 
