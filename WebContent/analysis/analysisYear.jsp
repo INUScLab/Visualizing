@@ -193,7 +193,7 @@
 										<ul class="nav none dker">
 											<li><a href="../analysis/analysisDay.jsp">일별 통계</a></li>
 											<li><a href="../analysis/analysisMonth.jsp">월별 통계</a></li>
-											<li><a href="../analysis/analysisYear.jsp">년별 통계</a></li>
+											<li><a href="../analysis/analysisYear.jsp">연별 통계</a></li>
 											
 										</ul></li>
 									<li><a href="#"> <span class="pull-right auto">
@@ -259,7 +259,7 @@
 									<div
 										class="row m-l-none m-r-none m-r-none box-shadow bg-light b-b">
 										<div class="col-sm-4">
-											<h3 class="m-t m-b-none text-primary font-semibold">년별
+											<h3 class="m-t m-b-none text-primary font-semibold">연별
 												통계</h3>
 											<p class="block text-muted">Water Meter Data Management
 												System</p>

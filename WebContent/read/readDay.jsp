@@ -196,7 +196,7 @@
 										<ul class="nav none dker">
 											<li><a href="../analysis/analysisDay.jsp">일별 통계</a></li>
 											<li><a href="../analysis/analysisMonth.jsp">월별 통계</a></li>
-											<li><a href="../analysis/analysisYear.jsp">년별 통계</a></li>
+											<li><a href="../analysis/analysisYear.jsp">연별 통계</a></li>
 											
 										</ul></li>
 									<li><a href="#"> <span class="pull-right auto">
