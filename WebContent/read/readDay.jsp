@@ -358,6 +358,7 @@
 																class="input-sm form-control input-s-sm inline">
 																<option value="2015">2015년</option>
 																<option value="2016">2016년</option>
+																<option value="2017">2017년</option>
 															</select> <select name=dateMonth
 																class="input-sm form-control input-s-sm inline">
 																<option value="01">01월</option>

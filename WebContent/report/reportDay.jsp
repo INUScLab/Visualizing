@@ -341,6 +341,7 @@
 															<select name=dateYear class="input-sm form-control input-s-sm inline">
 																<option value="2015" <%if(dateYear.equals("2015")) out.print("selected=\"selected\"");%>>2015년</option>
 																<option value="2016" <%if(dateYear.equals("2016")) out.print("selected=\"selected\"");%>>2016년</option>
+																<option value="2017" <%if(dateYear.equals("2017")) out.print("selected=\"selected\"");%>>2017년</option>
 															</select>
 															<select name=dateMonth class="input-sm form-control input-s-sm inline">
 																<option value="01" <%if(dateMonth.equals("01")) out.print("selected=\"selected\"");%>>01월</option>

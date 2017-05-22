@@ -336,6 +336,7 @@
 															<select name=dateYear class="input-sm form-control input-s-sm inline">
 																<option value="2015" <%if(dateYear.equals("2015")) out.print("selected=\"selected\"");%>>2015년</option>
 																<option value="2016" <%if(dateYear.equals("2016")) out.print("selected=\"selected\"");%>>2016년</option>
+																<option value="2017" <%if(dateYear.equals("2017")) out.print("selected=\"selected\"");%>>2017년</option>
 															</select>
 														</div>
 													</div>
@@ -403,7 +404,7 @@
 															<th width="70">지시부번호</th>
 															<th width="60">미터번호</th>
 															<th width="60">미터타입</th>
-															<th width="50">검침월</th>
+															<th width="50">검침년</th>
 															<th width="50">사용량</th>
 															<th width="10">01월</th>
 															<th width="10">02월</th>
