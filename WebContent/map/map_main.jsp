@@ -189,17 +189,6 @@ summaryReportList.push( {
 											<li><a href="../report/reportDay.jsp">일간 리포트</a></li>
 											<li><a href="../report/reportMonth.jsp">월간 리포트</a></li>
 										</ul></li>
-									
-									<li><a href="#"> <span class="pull-right auto">
-												<i class="fa fa-angle-down text"></i> <i
-												class="fa fa-angle-up text-active"></i>
-										</span> <span>장애관리</span>
-									</a>
-										<ul class="nav none dker">
-											<li><a href="#">검침기기 상태조회</a></li>
-											<li><a href="#">검침값 상태조회</a></li>
-											<li><a href="#">통신 상태조회</a></li>
-										</ul></li>
 									<li><a href="#"> <span class="pull-right auto">
 												<i class="fa fa-angle-down text"></i> <i
 												class="fa fa-angle-up text-active"></i>
@@ -207,7 +196,6 @@ summaryReportList.push( {
 									</a>
 										<ul class="nav none dker">
 											<li><a href="../log_administor/log.jsp">로그이력</a></li>
-											<li><a href="#">시스템 관리</a></li>
 										</ul></li>
 								</ul>
 							</nav>
