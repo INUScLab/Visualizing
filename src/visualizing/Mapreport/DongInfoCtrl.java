@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import sclab.db.DbConnector;
 
@@ -26,6 +29,10 @@ public class DongInfoCtrl {
 	
 	public ArrayList<DongInfo> getDongInfoList ( ) {
 
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String currentDate = sdf.format(date);
+		
 		ArrayList<DongInfo> dongInfoList  = new ArrayList<DongInfo> () ;
 		
 		String gu;
@@ -39,8 +46,9 @@ public class DongInfoCtrl {
 		int count_fat;
 		int count_breakage;
 		
-		String sql = "SELECT DISTINCT U.SIGOON , U.UMDONG , D.LAT , D.LNG , ( SELECT SUM(C.LEAK) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '2015-02-28') AS LEAK, ( SELECT SUM(C.ABSENCE) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '2015-02-28') AS ABSENCE , ( SELECT SUM(C.FREEZED) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '2015-02-28') AS FREEZED , ( SELECT SUM(C.REVERSE) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '2015-02-28') AS REVERSE, ( SELECT SUM(C.FAT) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '2015-02-28') AS FAT, ( SELECT SUM(C.BREAKAGE) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '2015-02-28') AS BREAKAGE FROM USER U INNER JOIN UMDONG D ON U.UMDONG = D.NAME;";
-
+		String sql = "SELECT DISTINCT U.SIGOON , U.UMDONG , D.LAT , D.LNG , ( SELECT SUM(C.LEAK) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '"+ currentDate + "') AS LEAK, ( SELECT SUM(C.ABSENCE) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '"+ currentDate + "') AS ABSENCE , ( SELECT SUM(C.FREEZED) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '"+ currentDate + "') AS FREEZED , ( SELECT SUM(C.REVERSE) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '"+ currentDate + "') AS REVERSE, ( SELECT SUM(C.FAT) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '"+ currentDate + "') AS FAT, ( SELECT SUM(C.BREAKAGE) FROM CONSUMPTION C WHERE C.CODE IN ( SELECT CODE FROM USER WHERE UMDONG = U.UMDONG )  AND C.DATE = '"+ currentDate + "') AS BREAKAGE FROM USER U INNER JOIN UMDONG D ON U.UMDONG = D.NAME;";
+		//System.out.println(currentDate);
+		//System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
@@ -59,6 +67,7 @@ public class DongInfoCtrl {
 				DongInfo dongInfo = new DongInfo( gu , dong, lat, lng , count_leak , count_absence , count_freezed , count_reverse , count_fat , count_breakage );
 				dongInfoList.add(dongInfo);
 			}
+			
 			rs.close();
 			
 		} catch (SQLException e) {

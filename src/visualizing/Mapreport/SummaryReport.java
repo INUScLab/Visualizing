@@ -50,9 +50,7 @@ public class SummaryReport {
 			int breakage, String latelyLeak, String latelyAbsence,
 			String latelyFreezed, String latelyReverse, String latelyFat,
 			String latelyBreakage, double day1, double day2, double day3,
-			double day4, double day5, double day6, double day7, int countLeak,
-			int countAbsence, int countFreezed, int countReverse, int countFat,
-			int countBreakage) {
+			double day4, double day5, double day6, double day7) {
 		super();
 		this.guGun = guGun;
 		this.umDong = umDong;

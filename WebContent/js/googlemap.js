@@ -611,7 +611,9 @@ function drawHistory(day1, day2, day3, day4, day5, day6, day7, avg) {
 	chart.draw(data, options);
 }
 
+//2017-06-15 필요없는 펑션임
 //요약 리포트 부가 서비스별 최근 발생 횟수 및 한달간 발생 빈도 그래프
+/*
 function drawServiceFrequency( count_leak , count_absence , count_freezed , count_reverse , count_fat , count_breakage ) {
 	var data = google.visualization.arrayToDataTable([
 	                                                  ["Element", "Density", { role: "style" } ],
@@ -642,7 +644,7 @@ function drawServiceFrequency( count_leak , count_absence , count_freezed , coun
 	chart.draw(view, options);
 	
 }
-
+*/
 // 동 요약 리포트
 /*
  * 2016.4.3 수정 : summaryReport데이터에서 요약리포트 만드는것으로 바꿈.(욱현)
@@ -785,7 +787,7 @@ function drawDongSummaryReport(addressArray) {
 	//4.요약 report history 그래프 그리기.
 	drawHistory(sum_day7 , sum_day6 , sum_day5 , sum_day4 , sum_day3 , sum_day2 , sum_day1 , sum_weeklyConsumption/7 );
 	
-	drawServiceFrequency(leakFrequency, absenceFrequency, freezedFrequency, reverseFrequency, fatFrequency, breakageFrequency);
+	//drawServiceFrequency(leakFrequency, absenceFrequency, freezedFrequency, reverseFrequency, fatFrequency, breakageFrequency);
 
 }
 

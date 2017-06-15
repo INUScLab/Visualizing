@@ -1,3 +1,5 @@
+
+
 <%@page import="visualizing.Mapreport.SummaryReport"%>
 <%@page import="visualizing.Mapreport.DongInfo"%>
 <%@ page language="java" import="visualizing.Mapreport.*, java.util.*"
@@ -61,7 +63,9 @@
 
 		<%
 			ArrayList<DongInfo> dongInfoList = DongInfoCtrl.getDongInfoList();
-				ArrayList<SummaryReport> summaryReportList = SummaryReportCtrl.getSummaryReportList();
+			ArrayList<SummaryReport> summaryReportList = SummaryReportCtrl.getSummaryReportList();
+				
+			
 		%>
 		<script type="text/javascript">
 var dongInfoList = new Array();
@@ -177,6 +181,7 @@ summaryReportList.push( {
 										<ul class="nav none dker">
 											<li><a href="../biganalysis/analysisLocal.jsp">지역별 부가서비스 분석</a></li>
 											<li><a href="../biganalysis/analysisWateruse.jsp">지역별 사용량 분석</a></li>
+											<li><a href="../biganalysis/Nonwateruse.jsp">장기 미사용자 정보</a></li>
 										</ul></li>	
 										
 									<li><a href="#" class="dropdown-toggle"> <span

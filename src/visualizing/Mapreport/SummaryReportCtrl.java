@@ -5,11 +5,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 
 import sclab.db.DbConnector;
 
+class DateUtil
+{
+    public static Date addDays(Date date, int days)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days); //minus number would decrement the days
+        return cal.getTime();
+    }
+}
+
 public class SummaryReportCtrl {
 
+	
+	
 	DbConnector dbconnector ;
 	Connection conn  ;
 	PreparedStatement pstmt ;
@@ -65,17 +83,26 @@ public class SummaryReportCtrl {
 	void disconnect(){
 		dbconnector.disconnect();
 	}
+	
 
 	public ArrayList<SummaryReport> getSummaryReportList ( ) {
 
 		ArrayList<SummaryReport> summuryReportList  = new ArrayList<SummaryReport> () ;
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String day_current = sdf.format(date);
+		String day_6 = sdf.format(DateUtil.addDays(date, -1));
+		String day_5 = sdf.format(DateUtil.addDays(date, -2));
+		String day_4 = sdf.format(DateUtil.addDays(date, -3));
+		String day_3 = sdf.format(DateUtil.addDays(date, -4));
+		String day_2 = sdf.format(DateUtil.addDays(date, -5));
+		String day_1 = sdf.format(DateUtil.addDays(date, -6));
 		
-//		String  addressArray [ ] = address.split(" ");
-//		this.gun = addressArray[1];
-//		this.dong = addressArray[2];
-//		
-		String sql = "SELECT U.SIGOON , U.UMDONG , U.DETAIL , U.LAT , U.LNG , C.CONSUMED , C.PREDICTED , C.LEAK , C.ABSENCE , C.FREEZED , C.REVERSE , C.FAT , C.BREAKAGE ,  (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND LEAK=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYLEAK ,  (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND ABSENCE=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYABSENCE , (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND FREEZED=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYFREEZED ,  (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND REVERSE=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYREVERSE ,  (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND FAT=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYFAT , (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND BREAKAGE=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYBREAKAGE ,  (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '2015-02-21') AS DAY1 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '2015-02-22') AS DAY2 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '2015-02-23') AS DAY3 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '2015-02-24') AS DAY4 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '2015-02-25') AS DAY5 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '2015-02-26') AS DAY6 ,(SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '2015-02-27') AS DAY7 , (select count(if (LEAK=1 , LEAK , NULL) ) FROM CONSUMPTION WHERE DATE BETWEEN '2015-02-01' AND '2015-02-28' AND CODE = U.CODE) AS COUNTLEAK, (select count(if (ABSENCE=1 , LEAK , NULL) ) FROM CONSUMPTION WHERE DATE BETWEEN '2015-02-01' AND '2015-02-28' AND CODE = U.CODE) AS COUNTABSENCE, (select count(if (FREEZED=1 , LEAK , NULL) ) FROM CONSUMPTION WHERE DATE BETWEEN '2015-02-01' AND '2015-02-28' AND CODE = U.CODE) AS COUNTFREEZED, (select count(if (REVERSE=1 , LEAK , NULL) ) FROM CONSUMPTION WHERE DATE BETWEEN '2015-02-01' AND '2015-02-28' AND CODE = U.CODE) AS COUNTREVERSE, (select count(if (FAT=1 , LEAK , NULL) ) FROM CONSUMPTION WHERE DATE BETWEEN '2015-02-01' AND '2015-02-28' AND CODE = U.CODE) AS COUNTFAT, (select count(if (BREAKAGE=1 , LEAK , NULL) ) FROM CONSUMPTION WHERE DATE BETWEEN '2015-02-01' AND '2015-02-28' AND CODE = U.CODE) AS COUNTBREAKAGE FROM USER U INNER JOIN CONSUMPTION C ON U.CODE = C.CODE AND C.DATE = '2015-02-28'";
-
+		
+		
+		
+		String sql = "SELECT U.SIGOON , U.UMDONG , U.DETAIL , U.LAT , U.LNG , C.CONSUMED , C.PREDICTED , C.LEAK , C.ABSENCE , C.FREEZED , C.REVERSE , C.FAT , C.BREAKAGE ,  (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND LEAK=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYLEAK ,  (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND ABSENCE=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYABSENCE , (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND FREEZED=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYFREEZED ,  (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND REVERSE=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYREVERSE ,  (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND FAT=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYFAT , (SELECT DATE FROM CONSUMPTION WHERE CODE = U.CODE AND BREAKAGE=1 ORDER BY DATE DESC LIMIT 1 ) AS LATELYBREAKAGE ,  (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '" + day_1 + "') AS DAY1 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '" + day_2 + "') AS DAY2 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '" + day_3 + "') AS DAY3 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '" + day_4 + "') AS DAY4 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '" + day_5 + "') AS DAY5 , (SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '" + day_6 + "') AS DAY6 ,(SELECT CONSUMED FROM CONSUMPTION WHERE CODE = U.CODE AND DATE = '" + day_current + "') AS DAY7 FROM USER U INNER JOIN CONSUMPTION C ON U.CODE = C.CODE AND C.DATE = '" + day_current + "'";
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
@@ -110,19 +137,12 @@ public class SummaryReportCtrl {
 				day5 = rs.getDouble("DAY5");
 				day6 = rs.getDouble("DAY6");
 				day7 = rs.getDouble("DAY7");
-				
-				countLeak = rs.getInt("COUNTLEAK");
-				countAbsence = rs.getInt("COUNTABSENCE");
-				countFreezed = rs.getInt("COUNTFREEZED");
-				countReverse = rs.getInt("COUNTREVERSE");
-				countFat = rs.getInt("COUNTFAT");
-				countBreakage = rs.getInt("COUNTBREAKAGE");
-				
+			
 				SummaryReport dongSummaryReport  = new SummaryReport( guGun , umDong , detail , lat , lng , consumed , predicted , 
 						leak , absence , freezed , reverse ,fat , breakage , 
 						latelyLeak , latelyAbsence , latelyFreezed , latelyReverse , latelyFat , latelyBreakage , 
-						day1 , day2 , day3 , day4 , day5 , day6 , day7 , 
-						countLeak , countAbsence , countFreezed  , countReverse , countFat , countBreakage);
+						day1 , day2 , day3 , day4 , day5 , day6 , day7 
+						);
 				
 				summuryReportList.add(dongSummaryReport);
 			}
