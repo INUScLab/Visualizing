@@ -274,9 +274,7 @@
 																<option value="동구"
 																	<%if (guGun.equals("동구"))
 				out.print("selected=\"selected\"");%>>동구</option>
-																<option value="부평구"
-																	<%if (guGun.equals("부평구"))
-				out.print("selected=\"selected\"");%>>부평구</option>
+																
 															</select> <select ww=umDong
 																class="input-sm form-control input-s-sm inline">
 																<option value="전체">전체</option>
@@ -363,17 +361,24 @@
 <!-- 여기 for문 필요 -->
 <%System.out.println(Integer.parseInt(rd_data.getLessconsumed_code().get(0).get(1))); %>
 											
+											<%System.out.println(rd_data.getLessconsumed_rank().size() + "사이즈!"); %>
 											<%for(int j=0;j<10;j++){ %>
+											
 											<tr>
 												<td><%=rd_data.getLessconsumed_code().get(j).get(3)%></td>
 												<%
+													
+													
 													for (int i = 0; i <= calDateDays; i++) {
+														int looking = 0;
 														int x = Integer.parseInt(rd_data.getLessconsumed_code().get(j).get(1));
-														System.out.println(x+" : x의값");
+														System.out.println(x);
+														System.out.println("calDate값 : " + calDateDays);
 														int y = (int)calDateDays+1;
 														
-														int looking = (x * y) - y;
 														
+														looking = (x * y) - y;
+														System.out.println("looking 값 : "+looking);
 												%>
 
 												<td><%=rd_data.getLessconsumed_rank().get(looking+i).get(3)%>

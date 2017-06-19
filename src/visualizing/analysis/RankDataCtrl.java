@@ -87,7 +87,7 @@ public class RankDataCtrl {
    ArrayList<ArrayList<String>> getLessConsumedRank(){
 	   ArrayList<ArrayList<String>> datas = new ArrayList<ArrayList<String>>();
 	   String sql = null;
-	   sql = "SELECT a.code, a.DATE, b.SIGOON, consumed, b.DETAIL FROM CONSUMPTION a left outer join USER b ON a.CODE = b.CODE where(date between '" + startday + "' and '" + endday + "') and sido like \"" + sido + "\" and sigoon like \"" + sigoon+"\" and umdong like \"" + umdong + "\"";
+	   sql = "SELECT a.code, a.DATE, b.SIGOON, consumed, b.DETAIL FROM CONSUMPTION a left outer join USER b ON a.CODE = b.CODE where(date between '" + startday + "' and '" + endday + "')";
 	   System.out.println(sql);
 	   try{
 		   pstmt= conn.prepareStatement(sql);
